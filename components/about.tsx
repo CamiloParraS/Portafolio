@@ -4,6 +4,7 @@ import { placeholderArt } from "@/lib/art";
 import { DitherCanvas } from "./dither-canvas";
 import { useSite } from "./providers";
 import { Section } from "./section";
+import { TechIcon } from "./tech-icon";
 
 export function About() {
   const { t } = useSite();
@@ -40,7 +41,8 @@ export function About() {
                 <dt className="text-sm text-dim">{g.group}</dt>
                 <dd className="mt-2 flex flex-wrap gap-2">
                   {g.items.map((item) => (
-                    <span key={item} className="rounded-full border border-line px-3 py-1 text-sm font-medium">
+                    <span key={item} className="inline-flex items-center gap-2 rounded-full border border-line px-3 py-1 text-sm font-medium">
+                      <TechIcon name={item} />
                       {item}
                     </span>
                   ))}

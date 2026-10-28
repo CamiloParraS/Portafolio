@@ -13,7 +13,7 @@ type Car = { x: number; v: number; drag: boolean; grab: number; lastPx: number; 
 const carLength = (h: number) => Math.min(58, Math.max(32, h * 0.32));
 
 // Scenery palette regions follow the car's (1-9); see paintOrdered.
-const [MOUNT, HILL, SUN, SKY, ROAD] = [10, 11, 12, 13, 14];
+const [MOUNT, HILL, SUN, SKY, ROAD, CHURCH, ...HOUSES] = [10, 11, 12, 13, 14, 15, 16, 17, 18];
 const ink = (g: string, m: string, hi: string): Inks => [hexToRgb(g), hexToRgb(m), hexToRgb(hi)];
 const DAY = [
   ink("#3a4a5c", "#6f8aa3", "#a9bfd1"), // Galeras
@@ -21,6 +21,10 @@ const DAY = [
   ink("#f59e0b", "#fcd34d", "#fff3b0"), // sun
   ink("#8fcdf3", "#c3e6fa", "#ffffff"), // sky
   ink("#2b323b", "#454e5a", "#f3f4f6"), // road
+  ink("#9b2c2c", "#f0d38a", "#f4f4f0"), // churches: red trim, cream walls, silver domes
+  ink("#8a3a22", "#f08a4b", "#ffd9a8"), // terracotta houses
+  ink("#27607f", "#5fb7d6", "#d8f1fa"), // blue houses
+  ink("#a02f5a", "#f2a0bd", "#ffe0ea"), // pink houses
 ];
 const NIGHT = [
   ink("#0d1626", "#2a3f5c", "#4d6a8c"),
@@ -28,7 +32,43 @@ const NIGHT = [
   ink("#fde68a", "#f5e9b8", "#ffffff"),
   ink("#050816", "#1a1f4d", "#c7ccff"),
   ink("#080b10", "#1b2431", "#e5e7eb"),
+  ink("#5a1c24", "#a08a62", "#c9d2e6"),
+  ink("#4a2414", "#a8582e", "#d99a6a"),
+  ink("#12303f", "#3a7a96", "#8cc4d8"),
+  ink("#4d1830", "#a85878", "#d9a0b8"),
 ];
+const hillAt = (x: number, h: number) =>
+  h * 0.62 + h * 0.05 * Math.sin(x / (h * 0.35)) + h * 0.025 * Math.sin(x / (h * 0.11) + 1.3);
+
+// Santiago church in cells at a 73-cell-tall scene: u across from the nave's middle, v up from its base.
+const DARK = ROAD * 2;
+const tower = (u: number, v: number, c: number, top: number, night: boolean) => {
+  const du = u - c;
+  const d = Math.abs(du);
+  if (d < 3.5 && v < top) {
+    const arch = d < 0.9 && v > top - 8 && v < top - 3 && (v < top - 4 || d < 0.5);
+    if (arch) return DARK;
+    if (d > 2.4 || v % 8 < 1 || (v > top - 2.5 && v < top - 1.5)) return CHURCH * 2; // pilasters and cornices
+    if (Math.hypot(du, v - top + 11) < 0.9) return night ? SUN * 2 + 1 : DARK; // lamp / round window
+    return CHURCH * 2 + 0.5;
+  }
+  const dy = v - top;
+  if (dy >= 0 && (du / 4) ** 2 + (dy / 3.4) ** 2 < 1) return CHURCH * 2 + (Math.floor((du + 8) * 0.7) % 2 ? 0 : 1); // ribbed dome
+  if (d < 0.9 && dy >= 3 && dy < 5.5) return CHURCH * 2 + 0.5; // lantern
+  if (Math.hypot(du, dy - 6) < 1.5 && dy >= 5) return CHURCH * 2 + 1; // cap
+  if (d < 0.5 && dy >= 7 && dy < 10) return CHURCH * 2; // cross
+  return -1;
+};
+const churchTone = (u: number, v: number, night: boolean) => {
+  if (u > -22 && u < 4 && v < 10) {
+    if (v > 7.5) return DARK; // tiled roof
+    if (v < 1.3) return CHURCH * 2;
+    if (v > 2.5 && v < 5.5 && Math.abs(((u + 22) % 4.5) - 2.2) < 0.8) return DARK; // arcade windows
+    return CHURCH * 2 + 0.5;
+  }
+  const main = tower(u, v, 7.5, 22, night);
+  return main >= 0 ? main : tower(u, v, 14.5, 16, night);
+};
 const roadOf = (h: number) => [h * 0.82, h * 0.95] as const;
 
 /**
@@ -76,12 +116,26 @@ export function Scene() {
       if (y > roadBot) return HILL * 2 + (night ? 0.4 : 0.5);
 
       // Pasto's hills, with city lights after dark.
-      const hill = h * 0.62 + h * 0.05 * Math.sin(x / (h * 0.35)) + h * 0.025 * Math.sin(x / (h * 0.11) + 1.3);
+      const hill = hillAt(x, h);
       if (y > hill) {
         const r = hash(x, y);
         if (night && y > hill + 2 && r > 0.955) return SUN * 2 + 0.6 + 0.4 * Math.sin(time * 3 + r * 90);
         if (!night && r > 0.985) return SUN * 2 + 0.95;
         return HILL * 2 + (night ? 0.5 + (y - hill) / (h * 2) : 0.66);
+      }
+
+      // Churches and a few rooftops along the ridge.
+      const k = Math.min(h / 73, w / 150, 1) * 0.7; // stays small on tall, narrow phone scenes
+      const church = churchTone((x - w * 0.3) / k, (hillAt(w * 0.3, h) - y) / k + 0.5, night);
+      if (church >= 0) return church;
+      // Pasto is small: one tight cluster of coloured houses around the church.
+      const block = Math.floor(x / 5);
+      const house = hash(block, 7);
+      const near = 1 - Math.abs(x - w * 0.31) / (w * 0.13);
+      if (near > 0 && house < 0.35 + near * 0.6 && y > hill - 1.5 - hash(block, 3) * 5) {
+        const roof = y < hill - 1 - hash(block, 3) * 5 + 1.5;
+        const lit = night && hash(x, y) > 0.93;
+        return lit ? SUN * 2 + 0.7 : HOUSES[block % 3] * 2 + (roof ? 0.1 : 0.6);
       }
 
       // Galeras, with a fumarole drifting off the crater.
@@ -109,7 +163,7 @@ export function Scene() {
       const r = h * 0.085;
       if (night) {
         if (md < r) return Math.hypot(x - mx - r * 0.45, y - my + r * 0.2) < r * 0.85 ? SKY * 2 + 0.12 : SKY * 2 + 1;
-        if (y < h * 0.65 && hash(x, y) > 0.992) return SKY * 2 + 0.65 + 0.35 * Math.sin(time * 2 + hash(y, x) * 40);
+        if (y < h * 0.65 && hash(x, y) > 0.994) return SKY * 2 + 0.45 + 0.15 * Math.sin(time * 0.6 + hash(y, x) * 40);
         return SKY * 2 + 0.04 + 0.16 * (y / h) + 0.18 * Math.exp(-(md - r) / (h * 0.06));
       }
       if (md < r) return SUN * 2 + (md > r - 1.2 ? 0.95 : 0.7);
@@ -197,7 +251,7 @@ export function Scene() {
         cell={CELL}
         label={t.hero.sceneLabel.replace("{time}", night ? t.hero.night : t.hero.day)}
       />
-      <span className="pointer-events-none absolute top-3 left-3 rounded-full bg-tile/85 px-3 py-1.5 text-xs text-dim backdrop-blur-sm sm:top-4 sm:left-5">
+      <span className="pointer-events-none absolute top-3 right-3 rounded-full bg-tile/85 px-3 py-1.5 text-xs text-dim backdrop-blur-sm sm:top-4 sm:right-5">
         <span className="sm:hidden">{t.hero.dragHint}</span>
         <span className="hidden sm:inline">{t.hero.caption}</span>
       </span>

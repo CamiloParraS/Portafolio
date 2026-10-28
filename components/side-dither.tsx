@@ -10,7 +10,7 @@ const bars =
   (x, y, w, _h, time) => {
     const u = (flip ? w - 1 - x : x) / w;
     const band = Math.floor(y / 7);
-    const amp = 0.5 + 0.5 * Math.sin(time * 0.45 + band * 0.35 + hash(band, 3) * 6.28);
+    const amp = 0.5 + 0.5 * Math.sin(time * 0.2 + band * 0.35 + hash(band, 3) * 6.28);
     return (1 - u) ** 1.6 * (0.01 + 0.1 * amp * amp);
   };
 

@@ -75,6 +75,7 @@ const en = {
           "Java",
           "GDScript",
           "C++",
+          "SQL",
         ],
       },
       {
@@ -86,9 +87,16 @@ const en = {
           "Android",
           "Godot",
           "Tailwind CSS",
+          "Node.js",
+          "NestJS",
+          "ElysiaJS",
         ],
       },
-      { group: "Tools", items: ["Git", "GitHub", "Vercel", "Arduino"] },
+      {
+        group: "Tools",
+        items: ["Git", "GitHub", "Docker", "PostgreSQL", "AWS", "Vercel", "Arduino", "ESP32", "Gradle"],
+      },
+      { group: "IDEs", items: ["Zed", "JetBrains", "VS Code", "Android Studio"] },
     ],
     factsTitle: "Quick facts",
     facts: [
@@ -294,6 +302,7 @@ const es: Content = {
           "Java",
           "GDScript",
           "C++",
+          "SQL",
         ],
       },
       {
@@ -305,9 +314,16 @@ const es: Content = {
           "Android",
           "Godot",
           "Tailwind CSS",
+          "Node.js",
+          "NestJS",
+          "ElysiaJS",
         ],
       },
-      { group: "Herramientas", items: ["Git", "GitHub", "Vercel", "Arduino"] },
+      {
+        group: "Herramientas",
+        items: ["Git", "GitHub", "Docker", "PostgreSQL", "AWS", "Vercel", "Arduino", "ESP32", "Gradle"],
+      },
+      { group: "Editores", items: ["Zed", "JetBrains", "VS Code", "Android Studio"] },
     ],
     factsTitle: "Datos rápidos",
     facts: [
