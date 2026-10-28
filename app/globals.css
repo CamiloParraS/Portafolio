@@ -1,0 +1,166 @@
+@import "tailwindcss";
+
+/* Two grounds, one cyan. Dither inks are the art's own three-step ramp per theme. */
+:root,
+[data-theme="dark"] {
+  --ground: #0b0d10;
+  --tile: #121519;
+  --ink: #f1f4f6;
+  --dim: #a7b1b9;
+  --line: #252a30;
+  --accent: #22d3ee;
+  --accent-ink: #22d3ee; /* cyan used as text */
+  --on-accent: #05141a;
+  --dither-ground: #121519;
+  --dither-mid: #164e5c;
+  --dither-hi: #22d3ee;
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  --ground: #f3f6f7;
+  --tile: #ffffff;
+  --ink: #0b0d10;
+  --dim: #48535d;
+  --line: #d6dee3;
+  --accent: #22d3ee;
+  --accent-ink: #0e7490;
+  --on-accent: #05141a;
+  --dither-ground: #ffffff;
+  --dither-mid: #9fe3f0;
+  --dither-hi: #0e7490;
+  color-scheme: light;
+}
+
+/* Photos need a deeper ramp than line art to read as a face in Day. */
+[data-theme="light"] .photo-inks {
+  --dither-ground: #e3f5f9;
+  --dither-mid: #0e7490;
+  --dither-hi: #05141a;
+}
+
+/* The accent tile paints its art in its own inks. */
+.on-accent {
+  --dither-ground: #22d3ee;
+  --dither-mid: #0e7490;
+  --dither-hi: #05141a;
+}
+
+@theme inline {
+  --color-ground: var(--ground);
+  --color-tile: var(--tile);
+  --color-ink: var(--ink);
+  --color-dim: var(--dim);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-on-accent: var(--on-accent);
+  --font-display: var(--font-bricolage);
+  --font-sans: var(--font-onest);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--font-onest), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s ease;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent-ink);
+  outline-offset: 3px;
+  border-radius: 10px;
+}
+
+* {
+  scrollbar-color: var(--line) transparent;
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+  font-family: var(--font-bricolage), system-ui, sans-serif;
+}
+
+@layer components {
+  .tile {
+    border-radius: 28px;
+    background: var(--tile);
+    border: 1px solid var(--line);
+  }
+}
+
+.pixel {
+  image-rendering: pixelated;
+}
+
+@layer components {
+  /* Buttons: one shape, two weights. */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 14px;
+    padding: 0.8rem 1.25rem;
+    font-weight: 600;
+    line-height: 1;
+    transition:
+      transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+      background-color 0.2s ease,
+      border-color 0.2s ease;
+  }
+  .btn:active {
+    transform: scale(0.97);
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+  .btn-primary:hover {
+    background: color-mix(in oklab, var(--accent) 85%, var(--ink));
+  }
+  .btn-ghost {
+    border: 1px solid var(--line);
+    color: var(--ink);
+  }
+  .btn-ghost:hover {
+    border-color: var(--dim);
+  }
+  .btn[aria-disabled="true"],
+  .btn:disabled {
+    opacity: 0.55;
+    pointer-events: none;
+  }
+  
+  .link {
+    text-decoration: underline;
+    text-decoration-color: color-mix(in oklab, var(--accent-ink) 50%, transparent);
+    text-underline-offset: 0.25em;
+    text-decoration-thickness: 1px;
+  }
+  .link:hover {
+    text-decoration-color: var(--accent-ink);
+  }
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}

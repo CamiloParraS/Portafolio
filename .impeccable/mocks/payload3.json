@@ -1,0 +1,49 @@
+{
+  "title": "The category standard, three ways",
+  "question": "You chose the familiar path with soft corners, high legibility and no terminal-mono type. Benchmarked against chanhdai.com and nemaas.com. Pick the one to build.",
+  "options": [
+    {
+      "id": "r2-column",
+      "kind": "grounded",
+      "label": "Ruled Column",
+      "kicker": "LIKE CHANHDAI, SOFTER",
+      "lineage": "chanhdai.com's single ruled column",
+      "thesis": "One calm centred column between hairline rails; dither lives in the gutters and in your portrait, so content stays crisp and the art frames it.",
+      "palette": ["#0B0D10", "#F1F4F6", "#22D3EE", "#0E7490"],
+      "materials": ["hairline rails and section rules", "dithered gutter strips", "rounded 14-28px corners", "humanist grotesk, no mono"],
+      "viewport": "Rounded dithered portrait that resolves to the photo on hover, big name, two-line intro, Download CV + See my work, and the first project row starting under a rule.",
+      "risk": "The most restrained; it relies on typography and spacing craft to not feel like a template.",
+      "html": ".impeccable/mocks/decision/r2-column.html"
+    },
+    {
+      "id": "r2-scene",
+      "kind": "grounded",
+      "label": "Living Scene",
+      "kicker": "LIKE NEMAAS, YOURS",
+      "lineage": "nemaas.com's canvas scene, dithered cell by cell",
+      "thesis": "A dithered canvas of Galeras over Pasto with a road and a car you can poke, which flips between day and night with the theme; your profile card sits below it.",
+      "palette": ["#0B0D10", "#F1F4F6", "#22D3EE", "#1B6E7E"],
+      "materials": ["ordered-dither canvas scene", "rounded profile card overlapping the scene", "floating pill nav", "humanist grotesk"],
+      "viewport": "Top 60%: the interactive dither scene (volcano, road, a passing car). Below: a rounded card with your dithered avatar, name, intro and Download CV.",
+      "risk": "Closest to nemaas in structure; the scene must feel personal (Pasto, cars) and stay calm, or it becomes the noisy background you said no to.",
+      "html": ".impeccable/mocks/decision/r2-scene.html"
+    },
+    {
+      "id": "r2-bento",
+      "kind": "grounded",
+      "label": "Soft Bento",
+      "kicker": "THE CLASSIC, ROUNDED",
+      "lineage": "bento-grid portfolios",
+      "thesis": "Your first screen as a grid of soft tiles: intro, dithered portrait, MAGI, Ghost Layer, stack, and a dither art tile of cars.",
+      "palette": ["#F4F6F7", "#0B0D10", "#22D3EE", "#0E7490"],
+      "materials": ["rounded 28px tiles", "dithered art tiles", "one dark feature tile"],
+      "viewport": "Intro tile with Download CV, tall dithered portrait tile, MAGI tile, a cars dither tile, small fact tiles.",
+      "risk": "The most common portfolio layout right now; easy to scan, hardest to remember.",
+      "html": ".impeccable/mocks/decision/r2-bento.html"
+    }
+  ],
+  "reroll": { "registers": ["safer", "bolder"] },
+  "buildPath": { "value": "code" },
+  "canon": false,
+  "steer": true
+}

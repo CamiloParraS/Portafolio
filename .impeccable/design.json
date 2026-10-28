@@ -1,0 +1,451 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-28T00:00:00Z",
+  "title": "Design System: Camilo Parra Portfolio",
+  "extensions": {
+    "colorMeta": {
+      "night-ground": {
+        "role": "neutral",
+        "displayName": "Night Ground",
+        "canonical": "#0b0d10",
+        "tonalRamp": [
+          "#0b0d10",
+          "#121519",
+          "#252a30",
+          "#48535d",
+          "#7d8892",
+          "#a7b1b9",
+          "#d6dee3",
+          "#f3f6f7"
+        ]
+      },
+      "night-tile": {
+        "role": "neutral",
+        "displayName": "Night Tile",
+        "canonical": "#121519",
+        "tonalRamp": [
+          "#0b0d10",
+          "#121519",
+          "#252a30",
+          "#48535d",
+          "#7d8892",
+          "#a7b1b9",
+          "#d6dee3",
+          "#f3f6f7"
+        ]
+      },
+      "night-ink": {
+        "role": "neutral",
+        "displayName": "Night Ink",
+        "canonical": "#f1f4f6",
+        "tonalRamp": [
+          "#0b0d10",
+          "#121519",
+          "#252a30",
+          "#48535d",
+          "#7d8892",
+          "#a7b1b9",
+          "#d6dee3",
+          "#f3f6f7"
+        ]
+      },
+      "night-dim": {
+        "role": "neutral",
+        "displayName": "Night Dim",
+        "canonical": "#a7b1b9",
+        "tonalRamp": [
+          "#0b0d10",
+          "#121519",
+          "#252a30",
+          "#48535d",
+          "#7d8892",
+          "#a7b1b9",
+          "#d6dee3",
+          "#f3f6f7"
+        ]
+      },
+      "night-line": {
+        "role": "neutral",
+        "displayName": "Night Line",
+        "canonical": "#252a30",
+        "tonalRamp": [
+          "#0b0d10",
+          "#121519",
+          "#252a30",
+          "#48535d",
+          "#7d8892",
+          "#a7b1b9",
+          "#d6dee3",
+          "#f3f6f7"
+        ]
+      },
+      "day-ground": {
+        "role": "neutral",
+        "displayName": "Day Ground (Porcelain)",
+        "canonical": "#f3f6f7",
+        "tonalRamp": [
+          "#0b0d10",
+          "#121519",
+          "#252a30",
+          "#48535d",
+          "#7d8892",
+          "#a7b1b9",
+          "#d6dee3",
+          "#f3f6f7"
+        ]
+      },
+      "day-tile": {
+        "role": "neutral",
+        "displayName": "Day Tile",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "#0b0d10",
+          "#121519",
+          "#252a30",
+          "#48535d",
+          "#7d8892",
+          "#a7b1b9",
+          "#d6dee3",
+          "#f3f6f7"
+        ]
+      },
+      "day-ink": {
+        "role": "neutral",
+        "displayName": "Day Ink",
+        "canonical": "#0b0d10",
+        "tonalRamp": [
+          "#0b0d10",
+          "#121519",
+          "#252a30",
+          "#48535d",
+          "#7d8892",
+          "#a7b1b9",
+          "#d6dee3",
+          "#f3f6f7"
+        ]
+      },
+      "day-dim": {
+        "role": "neutral",
+        "displayName": "Day Dim",
+        "canonical": "#48535d",
+        "tonalRamp": [
+          "#0b0d10",
+          "#121519",
+          "#252a30",
+          "#48535d",
+          "#7d8892",
+          "#a7b1b9",
+          "#d6dee3",
+          "#f3f6f7"
+        ]
+      },
+      "day-line": {
+        "role": "neutral",
+        "displayName": "Day Line",
+        "canonical": "#d6dee3",
+        "tonalRamp": [
+          "#0b0d10",
+          "#121519",
+          "#252a30",
+          "#48535d",
+          "#7d8892",
+          "#a7b1b9",
+          "#d6dee3",
+          "#f3f6f7"
+        ]
+      },
+      "galeras-cyan": {
+        "role": "primary",
+        "displayName": "Galeras Cyan",
+        "canonical": "#22d3ee",
+        "tonalRamp": [
+          "#05141a",
+          "#164e5c",
+          "#155e75",
+          "#0e7490",
+          "#0891b2",
+          "#06b6d4",
+          "#22d3ee",
+          "#9fe3f0"
+        ]
+      },
+      "deep-cyan": {
+        "role": "primary",
+        "displayName": "Deep Cyan",
+        "canonical": "#0e7490",
+        "tonalRamp": [
+          "#05141a",
+          "#164e5c",
+          "#155e75",
+          "#0e7490",
+          "#0891b2",
+          "#06b6d4",
+          "#22d3ee",
+          "#9fe3f0"
+        ]
+      },
+      "on-cyan": {
+        "role": "primary",
+        "displayName": "On-Cyan",
+        "canonical": "#05141a",
+        "tonalRamp": [
+          "#05141a",
+          "#164e5c",
+          "#155e75",
+          "#0e7490",
+          "#0891b2",
+          "#06b6d4",
+          "#22d3ee",
+          "#9fe3f0"
+        ]
+      },
+      "night-dither-mid": {
+        "role": "primary",
+        "displayName": "Night Dither Mid",
+        "canonical": "#164e5c",
+        "tonalRamp": [
+          "#05141a",
+          "#164e5c",
+          "#155e75",
+          "#0e7490",
+          "#0891b2",
+          "#06b6d4",
+          "#22d3ee",
+          "#9fe3f0"
+        ]
+      },
+      "day-dither-mid": {
+        "role": "primary",
+        "displayName": "Day Dither Mid",
+        "canonical": "#9fe3f0",
+        "tonalRamp": [
+          "#05141a",
+          "#164e5c",
+          "#155e75",
+          "#0e7490",
+          "#0891b2",
+          "#06b6d4",
+          "#22d3ee",
+          "#9fe3f0"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "The name in the intro tile only."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section titles and flagship project names."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Tile headings and secondary project names."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Reading text, dim by default; lead paragraphs in ink."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Form labels, tags, metadata, dense buttons."
+      }
+    },
+    "shadows": [
+      {
+        "name": "float",
+        "value": "0 8px 24px -12px rgb(0 0 0 / 0.35)",
+        "purpose": "Sticky nav pill only."
+      },
+      {
+        "name": "lift",
+        "value": "0 12px 30px -14px rgb(0 0 0 / 0.5)",
+        "purpose": "Avatar overlapping the scene edge."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-press",
+        "value": "transform 0.2s cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Button press scale to 0.97."
+      },
+      {
+        "name": "ease-state",
+        "value": "0.2s ease",
+        "purpose": "Background and border colour shifts on controls."
+      },
+      {
+        "name": "photo-develop",
+        "value": "opacity 0.5s ease-out",
+        "purpose": "Dithered photo resolves to true tone on hover, focus or tap."
+      },
+      {
+        "name": "theme-shift",
+        "value": "background-color 0.3s ease",
+        "purpose": "Ground colour change on theme toggle."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      }
+    ],
+    "dither": {
+      "cellPx": 3,
+      "ordered": "Bayer 4x4, three inks, for generated art and the animated scene",
+      "diffused": "Atkinson, three levels, contrast-stretched, for photos",
+      "inks": [
+        "--dither-ground",
+        "--dither-mid",
+        "--dither-hi"
+      ],
+      "overrides": {
+        "dark": [
+          "#121519",
+          "#164e5c",
+          "#22d3ee"
+        ],
+        "light": [
+          "#ffffff",
+          "#9fe3f0",
+          "#0e7490"
+        ],
+        "light .photo-inks": [
+          "#e3f5f9",
+          "#0e7490",
+          "#05141a"
+        ],
+        ".on-accent": [
+          "#22d3ee",
+          "#0e7490",
+          "#05141a"
+        ]
+      }
+    }
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The one cyan action per group: Download CV, Send, Live demo.",
+      "html": "<button class=\"ds-btn ds-btn-primary\">Download CV</button>",
+      "css": ".ds-btn{display:inline-flex;align-items:center;gap:.5rem;border-radius:14px;padding:.8rem 1.25rem;font-family:var(--font-onest),system-ui,sans-serif;font-weight:600;line-height:1;cursor:pointer;transition:transform .2s cubic-bezier(.16,1,.3,1),background-color .2s ease,border-color .2s ease}.ds-btn:active{transform:scale(.97)}.ds-btn:focus-visible{outline:2px solid var(--accent-ink,#22d3ee);outline-offset:3px}.ds-btn-primary{border:none;background:var(--accent,#22d3ee);color:var(--on-accent,#05141a)}.ds-btn-primary:hover{background:color-mix(in oklab,var(--accent,#22d3ee) 85%,var(--ink,#f1f4f6))}"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Secondary actions and link-outs; the dashed variant marks pending content.",
+      "html": "<button class=\"ds-btn ds-btn-ghost\">See my work</button> <span class=\"ds-btn ds-btn-ghost ds-pending\">Demo coming</span>",
+      "css": ".ds-btn{display:inline-flex;align-items:center;gap:.5rem;border-radius:14px;padding:.8rem 1.25rem;font-family:var(--font-onest),system-ui,sans-serif;font-weight:600;line-height:1;cursor:pointer;transition:transform .2s cubic-bezier(.16,1,.3,1),background-color .2s ease,border-color .2s ease}.ds-btn:active{transform:scale(.97)}.ds-btn:focus-visible{outline:2px solid var(--accent-ink,#22d3ee);outline-offset:3px}.ds-btn-ghost{background:transparent;border:1px solid var(--line,#252a30);color:var(--ink,#f1f4f6)}.ds-btn-ghost:hover{border-color:var(--dim,#a7b1b9)}.ds-pending{border-style:dashed;color:var(--dim,#a7b1b9)}"
+    },
+    {
+      "name": "Tile",
+      "kind": "card",
+      "refersTo": "tile",
+      "description": "The base surface of every bento cell.",
+      "html": "<article class=\"ds-tile\"><h3>Record</h3><p>Experience and education.</p></article>",
+      "css": ".ds-tile{border-radius:28px;background:var(--tile,#121519);border:1px solid var(--line,#252a30);padding:32px;color:var(--ink,#f1f4f6);font-family:var(--font-onest),system-ui,sans-serif;transition:border-color .2s}.ds-tile:hover{border-color:var(--dim,#a7b1b9)}.ds-tile h3{margin:0;font-family:var(--font-bricolage),system-ui,sans-serif;font-size:1.875rem;font-weight:700;letter-spacing:-.025em}.ds-tile p{margin:.5rem 0 0;color:var(--dim,#a7b1b9)}"
+    },
+    {
+      "name": "Accent Tile",
+      "kind": "card",
+      "refersTo": "tile-accent",
+      "description": "The single cyan tile: the flagship project, with re-inked art.",
+      "html": "<a class=\"ds-tile-accent\" href=\"#\"><h2>MAGI</h2><p>Local multimodal search, in Rust.</p></a>",
+      "css": ".ds-tile-accent{display:block;border-radius:28px;background:#22d3ee;color:#05141a;padding:24px;text-decoration:none;font-family:var(--font-onest),system-ui,sans-serif}.ds-tile-accent:focus-visible{outline:2px solid var(--accent-ink,#22d3ee);outline-offset:3px}.ds-tile-accent h2{margin:0;font-family:var(--font-bricolage),system-ui,sans-serif;font-size:1.875rem;font-weight:700;letter-spacing:-.025em}.ds-tile-accent p{margin:.5rem 0 0;line-height:1.375}"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "Contact form field inset on ground inside a tile.",
+      "html": "<label class=\"ds-label\">Email<input class=\"ds-field\" placeholder=\"you@company.com\"></label>",
+      "css": ".ds-label{display:block;font-family:var(--font-onest),system-ui,sans-serif;font-size:.875rem;font-weight:500;color:var(--ink,#f1f4f6)}.ds-field{display:block;margin-top:.5rem;width:100%;border-radius:16px;border:1px solid var(--line,#252a30);background:var(--ground,#0b0d10);color:var(--ink,#f1f4f6);padding:12px 16px;font:inherit;font-weight:400;transition:border-color .2s}.ds-field::placeholder{color:var(--dim,#a7b1b9)}.ds-field:focus{outline:none;border-color:var(--accent-ink,#22d3ee)}"
+    },
+    {
+      "name": "Tag",
+      "kind": "chip",
+      "refersTo": "chip-tag",
+      "description": "Project technology tags.",
+      "html": "<ul class=\"ds-tags\"><li class=\"ds-tag\">Rust</li><li class=\"ds-tag\">Godot</li></ul>",
+      "css": ".ds-tags{display:flex;gap:8px;list-style:none;margin:0;padding:0}.ds-tag{border-radius:9999px;background:var(--ground,#0b0d10);color:var(--dim,#a7b1b9);padding:4px 12px;font-family:var(--font-onest),system-ui,sans-serif;font-size:.875rem}"
+    },
+    {
+      "name": "Nav Pill",
+      "kind": "nav",
+      "refersTo": "nav-pill",
+      "description": "Sticky blurred pill with wordmark, section links and toggles.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-mark\" href=\"#\"><span class=\"ds-logo\"><i></i><i class=\"f\"></i><i class=\"f\"></i><i></i></span>camilo parra</a><a class=\"ds-navlink\" href=\"#\">Work</a><a class=\"ds-navlink\" href=\"#\">About</a></nav>",
+      "css": ".ds-nav{display:flex;align-items:center;gap:4px;height:56px;padding:0 8px 0 20px;border-radius:9999px;border:1px solid var(--line,#252a30);background:color-mix(in oklab,var(--tile,#121519) 85%,transparent);backdrop-filter:blur(12px);box-shadow:0 8px 24px -12px rgb(0 0 0/.35);font-family:var(--font-onest),system-ui,sans-serif}.ds-mark{display:flex;align-items:center;gap:10px;margin-right:auto;font-family:var(--font-bricolage),system-ui,sans-serif;font-weight:700;font-size:1.125rem;letter-spacing:-.025em;color:var(--ink,#f1f4f6);text-decoration:none}.ds-logo{display:grid;grid-template-columns:1fr 1fr;gap:2px;width:20px;height:20px}.ds-logo i{border-radius:2px;background:var(--accent,#22d3ee)}.ds-logo i.f{opacity:.4}.ds-navlink{border-radius:12px;padding:8px 12px;font-size:.875rem;color:var(--dim,#a7b1b9);text-decoration:none;transition:background-color .2s,color .2s}.ds-navlink:hover{background:var(--ground,#0b0d10);color:var(--ink,#f1f4f6)}.ds-navlink:focus-visible{outline:2px solid var(--accent-ink,#22d3ee);outline-offset:3px}"
+    },
+    {
+      "name": "Section Frame",
+      "kind": "custom",
+      "refersTo": "",
+      "description": "Shared section header: headline with a right-aligned intro.",
+      "html": "<header class=\"ds-section\"><h2>Work</h2><p>A short intro line for the section.</p></header>",
+      "css": ".ds-section{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px;font-family:var(--font-onest),system-ui,sans-serif}.ds-section h2{margin:0;font-family:var(--font-bricolage),system-ui,sans-serif;font-size:3.75rem;font-weight:700;line-height:1;letter-spacing:-.03em;color:var(--ink,#f1f4f6)}.ds-section p{margin:0;max-width:28rem;text-align:right;color:var(--dim,#a7b1b9)}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Lit Bento",
+    "overview": "**Creative North Star: \"The Lit Bento\"**\n\nA familiar, soft-cornered bento grid on a near-black (Night) or porcelain (Day) ground, where the tiles are not interchangeable cards: they differ in size, material and job. The lead tile is alive, a canvas scene of Galeras over Pasto printed in ordered dither, with a car the visitor can drive. Everything else is still. The page earns its \"engineered\" claim through the artwork engine, not through terminal styling.\n\nArtwork is printed, not illustrated: every image surface (the scene, project art, the avatar) is rendered on canvas in the theme's own three-step cyan ink ramp, so one theme switch repaints all art at once. Photos resolve to true tone on hover, focus or tap. Dither lives inside tiles only; text and UI stay clean, high-legibility sans.\n\nDensity is relaxed: generous tile padding, one section rhythm, one accent. Type is a warm grotesque display (Bricolage) over a calm geometric text face (Onest).",
+    "keyCharacteristics": [
+      "Two grounds (Night and Day), one cyan.",
+      "28px tiles, 14px controls, pill navigation and chips.",
+      "Canvas artwork in three dither inks per theme; pixelated rendering, 3 CSS px per cell.",
+      "One living scene; hover develops photos; everything else holds still.",
+      "Flat tiles separated by a 1px hairline, not shadows."
+    ],
+    "rules": [
+      {
+        "name": "The One Cyan Rule",
+        "body": "Cyan is the only hue. Any second colour on a surface must be a tint of cyan or a neutral; dither ramps are built from the cyan family per theme.",
+        "section": "colors"
+      },
+      {
+        "name": "The Ink Follows The Theme Rule",
+        "body": "Art never hardcodes colour. Canvases read `--dither-ground`, `--dither-mid`, `--dither-hi` from their element, so the accent tile (`.on-accent`) and Day photos (`.photo-inks`) override inks locally rather than drawing in new colours.",
+        "section": "colors"
+      },
+      {
+        "name": "The Display Is Bricolage Rule",
+        "body": "Every h1 to h3 and the wordmark use Bricolage Grotesque, bold and negatively tracked; body and controls use Onest. Headings balance their wrap.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tabular Facts Rule",
+        "body": "Dates and numeric facts use tabular numerals.",
+        "section": "typography"
+      },
+      {
+        "name": "The Hairline Not Shadow Rule",
+        "body": "A tile is a tile because of its border and surface tone. If a new tile needs a shadow to read, the tone step is wrong.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** build every new surface as a 28px tile with a 1px line border on the tile tone, placed in the 12px/16px bento grid.",
+      "**Do** render new artwork through the shared dither engine, reading inks from the three `--dither-*` properties so both themes repaint it.",
+      "**Do** keep cyan as the only hue; use Deep Cyan for cyan text on Day.",
+      "**Do** use the shared section frame (headline plus optional right-aligned intro) for every new section.",
+      "**Do** mark unfilled content (quotes, CV, demos, photos) with dashed-border placeholders instead of invented content.",
+      "**Do** keep motion to the scene, photo develop on hover, and 0.2s control feedback; respect reduced motion."
+    ],
+    "donts": [
+      "**Don't** use dither as a full-page or behind-text background; it lives inside tiles as artwork.",
+      "**Don't** use monospace or terminal styling for UI type.",
+      "**Don't** add a second accent hue or a gradient.",
+      "**Don't** add shadows to tiles; only the nav pill and the overlapping avatar float.",
+      "**Don't** make a row of identical icon cards; tiles differ in size, material and job."
+    ]
+  }
+}

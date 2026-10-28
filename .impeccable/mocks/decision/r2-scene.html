@@ -1,0 +1,26 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+*{margin:0;box-sizing:border-box}body{width:1440px;height:900px;background:#0B0D10;color:#F1F4F6;font-family:"Segoe UI",Arial,sans-serif;overflow:hidden;position:relative}
+canvas{position:absolute;left:0;top:0}
+nav{position:absolute;left:360px;right:360px;top:20px;height:56px;border-radius:18px;background:rgba(11,13,16,.8);border:1px solid #262B31;display:flex;align-items:center;justify-content:space-between;padding:0 22px;font-size:15px}
+.card{position:absolute;left:360px;right:360px;top:470px;height:400px;background:#0B0D10;border:1px solid #262B31;border-radius:28px;padding:36px}
+.av{position:absolute;left:36px;top:-60px;width:120px;height:120px;border-radius:30px;border:4px solid #0B0D10;background:radial-gradient(circle,#22D3EE 36%,transparent 38%) 0 0/5px 5px,#0E3A46}
+h1{margin-top:60px;font:700 64px/1 "Segoe UI",Arial;letter-spacing:-.03em}
+p{margin-top:18px;font-size:24px;line-height:1.45;color:#B9C2C9;width:640px}
+.b1{display:inline-block;margin-top:28px;background:#22D3EE;color:#05141A;font:600 22px Arial;padding:14px 26px;border-radius:14px}
+.tag{position:absolute;right:380px;top:420px;font-size:14px;color:#22D3EE}
+</style></head><body>
+<canvas id="c" width="1440" height="560"></canvas>
+<nav><b>camilo parra</b><span>Work &nbsp; About &nbsp; Record &nbsp; Contact &nbsp; EN · ☾</span></nav>
+<div class="tag">Galeras, Pasto · drawn cell by cell — drag the car</div>
+<div class="card"><div class="av"></div><h1>Camilo Parra</h1><p>Software engineering student from Pasto. Building MAGI, a local semantic search engine in Rust.</p><div class="b1">Download CV</div></div>
+<script>
+var x = document.getElementById("c").getContext("2d");
+for (var y = 0; y < 560; y += 4) for (var i = 0; i < 1440; i += 4) {
+  var m = 300 + Math.abs(i - 720) * 0.45 - 120 * Math.exp(-Math.pow((i - 720) / 160, 2));
+  var t = y > m ? 0.15 + (y - m) / 900 : 0.05 + (1 - y / 560) * 0.35;
+  var b = ((i / 4 & 3) * 4 + (y / 4 & 3)) / 16;
+  x.fillStyle = t > b ? (y > m ? "#1B6E7E" : "#22D3EE") : "#0B0D10";
+  x.fillRect(i, y, 3, 3);
+}
+</script>
+</body></html>

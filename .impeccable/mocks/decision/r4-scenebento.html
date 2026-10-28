@@ -1,0 +1,35 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+*{margin:0;box-sizing:border-box}body{width:1440px;height:900px;background:#0B0D10;color:#F1F4F6;font-family:"Segoe UI",Arial,sans-serif;overflow:hidden;position:relative}
+nav{position:absolute;left:120px;right:120px;top:20px;height:56px;border-radius:18px;border:1px solid #262B31;display:flex;align-items:center;justify-content:space-between;padding:0 22px;font-size:15px}
+.g{position:absolute;left:120px;right:120px;top:96px;bottom:32px;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:1.25fr 1fr;gap:16px}
+.t{border-radius:28px;border:1px solid #262B31;background:#111418;padding:28px;overflow:hidden;position:relative}
+.scene{grid-column:1/5;grid-row:1/2;padding:0}
+.hero{grid-column:1/3}.magi{background:#22D3EE;color:#05141A}
+canvas{position:absolute;inset:0}
+.cap{position:absolute;right:24px;bottom:18px;font-size:14px;color:#22D3EE}
+.over{position:absolute;left:32px;bottom:28px}
+.av{width:96px;height:96px;border-radius:24px;background:radial-gradient(circle,#22D3EE 36%,transparent 38%) 0 0/5px 5px,#0E3A46;border:3px solid #0B0D10}
+h1{font:700 56px/1 "Segoe UI",Arial;letter-spacing:-.03em}
+p{margin-top:12px;font-size:22px;line-height:1.4;color:#B9C2C9}
+.b1{display:inline-block;margin-top:18px;background:#22D3EE;color:#05141A;font:600 20px Arial;padding:12px 22px;border-radius:14px}
+.big{font:700 30px Arial}
+</style></head><body>
+<nav><b>camilo parra</b><span>Work &nbsp; About &nbsp; Record &nbsp; Off-code &nbsp; Contact &nbsp; EN · ☾</span></nav>
+<div class="g">
+<div class="t scene"><canvas id="c" width="1200" height="430"></canvas><div class="over"><div class="av"></div></div><div class="cap">Galeras, Pasto · drawn cell by cell · drag the car</div></div>
+<div class="t hero"><h1>Camilo Parra</h1><p>Software engineering student. Building MAGI, a local semantic search engine in Rust.</p><div class="b1">Download CV</div></div>
+<div class="t magi"><div class="big">MAGI</div></div>
+<div class="t"><div class="big">Ghost Layer</div></div>
+</div>
+<script>
+var x = document.getElementById("c").getContext("2d"), B = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5];
+for (var y = 0; y < 430; y += 4) for (var i = 0; i < 1200; i += 4) {
+  var m = 250 + Math.abs(i - 760) * 0.4 - 110 * Math.exp(-Math.pow((i - 760) / 150, 2));
+  var t = y > m ? 0.15 + (y - m) / 700 : 0.03 + (1 - y / 430) * 0.3;
+  if (y > 380) t = 0.22; if (y > 396 && y < 404 && (i / 40 | 0) % 2) t = 0.9;
+  if (Math.abs(i - 900) < 50 && Math.abs(y - 372) < 16) t = 0.8;
+  x.fillStyle = t * 16 > B[(i / 4 & 3) * 4 + (y / 4 & 3)] ? (y > m ? "#1B6E7E" : "#22D3EE") : "#111418";
+  x.fillRect(i, y, 3, 3);
+}
+</script>
+</body></html>

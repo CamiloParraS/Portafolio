@@ -1,0 +1,24 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+*{margin:0;box-sizing:border-box}body{width:1440px;height:900px;background:#05080A;color:#59EBFF;font:16px/18px "Courier New",monospace;overflow:hidden;position:relative}
+.grid{position:absolute;inset:0;background:linear-gradient(#0d1a1f 1px,transparent 1px) 0 0/100% 18px;opacity:.6}
+pre{position:absolute;left:40px;top:36px;font-size:11px;line-height:11px;color:#59EBFF}
+.t{position:absolute;left:820px;top:72px;color:#cfeff5}
+h1{font:700 96px/90px "Courier New",monospace;color:#EAFBFF;letter-spacing:-.02em}
+.l{margin-top:28px;font-size:24px;line-height:32px;width:560px}
+.row{margin-top:40px;font-size:24px;line-height:36px;white-space:pre}
+.btn{display:inline-block;margin-top:40px;background:#59EBFF;color:#05080A;font:700 26px "Courier New";padding:12px 22px}
+.nav{position:absolute;left:40px;right:40px;bottom:24px;font-size:22px;display:flex;justify-content:space-between}
+</style></head><body><div class="grid"></div>
+<pre id="a"></pre>
+<div class="t"><h1>CAMILO<br>PARRA</h1>
+<div class="l">software engineering student. building MAGI, a local semantic search engine, in rust.</div>
+<div class="row">[01] MAGI ........ rust
+[02] GHOST LAYER . godot</div>
+<div class="btn">&gt; download cv</div></div>
+<div class="nav"><span>[w]ork [a]bout [r]ecord [c]ontact</span><span>EN/ES  ◐</span></div>
+<script>
+var s = "", c = " .,:;-=+*#%@";
+for (var y = 0; y < 76; y++) { var r = ""; for (var x = 0; x < 110; x++) { var dx = (x - 55) / 40, dy = (y - 34) / 34, d = dx * dx + dy * dy, v = d < 1 ? (1 - d) * (0.6 + 0.4 * Math.sin(x / 7 + y / 9)) : 0; r += c[Math.max(0, Math.min(11, Math.floor(v * 12)))]; } s += r + "\n"; }
+document.getElementById("a").textContent = s;
+</script>
+</body></html>

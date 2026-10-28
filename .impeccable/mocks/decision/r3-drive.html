@@ -1,0 +1,28 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+*{margin:0;box-sizing:border-box}body{width:1440px;height:900px;background:#0B0D10;color:#F1F4F6;font-family:"Segoe UI",Arial,sans-serif;overflow:hidden;position:relative}
+canvas{position:absolute;left:0;top:0}
+nav{position:absolute;left:120px;right:120px;top:24px;height:56px;border-radius:18px;border:1px solid #262B31;background:rgba(11,13,16,.8);display:flex;align-items:center;justify-content:space-between;padding:0 22px;font-size:15px}
+.card{position:absolute;left:120px;top:140px;width:600px;background:rgba(11,13,16,.88);border:1px solid #262B31;border-radius:28px;padding:36px}
+.av{width:96px;height:96px;border-radius:24px;background:radial-gradient(circle,#22D3EE 36%,transparent 38%) 0 0/5px 5px,#0E3A46}
+h1{margin-top:24px;font:700 72px/1 "Segoe UI",Arial;letter-spacing:-.03em}
+p{margin-top:16px;font-size:24px;line-height:1.45;color:#B9C2C9}
+.b1{display:inline-block;margin-top:24px;background:#22D3EE;color:#05141A;font:600 22px Arial;padding:14px 26px;border-radius:14px}
+.km{position:absolute;right:120px;top:140px;font:700 15px Arial;color:#22D3EE;text-align:right;line-height:1.6}
+</style></head><body>
+<canvas id="c" width="1440" height="900"></canvas>
+<nav><b>camilo parra</b><span>Work &nbsp; About &nbsp; Record &nbsp; Off-code &nbsp; Contact &nbsp; EN · ☾</span></nav>
+<div class="card"><div class="av"></div><h1>Camilo Parra</h1><p>Software engineering student from Pasto. Building MAGI, a local semantic search engine in Rust.</p><div class="b1">Download CV</div></div>
+<div class="km">KM 0 · PASTO<br>scroll to drive →</div>
+<script>
+var x = document.getElementById("c").getContext("2d"), B = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5];
+for (var y = 0; y < 900; y += 4) for (var i = 0; i < 1440; i += 4) {
+  var hz = 470, t;
+  if (y < hz) { var m = hz - 140 * Math.exp(-Math.pow((i - 1000) / 220, 2)) - 30; t = y > m ? 0.12 : 0.04 + (y / hz) * 0.25; }
+  else { var cx = 1000 + (y - hz) * 0.2, w = (y - hz) * 1.6; var d = Math.abs(i - cx); t = d < w ? 0.18 + ((Math.floor((y - hz) / 30) % 2 && d < 6) ? 0.8 : 0) : 0.06; }
+  if (Math.abs(i - 1060) < 70 && Math.abs(y - 760) < 34) t = 0.75;
+  if (Math.hypot(i - 1020, y - 744) < 10 || Math.hypot(i - 1100, y - 744) < 10) t = 1;
+  x.fillStyle = t * 16 > B[(i / 4 & 3) * 4 + (y / 4 & 3)] ? "#22D3EE" : "#0B0D10";
+  x.fillRect(i, y, 3, 3);
+}
+</script>
+</body></html>
