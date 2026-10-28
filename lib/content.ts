@@ -46,7 +46,7 @@ const en = {
       "Dithered illustration of Galeras volcano over Pasto at {time}, with a small car on the road. Drag the car or use the Drive button.",
     night: "night",
     day: "day",
-    caption: "Galeras over Pasto, drawn cell by cell · drag the car",
+    caption: "Galeras over Pasto - drag the car",
     dragHint: "Drag the car",
     drive: "Drive",
     photoAlt: "Portrait of Camilo Parra",
@@ -65,8 +65,29 @@ const en = {
     photoHint: "Add a photo at public/img/about-{n}.jpg",
     stackTitle: "Stack",
     stack: [
-      { group: "Languages", items: ["Rust", "TypeScript", "Kotlin", "Python", "Java", "GDScript", "C++"] },
-      { group: "Frameworks", items: ["React", "Next.js", "Spring", "Android", "Godot", "Tailwind CSS"] },
+      {
+        group: "Languages",
+        items: [
+          "Rust",
+          "TypeScript",
+          "Kotlin",
+          "Python",
+          "Java",
+          "GDScript",
+          "C++",
+        ],
+      },
+      {
+        group: "Frameworks",
+        items: [
+          "React",
+          "Next.js",
+          "Spring",
+          "Android",
+          "Godot",
+          "Tailwind CSS",
+        ],
+      },
       { group: "Tools", items: ["Git", "GitHub", "Vercel", "Arduino"] },
     ],
     factsTitle: "Quick facts",
@@ -80,7 +101,8 @@ const en = {
   },
   work: {
     title: "Work",
-    intro: "Things I've built. The first two are the ones I'd talk about in an interview.",
+    intro:
+      "Things I've built. The first two are the ones I'd talk about in an interview.",
     code: "Code",
     demo: "Demo",
     demoPending: "Demo soon",
@@ -135,7 +157,8 @@ const en = {
   },
   testimonials: {
     title: "Kind words",
-    intro: "Reserved for people I've worked with. They're on their way; I'm not making them up.",
+    intro:
+      "Reserved for people I've worked with. They're on their way; I'm not making them up.",
     pending: "Testimonial pending",
     pendingBody: "This space is saved for someone who has worked with me.",
   },
@@ -171,7 +194,8 @@ const en = {
     title: "Off-code",
     intro: "The boring-person part.",
     carsTitle: "2,000+ Hot Wheels",
-    carsBody: "I collect Hot Wheels. The collection is past 2,000 cars, and I still can't walk past the toy aisle without checking the pegs. The car thing leaks into my code too:",
+    carsBody:
+      "I collect Hot Wheels. The collection is past 2,000 cars, and I still can't walk past the toy aisle without checking the pegs. The car thing leaks into my code too:",
     carsRepos: [
       { name: "CarDynamics-Analyzer", href: repo("CarDynamics-Analyzer") },
       { name: "Downforce-Analytics", href: repo("Downforce-Analytics") },
@@ -181,7 +205,8 @@ const en = {
     games: ["Cyberpunk 2077", "Skyrim", "Oblivion", "Metal Gear", "Forza"],
     originTitle: "Where it started",
     originAlt: "A Nintendo 64 console",
-    originBody: "A Nintendo 64 emulator on a family PC. That's when I stopped just playing and started asking how it worked.",
+    originBody:
+      "A Nintendo 64 emulator on a family PC. That's when I stopped just playing and started asking how it worked.",
   },
   contact: {
     title: "Let's talk",
@@ -240,7 +265,7 @@ const es: Content = {
       "Ilustración con tramado del volcán Galeras sobre Pasto de {time}, con un carro pequeño en la carretera. Arrastra el carro o usa el botón Conducir.",
     night: "noche",
     day: "día",
-    caption: "El Galeras sobre Pasto, dibujado celda por celda · arrastra el carro",
+    caption: "El Galeras sobre Pasto - arrastra el carro",
     dragHint: "Arrastra el carro",
     drive: "Conducir",
     photoAlt: "Retrato de Camilo Parra",
@@ -259,8 +284,29 @@ const es: Content = {
     photoHint: "Agrega una foto en public/img/about-{n}.jpg",
     stackTitle: "Tecnologías",
     stack: [
-      { group: "Lenguajes", items: ["Rust", "TypeScript", "Kotlin", "Python", "Java", "GDScript", "C++"] },
-      { group: "Frameworks", items: ["React", "Next.js", "Spring", "Android", "Godot", "Tailwind CSS"] },
+      {
+        group: "Lenguajes",
+        items: [
+          "Rust",
+          "TypeScript",
+          "Kotlin",
+          "Python",
+          "Java",
+          "GDScript",
+          "C++",
+        ],
+      },
+      {
+        group: "Frameworks",
+        items: [
+          "React",
+          "Next.js",
+          "Spring",
+          "Android",
+          "Godot",
+          "Tailwind CSS",
+        ],
+      },
       { group: "Herramientas", items: ["Git", "GitHub", "Vercel", "Arduino"] },
     ],
     factsTitle: "Datos rápidos",
@@ -274,7 +320,8 @@ const es: Content = {
   },
   work: {
     title: "Proyectos",
-    intro: "Cosas que he construido. Los dos primeros son de los que hablaría en una entrevista.",
+    intro:
+      "Cosas que he construido. Los dos primeros son de los que hablaría en una entrevista.",
     code: "Código",
     demo: "Demo",
     demoPending: "Demo pronto",
@@ -283,7 +330,8 @@ const es: Content = {
       {
         id: "magi",
         name: "MAGI",
-        tagline: "Un motor de búsqueda semántica local y multimodal para tus archivos.",
+        tagline:
+          "Un motor de búsqueda semántica local y multimodal para tus archivos.",
         body: "Busca tus propios documentos e imágenes por lo que significan y no por cómo se llaman, sin que nada salga de tu equipo. Escrito en Rust.",
         tags: ["Rust", "Búsqueda semántica", "Multimodal", "MIT"],
         repo: repo("MAGI"),
@@ -301,7 +349,8 @@ const es: Content = {
       {
         id: "haptic",
         name: "HapticWash",
-        tagline: "Monitoreo inteligente del lavado de manos con sensores de movimiento.",
+        tagline:
+          "Monitoreo inteligente del lavado de manos con sensores de movimiento.",
         body: "Una app para wearables en Kotlin que lee el movimiento de la muñeca durante el lavado de manos, más un componente de IA en Python que lo analiza.",
         tags: ["Kotlin", "Wearables", "Python", "IA"],
         repo: repo("HapticWash"),
@@ -329,9 +378,11 @@ const es: Content = {
   },
   testimonials: {
     title: "Palabras amables",
-    intro: "Reservado para personas con las que he trabajado. Ya vienen en camino; no me las voy a inventar.",
+    intro:
+      "Reservado para personas con las que he trabajado. Ya vienen en camino; no me las voy a inventar.",
     pending: "Testimonio pendiente",
-    pendingBody: "Este espacio está guardado para alguien que haya trabajado conmigo.",
+    pendingBody:
+      "Este espacio está guardado para alguien que haya trabajado conmigo.",
   },
   record: {
     title: "Trayectoria",
@@ -365,7 +416,8 @@ const es: Content = {
     title: "Fuera del código",
     intro: "La parte de persona aburrida.",
     carsTitle: "Más de 2.000 Hot Wheels",
-    carsBody: "Colecciono Hot Wheels. La colección ya pasa de 2.000 carros y todavía no puedo pasar por el pasillo de juguetes sin revisar qué hay nuevo. Lo de los carros también se cuela en mi código:",
+    carsBody:
+      "Colecciono Hot Wheels. La colección ya pasa de 2.000 carros y todavía no puedo pasar por el pasillo de juguetes sin revisar qué hay nuevo. Lo de los carros también se cuela en mi código:",
     carsRepos: [
       { name: "CarDynamics-Analyzer", href: repo("CarDynamics-Analyzer") },
       { name: "Downforce-Analytics", href: repo("Downforce-Analytics") },
@@ -375,7 +427,8 @@ const es: Content = {
     games: ["Cyberpunk 2077", "Skyrim", "Oblivion", "Metal Gear", "Forza"],
     originTitle: "Dónde empezó",
     originAlt: "Una consola Nintendo 64",
-    originBody: "Un emulador de Nintendo 64 en el PC de la casa. Ahí dejé de solo jugar y empecé a preguntarme cómo funcionaba.",
+    originBody:
+      "Un emulador de Nintendo 64 en el PC de la casa. Ahí dejé de solo jugar y empecé a preguntarme cómo funcionaba.",
   },
   contact: {
     title: "Hablemos",

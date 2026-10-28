@@ -197,11 +197,11 @@ export function Scene() {
         cell={CELL}
         label={t.hero.sceneLabel.replace("{time}", night ? t.hero.night : t.hero.day)}
       />
+      <span className="pointer-events-none absolute top-3 left-3 rounded-full bg-tile/85 px-3 py-1.5 text-xs text-dim backdrop-blur-sm sm:top-4 sm:left-5">
+        <span className="sm:hidden">{t.hero.dragHint}</span>
+        <span className="hidden sm:inline">{t.hero.caption}</span>
+      </span>
       <div className="pointer-events-none absolute right-3 bottom-3 flex items-center gap-3 sm:right-5 sm:bottom-4">
-        <span className="rounded-full bg-tile/85 px-3 py-1.5 text-xs text-dim backdrop-blur-sm">
-          <span className="sm:hidden">{t.hero.dragHint}</span>
-          <span className="hidden sm:inline">{t.hero.caption}</span>
-        </span>
         <button
           type="button"
           onPointerDown={(e) => e.stopPropagation()}
