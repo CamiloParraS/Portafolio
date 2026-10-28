@@ -200,11 +200,11 @@ One shape, two weights.
 ### Inputs / Fields
 - **Style:** ground fill inside a tile, 1px line border, 16px radius, `12px 16px` padding, dim placeholder; label above in 14px 500.
 - **Focus:** border shifts to accent text colour; no glow.
-- **Error:** status messages in dim; success in accent text.
+- **Error:** status messages in dim; success in accent text. Messages fade in and rise 4px over 0.2s when they appear; the copied check grows from 75%.
 
 ### Navigation
 - **Style:** sticky 56px pill, 85% tile fill, backdrop blur, Float shadow. Wordmark in Bricolage bold, lowercase. Links 14px dim, 12px-radius hover pill on ground fill turning ink. Language and theme toggles are 40px icon buttons.
-- **Mobile:** links collapse into a menu button; the menu opens as a tile under the pill with 18px items. Escape closes it.
+- **Mobile:** links collapse into a menu button; the menu opens as a tile under the pill with 18px items, fading in and dropping 8px over 0.2s (it closes instantly). Escape closes it.
 
 ### Dither Canvas (signature)
 Canvas art drawn at 3 CSS px per cell and scaled up with pixelated rendering. Generated art and the scene use 4x4 Bayer ordered dither across three inks so animation never shimmers; photos use three-level Atkinson diffusion with contrast stretch, lit in cyan in Night and inverted to ink the shadows in Day. Only the scene animates, and it freezes on its first frame under reduced motion. Photos show the real image by default and fade to the dithered print over 500ms on hover, focus or tap.
@@ -217,7 +217,7 @@ Canvas art drawn at 3 CSS px per cell and scaled up with pixelated rendering. Ge
 - **Do** keep cyan as the only hue; use Deep Cyan for cyan text on Day.
 - **Do** use the shared section frame (headline plus optional right-aligned intro) for every new section.
 - **Do** mark unfilled content (quotes, CV, demos, photos) with dashed-border placeholders instead of invented content.
-- **Do** keep motion to the scene, photo dither on hover, and 0.2s control feedback; respect reduced motion.
+- **Do** keep motion to the scene, photo dither on hover, 0.2s control feedback, one quiet scroll settle per section (16px rise and fade over the first 240px of scroll, `.reveal` on the section frame), and 0.2s enters for newly mounted UI (`starting:` classes). Under reduced motion drop the travel and keep the fades.
 
 ### Don't:
 - **Don't** use dither as a full-page or behind-text background; it lives inside tiles as artwork.

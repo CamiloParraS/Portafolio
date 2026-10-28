@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-28T00:00:00Z",
+  "generatedAt": "2026-10-28T13:00:00Z",
   "title": "Design System: Camilo Parra Portfolio",
   "extensions": {
     "colorMeta": {
@@ -284,6 +284,16 @@
         "name": "theme-shift",
         "value": "background-color 0.3s ease",
         "purpose": "Ground colour change on theme toggle."
+      },
+      {
+        "name": "section-settle",
+        "value": "opacity 0 to 1 and translateY(16px) to 0, linear, animation-timeline: view(), range entry 0% to entry 240px",
+        "purpose": "Section content settles in on scroll (.reveal). Only under @supports; reduced motion keeps the fade and drops the travel."
+      },
+      {
+        "name": "ui-enter",
+        "value": "opacity and translate 0.2s ease-out via starting: classes",
+        "purpose": "Mobile menu (from -8px), contact status messages (from 4px) and the copied check (from scale 0.75) on mount. No exit animation."
       }
     ],
     "breakpoints": [
@@ -438,7 +448,7 @@
       "**Do** keep cyan as the only hue; use Deep Cyan for cyan text on Day.",
       "**Do** use the shared section frame (headline plus optional right-aligned intro) for every new section.",
       "**Do** mark unfilled content (quotes, CV, demos, photos) with dashed-border placeholders instead of invented content.",
-      "**Do** keep motion to the scene, photo develop on hover, and 0.2s control feedback; respect reduced motion."
+      "**Do** keep motion to the scene, photo develop on hover, 0.2s control feedback, one quiet scroll settle per section and 0.2s enters for newly mounted UI; respect reduced motion by dropping travel and keeping fades."
     ],
     "donts": [
       "**Don't** use dither as a full-page or behind-text background; it lives inside tiles as artwork.",

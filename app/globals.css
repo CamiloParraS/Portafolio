@@ -80,6 +80,32 @@ html {
   }
 }
 
+/* Section content settles in as it enters the viewport. Scroll-driven, so no JS and nothing
+   hidden if it is unsupported; reduced motion keeps the fade and drops the travel. */
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+@keyframes reveal-fade {
+  from {
+    opacity: 0;
+  }
+}
+@supports (animation-timeline: view()) {
+  .reveal {
+    animation: reveal-fade linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 240px;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      animation-name: reveal;
+    }
+  }
+}
+
 body {
   background: var(--ground);
   color: var(--ink);

@@ -10,7 +10,7 @@ export function Section({ id, title, intro, children }: Props) {
         </h2>
         {intro && <p className="max-w-md text-base text-dim sm:text-right">{intro}</p>}
       </div>
-      {children}
+      <div className="reveal">{children}</div>
     </section>
   );
 }

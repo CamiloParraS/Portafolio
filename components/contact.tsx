@@ -60,6 +60,8 @@ export function Contact() {
   const field =
     "mt-2 w-full rounded-2xl border border-line bg-ground px-4 py-3 text-ink placeholder:text-dim/80 transition-colors focus:border-accent-ink focus:outline-none";
 
+  const enter = "inline-block transition-[opacity,translate] duration-200 ease-out starting:translate-y-1 starting:opacity-0 motion-reduce:starting:translate-y-0";
+
   return (
     <Section id="contact" title={c.title} intro={c.intro}>
       <div className="tile grid gap-10 p-6 sm:p-10 md:grid-cols-2">
@@ -69,7 +71,7 @@ export function Contact() {
           </a>
           <div className="mt-6 flex flex-wrap gap-2">
             <button type="button" onClick={copy} className="btn btn-ghost py-2.5 text-sm" aria-live="polite">
-              {copied ? <Check className="size-4 text-accent-ink" /> : <Copy className="size-4" />}
+              {copied ? <Check className="size-4 text-accent-ink transition-[opacity,scale] duration-200 ease-out starting:scale-75 starting:opacity-0" /> : <Copy className="size-4" />}
               {copied ? c.copied : c.copy}
             </button>
             <a href={links.linkedin} target="_blank" rel="noreferrer" className="btn btn-ghost py-2.5 text-sm">
@@ -103,10 +105,10 @@ export function Contact() {
               {status === "sending" ? c.sending : c.send}
             </button>
             <p role="status" className="text-sm">
-              {status === "sent" && <span className="text-accent-ink">{c.sent}</span>}
-              {status === "invalid" && <span className="text-dim">{c.invalid}</span>}
+              {status === "sent" && <span className={`text-accent-ink ${enter}`}>{c.sent}</span>}
+              {status === "invalid" && <span className={`text-dim ${enter}`}>{c.invalid}</span>}
               {status === "error" && (
-                <span className="text-dim">
+                <span className={`text-dim ${enter}`}>
                   {c.error}{" "}
                   <a href={`mailto:${links.email}`} className="link text-ink">
                     {links.email}

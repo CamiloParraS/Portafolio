@@ -65,10 +65,10 @@ export function Navbar() {
       </nav>
 
       {open && (
-        <ul id="mobile-menu" className="tile mx-auto mt-2 grid max-w-6xl gap-1 p-2 md:hidden">
+        <ul id="mobile-menu" className="tile mx-auto mt-2 grid max-w-6xl gap-1 p-2 transition-[opacity,translate] duration-200 ease-out starting:-translate-y-2 starting:opacity-0 motion-reduce:starting:translate-y-0 md:hidden">
           {ids.map((id) => (
             <li key={id}>
-              <a href={`#${id}`} onClick={() => setOpen(false)} className="block rounded-2xl px-4 py-3 text-lg font-medium hover:bg-ground">
+              <a href={`#${id}`} onClick={() => setOpen(false)} className="block rounded-2xl px-4 py-3 text-lg font-medium transition-colors hover:bg-ground">
                 {t.nav[id]}
               </a>
             </li>

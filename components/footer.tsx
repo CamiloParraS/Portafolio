@@ -17,10 +17,10 @@ export function Footer() {
           </p>
         </div>
         <div className="flex items-center gap-1">
-          <a href={links.github} target="_blank" rel="noreferrer" aria-label="GitHub" className="grid size-10 place-items-center rounded-xl hover:bg-tile">
+          <a href={links.github} target="_blank" rel="noreferrer" aria-label="GitHub" className="grid size-10 place-items-center rounded-xl transition-colors hover:bg-tile">
             <GitHub className="size-5" />
           </a>
-          <a href={links.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn" className="grid size-10 place-items-center rounded-xl hover:bg-tile">
+          <a href={links.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn" className="grid size-10 place-items-center rounded-xl transition-colors hover:bg-tile">
             <LinkedIn className="size-5" />
           </a>
           <a href="#top" className="btn btn-ghost ml-2 py-2.5 text-sm">
