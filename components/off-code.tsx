@@ -1,8 +1,9 @@
 "use client";
 
 import { ArrowUpRight } from "lucide-react";
-import { cartridgeArt, garageArt } from "@/lib/art";
+import { CAR_PALETTES, garageArt } from "@/lib/art";
 import { DitherCanvas } from "./dither-canvas";
+import { DitherImage } from "./dither-image";
 import { useSite } from "./providers";
 import { Section } from "./section";
 
@@ -15,7 +16,7 @@ export function OffCode() {
       <div className="grid gap-3 sm:gap-4 md:grid-cols-6">
         <article className="tile flex flex-col overflow-hidden md:col-span-3">
           <div className="relative h-52">
-            <DitherCanvas tone={garageArt} />
+            <DitherCanvas tone={garageArt} palette={CAR_PALETTES} />
           </div>
           <div className="flex flex-1 flex-col p-6 sm:p-8">
             <h3 className="text-3xl font-bold tracking-tight">{o.carsTitle}</h3>
@@ -46,9 +47,7 @@ export function OffCode() {
         </article>
 
         <article className="tile grid overflow-hidden sm:grid-cols-3 md:col-span-6">
-          <div className="relative min-h-48">
-            <DitherCanvas tone={cartridgeArt} />
-          </div>
+          <DitherImage src="/img/Nintedo64.jpg" alt={o.originAlt} color cell={2} className="min-h-48 bg-white" />
           <div className="flex flex-col justify-center p-6 sm:col-span-2 sm:p-10">
             <h3 className="text-3xl font-bold tracking-tight">{o.originTitle}</h3>
             <p className="mt-3 max-w-[56ch] text-lg leading-relaxed text-dim">{o.originBody}</p>

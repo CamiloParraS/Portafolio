@@ -103,7 +103,7 @@ components:
 
 A familiar, soft-cornered bento grid on a near-black (Night) or porcelain (Day) ground, where the tiles are not interchangeable cards: they differ in size, material and job. The lead tile is alive, a canvas scene of Galeras over Pasto printed in ordered dither, with a car the visitor can drive. Everything else is still. The page earns its "engineered" claim through the artwork engine, not through terminal styling.
 
-Artwork is printed, not illustrated: every image surface (the scene, project art, the avatar) is rendered on canvas in the theme's own three-step cyan ink ramp, so one theme switch repaints all art at once. Photos resolve to true tone on hover, focus or tap. Dither lives inside tiles only; text and UI stay clean, high-legibility sans.
+Artwork is printed, not illustrated: every image surface (the scene, project art) is rendered on canvas in the theme's own three-step cyan ink ramp, so one theme switch repaints all art at once. Photos show true tone by default and reprint in dither on hover, focus or tap. Dither lives inside tiles only; text and UI stay clean, high-legibility sans.
 
 Density is relaxed: generous tile padding, one section rhythm, one accent. Type is a warm grotesque display (Bricolage) over a calm geometric text face (Onest).
 
@@ -111,7 +111,7 @@ Density is relaxed: generous tile padding, one section rhythm, one accent. Type 
 - Two grounds (Night and Day), one cyan.
 - 28px tiles, 14px controls, pill navigation and chips.
 - Canvas artwork in three dither inks per theme; pixelated rendering, 3 CSS px per cell.
-- One living scene; hover develops photos; everything else holds still.
+- One living scene; hover dithers photos; everything else holds still.
 - Flat tiles separated by a 1px hairline, not shadows.
 
 ## Colors
@@ -132,7 +132,7 @@ A near-monochrome pair of grounds carrying a single saturated cyan, with the cya
 - **Night / Day Dither Mid** (night-dither-mid / day-dither-mid): Middle dither ink only; never used for UI or text.
 
 ### Named Rules
-**The One Cyan Rule.** Cyan is the only hue. Any second colour on a surface must be a tint of cyan or a neutral; dither ramps are built from the cyan family per theme.
+**The One Cyan Rule.** Cyan is the only UI hue. Any second colour on a surface must be a tint of cyan or a neutral. The one exception is project art: MAGI prints in cyan, and each secondary project prints in its own ink ramp (`.ink-ghost` amber, `.ink-haptic` green, `.ink-sophiel` violet, `.ink-laaf` rose), defined per theme in `globals.css`. These inks never reach text or controls.
 
 **The Ink Follows The Theme Rule.** Art never hardcodes colour. Canvases read `--dither-ground`, `--dither-mid`, `--dither-hi` from their element, so the accent tile (`.on-accent`) and Day photos (`.photo-inks`) override inks locally rather than drawing in new colours.
 
@@ -159,7 +159,7 @@ A near-monochrome pair of grounds carrying a single saturated cyan, with the cya
 
 A single centered column capped at 1152px with 16px side padding (24px from 640px). Each section opens with a shared frame: a large headline, with an optional short intro that sits right-aligned on the same baseline row from 640px and stacks below it on mobile. Sections are spaced 96px apart (128px from 640px). Inside, tiles sit on a bento grid with 12px gaps (16px from 640px): 4 columns in the hero, 6 in About and Off-code, 5 in flagship project rows (art 3, text 2, alternating sides), 3 for secondary projects and testimonials. All grids collapse to one column below 768px.
 
-Tile padding is 24px on mobile and 32px to 40px from 640px. The hero scene tile is full width at `clamp(240px, 44vh, 460px)`; the avatar overlaps the top edge of the intro tile below it. The nav is sticky, 12 to 16px from the top, and scroll padding clears it by 6rem.
+Tile padding is 24px on mobile and 32px to 40px from 640px. From 768px the hero fills the first screen (`100svh - 6rem`, clamped between 620px and 980px): the intro row sizes to its content and the scene tile takes the remaining height. Below 768px the scene is `clamp(240px, 44vh, 460px)`; the avatar overlaps the top edge of the intro tile below it. The nav is sticky, 12 to 16px from the top, and scroll padding clears it by 6rem.
 
 ## Elevation & Depth
 
@@ -174,7 +174,7 @@ Flat by default. Tiles separate from the ground through a 1px line border and a 
 
 ## Shapes
 
-Soft, nested corners that shrink with scale: tiles 28px, the avatar 26px (with a 4px tile-coloured border so it reads as cut out of the tile), fields 16px, buttons 14px, icon buttons and menu items 12px to 16px, the focus ring 10px. Navigation, tags, chips and art captions are full pills. Placeholders (empty testimonials, pending CV and demo buttons, photo slots) use a dashed line border in the same radius as the real element, so a slot visibly awaits content. The 2x2 rounded-square cyan mark is the only logo shape.
+Soft, nested corners that shrink with scale: tiles 28px, the avatar 26px (with a 4px tile-coloured border so it reads as cut out of the tile), fields 16px, buttons 14px, icon buttons and menu items 12px to 16px, the focus ring 10px. Navigation, tags, chips and art captions are full pills. Placeholders (empty testimonials, pending CV and demo buttons, photo slots) use a dashed line border in the same radius as the real element, so a slot visibly awaits content. The logo is Camilo's GitHub avatar (`public/img/github.jpg`, also `app/icon.png` and `app/apple-icon.png`), in a 28px square at an 8px radius with a 1px line ring.
 
 ## Components
 
@@ -207,7 +207,7 @@ One shape, two weights.
 - **Mobile:** links collapse into a menu button; the menu opens as a tile under the pill with 18px items. Escape closes it.
 
 ### Dither Canvas (signature)
-Canvas art drawn at 3 CSS px per cell and scaled up with pixelated rendering. Generated art and the scene use 4x4 Bayer ordered dither across three inks so animation never shimmers; photos use three-level Atkinson diffusion with contrast stretch, lit in cyan in Night and inverted to ink the shadows in Day. Only the scene animates, and it freezes on its first frame under reduced motion. Photos fade to the real image over 500ms on hover, focus or tap.
+Canvas art drawn at 3 CSS px per cell and scaled up with pixelated rendering. Generated art and the scene use 4x4 Bayer ordered dither across three inks so animation never shimmers; photos use three-level Atkinson diffusion with contrast stretch, lit in cyan in Night and inverted to ink the shadows in Day. Only the scene animates, and it freezes on its first frame under reduced motion. Photos show the real image by default and fade to the dithered print over 500ms on hover, focus or tap.
 
 ## Do's and Don'ts
 
@@ -217,7 +217,7 @@ Canvas art drawn at 3 CSS px per cell and scaled up with pixelated rendering. Ge
 - **Do** keep cyan as the only hue; use Deep Cyan for cyan text on Day.
 - **Do** use the shared section frame (headline plus optional right-aligned intro) for every new section.
 - **Do** mark unfilled content (quotes, CV, demos, photos) with dashed-border placeholders instead of invented content.
-- **Do** keep motion to the scene, photo develop on hover, and 0.2s control feedback; respect reduced motion.
+- **Do** keep motion to the scene, photo dither on hover, and 0.2s control feedback; respect reduced motion.
 
 ### Don't:
 - **Don't** use dither as a full-page or behind-text background; it lives inside tiles as artwork.

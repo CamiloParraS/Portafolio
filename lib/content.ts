@@ -170,8 +170,8 @@ const en = {
   offcode: {
     title: "Off-code",
     intro: "The boring-person part.",
-    carsTitle: "Cars",
-    carsBody: "I like cars enough to write code about them: tire grip, downforce, the numbers behind why a car is fast.",
+    carsTitle: "2,000+ Hot Wheels",
+    carsBody: "I collect Hot Wheels. The collection is past 2,000 cars, and I still can't walk past the toy aisle without checking the pegs. The car thing leaks into my code too:",
     carsRepos: [
       { name: "CarDynamics-Analyzer", href: repo("CarDynamics-Analyzer") },
       { name: "Downforce-Analytics", href: repo("Downforce-Analytics") },
@@ -180,6 +180,7 @@ const en = {
     gamesBody: "Games I keep coming back to.",
     games: ["Cyberpunk 2077", "Skyrim", "Oblivion", "Metal Gear", "Forza"],
     originTitle: "Where it started",
+    originAlt: "A Nintendo 64 console",
     originBody: "A Nintendo 64 emulator on a family PC. That's when I stopped just playing and started asking how it worked.",
   },
   contact: {
@@ -363,8 +364,8 @@ const es: Content = {
   offcode: {
     title: "Fuera del código",
     intro: "La parte de persona aburrida.",
-    carsTitle: "Carros",
-    carsBody: "Me gustan tanto los carros que escribo código sobre ellos: agarre de llantas, carga aerodinámica, los números detrás de por qué un carro es rápido.",
+    carsTitle: "Más de 2.000 Hot Wheels",
+    carsBody: "Colecciono Hot Wheels. La colección ya pasa de 2.000 carros y todavía no puedo pasar por el pasillo de juguetes sin revisar qué hay nuevo. Lo de los carros también se cuela en mi código:",
     carsRepos: [
       { name: "CarDynamics-Analyzer", href: repo("CarDynamics-Analyzer") },
       { name: "Downforce-Analytics", href: repo("Downforce-Analytics") },
@@ -373,6 +374,7 @@ const es: Content = {
     gamesBody: "Juegos a los que siempre vuelvo.",
     games: ["Cyberpunk 2077", "Skyrim", "Oblivion", "Metal Gear", "Forza"],
     originTitle: "Dónde empezó",
+    originAlt: "Una consola Nintendo 64",
     originBody: "Un emulador de Nintendo 64 en el PC de la casa. Ahí dejé de solo jugar y empecé a preguntarme cómo funcionaba.",
   },
   contact: {

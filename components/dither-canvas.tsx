@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { paintOrdered, readInks } from "@/lib/dither";
+import { type Inks, paintOrdered, readInks } from "@/lib/dither";
 import { useSite } from "./providers";
 
 export type Tone = (x: number, y: number, w: number, h: number, time: number) => number;
@@ -13,6 +13,8 @@ type Props = {
   animate?: boolean;
   /** Runs once per frame before painting, with the grid size in cells. */
   onFrame?: (time: number, w: number, h: number) => void;
+  /** Extra ink sets a tone can pick with `2 * region + t`; region 1 is `palette[0]`. */
+  palette?: Inks[];
   label?: string;
   className?: string;
 };
@@ -21,7 +23,7 @@ type Props = {
  * Fills its parent with ordered-dither art. Animated art runs at ~30fps, only while on
  * screen, and stays on its first frame under reduced motion.
  */
-export function DitherCanvas({ tone, cell = 3, animate = false, onFrame, label, className = "" }: Props) {
+export function DitherCanvas({ tone, cell = 3, animate = false, onFrame, palette, label, className = "" }: Props) {
   const ref = useRef<HTMLCanvasElement>(null);
   const toneRef = useRef(tone);
   const frameRef = useRef(onFrame);
@@ -46,7 +48,7 @@ export function DitherCanvas({ tone, cell = 3, animate = false, onFrame, label, 
       if (!img) return;
       const { width: w, height: h } = img;
       frameRef.current?.(time, w, h);
-      paintOrdered(img, (x, y) => toneRef.current(x, y, w, h, time), inks);
+      paintOrdered(img, (x, y) => toneRef.current(x, y, w, h, time), inks, palette);
       ctx.putImageData(img, 0, 0);
     };
 
@@ -84,7 +86,7 @@ export function DitherCanvas({ tone, cell = 3, animate = false, onFrame, label, 
       io?.disconnect();
       cancelAnimationFrame(raf);
     };
-  }, [animate, cell, theme]);
+  }, [animate, cell, theme, palette]);
 
   return (
     <canvas

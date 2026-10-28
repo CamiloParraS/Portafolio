@@ -3,36 +3,73 @@
 // proportions at any tile size.
 
 import type { ArtId } from "./content";
-import { hash } from "./dither";
+import { type Inks, hash, hexToRgb } from "./dither";
 
 type Art = (x: number, y: number, w: number, h: number) => number;
 
 const norm = (x: number, y: number, w: number, h: number) => [(x - w / 2) / h, (y - h / 2) / h] as const;
 const gauss = (d2: number, s: number) => Math.exp(-d2 / (2 * s * s));
 
-/** The car used in the hero scene and the garage tile. `lx`/`ly` are in car lengths; -1 means empty. */
-export function carTone(lx: number, ly: number, lightsOn: boolean): number {
-  // Wheels first, so they sit over the sill.
-  for (const wx of [0.2, 0.8]) {
-    const d = Math.hypot(lx - wx, ly - 0.12);
-    if (d < 0.11) return d < 0.05 ? 0.5 : 1;
+// Palette regions for tones of `2 * region + t` (see paintOrdered). Car parts take 1-9.
+const GLASS = 1;
+const TIRE = 2;
+const HUB = 3;
+const HEAD = 4;
+const TAIL = 5;
+export const PAINT = 6; // 6-9: the four first-gen colours
+
+const ink = (ground: string, mid: string, hi: string): Inks => [hexToRgb(ground), hexToRgb(mid), hexToRgb(hi)];
+export const CAR_PALETTES: Inks[] = [
+  ink("#1d3b52", "#5aa9d6", "#a9dcf5"), // glass
+  ink("#0a0a0a", "#1c1c1c", "#262626"), // tire
+  ink("#6b7280", "#aab0b8", "#e5e7eb"), // hub
+  ink("#ffffff", "#ffffff", "#ffffff"), // headlight
+  ink("#7f1d1d", "#b91c1c", "#ef4444"), // tail light
+  ink("#3a2c00", "#d4a017", "#ffd21f"), // Twingo yellow
+  ink("#3b0a0a", "#a11d1d", "#e53935"), // red
+  ink("#052e16", "#15803d", "#34b45a"), // green
+  ink("#0b1e4a", "#1d4ed8", "#4f8cf0"), // indigo blue
+];
+
+// 0 = outside, otherwise what part of a first-gen Twingo profile covers this point.
+// `lx` runs rear (0) to nose (1), `ly` is height in car lengths: a short, tall, rounded one-box.
+function twingo(lx: number, ly: number): number {
+  for (const wx of [0.18, 0.8]) {
+    const d = Math.hypot(lx - wx, ly - 0.1);
+    if (d < 0.04) return HUB;
+    if (d < 0.098) return TIRE;
   }
-  if (lx >= 0 && lx <= 1 && ly >= 0.12 && ly <= 0.3) {
-    if (lx > 0.92 && ly > 0.24) return 0; // rounded nose
-    if (lx < 0.03 && ly > 0.18 && ly < 0.26 && lightsOn) return 0.55; // tail light
-    if (Math.abs(lx - 0.5) < 0.01 && ly < 0.27) return 0.55; // door shut line
-    return 0.95;
-  }
-  if (ly > 0.3 && ly <= 0.46) {
-    const k = ly - 0.3;
-    const left = 0.24 + k * 0.9;
-    const right = 0.7 - k * 1.1;
-    if (lx >= left && lx <= right) {
-      const frame = lx - left < 0.025 || right - lx < 0.025 || ly > 0.43 || Math.abs(lx - 0.47) < 0.012;
-      return frame ? 0.95 : 0.4;
-    }
-  }
-  return -1;
+  if (Math.hypot(lx - 0.945, ly - 0.2) < 0.042) return HEAD;
+  if (lx > 0.02 && lx < 0.06 && ly > 0.15 && ly < 0.25) return TAIL;
+  // Lower body: rounded box, nose and tail both bluff.
+  const bx = Math.max(Math.abs(lx - 0.505) - 0.425, 0);
+  const by = Math.max(Math.abs(ly - 0.18) - 0.04, 0);
+  const body = Math.hypot(bx, by) < 0.07;
+  // Cabin: near-vertical hatch, steep windscreen, domed roof.
+  const t = Math.min(1, Math.max(0, (ly - 0.25) / 0.25));
+  const dome = Math.max(0, ly - 0.44);
+  const left = 0.07 + 0.1 * t + dome;
+  const right = 0.88 - 0.3 * t - dome;
+  const cabin = ly > 0.25 && ly <= 0.5 && lx >= left && lx <= right;
+  if (cabin && ly > 0.31 && ly < 0.46 && lx > left + 0.035 && lx < right - 0.035 && Math.abs(lx - 0.47) > 0.014) return GLASS;
+  return body || cabin ? PAINT : 0;
+}
+
+/** The car used in the hero scene and the garage tile: a first-gen Twingo. Returns -1 off the car. */
+export function carTone(lx: number, ly: number, lightsOn: boolean, paint = PAINT, e = 0.02): number {
+  if (lx < -0.05 || lx > 1.05 || ly < -0.02 || ly > 0.52) return -1;
+  const part = twingo(lx, ly);
+  if (!part) return -1;
+  const body = part === PAINT ? paint : part;
+  // Dark rim wherever the silhouette ends, and a ring around each wheel, so the car reads on any ground.
+  const rim =
+    !twingo(lx - e, ly) || !twingo(lx + e, ly) || !twingo(lx, ly - e) || !twingo(lx, ly + e) ||
+    (part === PAINT && [0.18, 0.8].some((wx) => Math.hypot(lx - wx, ly - 0.1) < 0.118)) ||
+    (part === PAINT && Math.abs(lx - 0.47) < e * 0.5 && ly < 0.27 && ly > 0.1);
+  if (rim && part !== TIRE) return paint * 2;
+  if (part === PAINT) return body * 2 + (ly < 0.115 ? 0.5 : 1); // shaded sill
+  if (part === TAIL) return body * 2 + (lightsOn ? 1 : 0.5);
+  return body * 2 + 1;
 }
 
 const CLUSTERS = [
@@ -122,30 +159,18 @@ export const projectArt: Record<ArtId, Art> = {
   },
 };
 
-/** Side profile of the car parked on a road line. */
+/** A collector's wall: three shelves of the scene car, each one a different paint (needs CAR_PALETTES). */
 export const garageArt: Art = (x, y, w, h) => {
-  const L = Math.min(w * 0.62, h * 1.5);
-  const base = h * 0.78;
-  const t = carTone((x - (w - L) / 2) / L, (base - y) / L, false);
-  if (t >= 0) return t;
-  if (Math.abs(y - base) < 1) return 0.55;
-  if (y > base) return (x % 10 < 5 && Math.abs(y - h * 0.9) < 1) ? 0.6 : 0.08;
-  return 0.03;
-};
-
-/** A cartridge: grip ridges up top, a gradient label, no logos. */
-export const cartridgeArt: Art = (x, y, w, h) => {
-  const [u, v] = norm(x, y, w, h);
-  const top = -0.36;
-  const bottom = 0.36;
-  const half = v < -0.2 ? 0.36 : 0.3;
-  if (Math.abs(u) <= half && v >= top && v <= bottom) {
-    if (Math.abs(u) > half - 0.015 || v - top < 0.015 || bottom - v < 0.015) return 1;
-    if (v < -0.22) return Math.abs(((u + 4) % 0.05) - 0.025) < 0.008 ? 0.9 : 0.5;
-    if (Math.abs(u) < 0.22 && v > -0.14 && v < 0.24) return 0.15 + (0.24 - v) * 1.6;
-    return 0.5;
-  }
-  return 0.03;
+  const row = h / 3;
+  const r = Math.floor(y / row);
+  const base = (r + 1) * row - 3;
+  if (Math.abs(y - base) < 1) return 0.55; // shelf
+  const L = row * 1.15;
+  const slot = L * 1.3;
+  const c = Math.floor((x + (r % 2) * slot * 0.5) / slot);
+  const lx = ((x + (r % 2) * slot * 0.5) % slot - (slot - L) / 2) / L;
+  const t = carTone(lx, (base - 1 - y) / L, false, PAINT + Math.floor(hash(c, r) * 4), 1.2 / L);
+  return t >= 0 ? t : 0.03;
 };
 
 /** A quiet frame for photos that haven't been added yet. */

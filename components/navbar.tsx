@@ -29,12 +29,8 @@ export function Navbar() {
         className="mx-auto flex h-14 max-w-6xl items-center justify-between rounded-full border border-line bg-tile/85 pr-2 pl-5 shadow-[0_8px_24px_-12px_rgb(0_0_0/0.35)] backdrop-blur-md"
       >
         <a href="#top" className="flex items-center gap-2.5 font-display text-lg font-bold tracking-tight">
-          <span aria-hidden className="grid size-5 grid-cols-2 gap-[2px]">
-            <span className="rounded-[2px] bg-accent" />
-            <span className="rounded-[2px] bg-accent/40" />
-            <span className="rounded-[2px] bg-accent/40" />
-            <span className="rounded-[2px] bg-accent" />
-          </span>
+          {/* eslint-disable-next-line @next/next/no-img-element -- static export, no image optimizer */}
+          <img src="/img/github.jpg" alt="" width={28} height={28} className="size-7 rounded-lg ring-1 ring-line" />
           camilo parra
         </a>
 

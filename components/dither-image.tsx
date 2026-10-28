@@ -1,13 +1,20 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { paintDiffused, readInks } from "@/lib/dither";
+import { paintColor, paintDiffused, readInks } from "@/lib/dither";
 import { useSite } from "./providers";
 
-type Props = { src: string; alt: string; cell?: number; className?: string };
+type Props = {
+  src: string;
+  alt: string;
+  cell?: number;
+  /** Dither in the photo's own colours (soft), showing the original on hover; `contain` shows the whole frame on white. */
+  color?: boolean;
+  className?: string;
+};
 
-/** A photo printed in the theme's three dither inks; hover, focus or tap develops the real photo. */
-export function DitherImage({ src, alt, cell = 3, className = "" }: Props) {
+/** A real photo; hover, focus or tap swaps between the original and its dither (theme inks, or `color`). */
+export function DitherImage({ src, alt, cell = 3, color = false, className = "" }: Props) {
   const ref = useRef<HTMLCanvasElement>(null);
   const { theme } = useSite();
   const [shown, setShown] = useState(false);
@@ -25,12 +32,22 @@ export function DitherImage({ src, alt, cell = 3, className = "" }: Props) {
       canvas.width = w;
       canvas.height = h;
       const ctx = canvas.getContext("2d", { willReadFrequently: true })!;
-      // object-fit: cover
-      const scale = Math.max(w / photo.naturalWidth, h / photo.naturalHeight);
+      // object-fit: cover, or contain on white for colour photos
+      const fit = color ? Math.min : Math.max;
+      const scale = fit(w / photo.naturalWidth, h / photo.naturalHeight);
       const dw = photo.naturalWidth * scale;
       const dh = photo.naturalHeight * scale;
+      if (color) {
+        ctx.fillStyle = "#fff";
+        ctx.fillRect(0, 0, w, h);
+      }
       ctx.drawImage(photo, (w - dw) / 2, (h - dh) / 2, dw, dh);
       const px = ctx.getImageData(0, 0, w, h);
+      if (color) {
+        paintColor(px);
+        ctx.putImageData(px, 0, 0);
+        return;
+      }
       const tones = new Float32Array(w * h);
       // Dark theme lights the face in cyan; light theme inks the shadows.
       const invert = theme === "light";
@@ -60,7 +77,7 @@ export function DitherImage({ src, alt, cell = 3, className = "" }: Props) {
       cancelled = true;
       ro.disconnect();
     };
-  }, [src, cell, theme]);
+  }, [src, cell, color, theme]);
 
   return (
     <div
@@ -73,7 +90,11 @@ export function DitherImage({ src, alt, cell = 3, className = "" }: Props) {
       <img
         src={src}
         alt={alt}
-        className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ease-out group-hover:opacity-100 group-focus-visible:opacity-100 ${shown ? "opacity-100" : "opacity-0"}`}
+        className={`absolute inset-0 h-full w-full transition-opacity duration-500 ease-out ${
+          color
+            ? `object-contain group-hover:opacity-100 group-focus-visible:opacity-100 ${shown ? "opacity-100" : "opacity-0"}`
+            : `object-cover group-hover:opacity-0 group-focus-visible:opacity-0 ${shown ? "opacity-0" : "opacity-100"}`
+        }`}
       />
     </div>
   );

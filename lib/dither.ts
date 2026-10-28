@@ -8,7 +8,7 @@ export type Inks = [Rgb, Rgb, Rgb];
 // 4x4 Bayer matrix, normalised to thresholds in (0, 1).
 const BAYER = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5].map((v) => (v + 0.5) / 16);
 
-const hexToRgb = (value: string): Rgb => {
+export const hexToRgb = (value: string): Rgb => {
   const hex = value.trim().replace("#", "");
   const n = parseInt(hex.length === 3 ? hex.replace(/./g, "$&$&") : hex, 16);
   return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
@@ -31,14 +31,17 @@ const put = (data: Uint8ClampedArray, i: number, [r, g, b]: Rgb) => {
 };
 
 /** Ordered dither: stable patterns, so animated art doesn't shimmer. */
-export function paintOrdered(img: ImageData, tone: (x: number, y: number) => number, inks: Inks) {
+// A tone of `2 * region + t` paints with `palette[region - 1]` instead of the theme inks.
+export function paintOrdered(img: ImageData, tone: (x: number, y: number) => number, inks: Inks, palette: Inks[] = []) {
   const { width: w, height: h, data } = img;
   for (let y = 0; y < h; y++) {
     for (let x = 0; x < w; x++) {
-      const t = Math.min(1, Math.max(0, tone(x, y)));
+      const v = Math.max(0, tone(x, y));
+      const region = Math.floor(v / 2);
+      const t = Math.min(1, v - region * 2);
       const th = BAYER[(y & 3) * 4 + (x & 3)];
       const k = t < 0.5 ? (t * 2 > th ? 1 : 0) : (t - 0.5) * 2 > th ? 2 : 1;
-      put(data, (y * w + x) * 4, inks[k]);
+      put(data, (y * w + x) * 4, (region ? palette[region - 1] : inks)[k]);
     }
   }
 }
@@ -76,3 +79,19 @@ export const hash = (x: number, y: number) => {
   const s = Math.sin(x * 127.1 + y * 311.7) * 43758.5453;
   return s - Math.floor(s);
 };
+
+/** Colour-preserving ordered dither: each channel snaps to `levels` steps, with the Bayer pattern hiding the banding. */
+export function paintColor(img: ImageData, levels = 6) {
+  const { width: w, height: h, data } = img;
+  for (let y = 0; y < h; y++) {
+    for (let x = 0; x < w; x++) {
+      const th = BAYER[(y & 3) * 4 + (x & 3)];
+      for (let c = 0; c < 3; c++) {
+        const i = (y * w + x) * 4 + c;
+        const v = (data[i] / 255) * (levels - 1);
+        const lo = Math.floor(v);
+        data[i] = ((lo + (v - lo > th ? 1 : 0)) / (levels - 1)) * 255;
+      }
+    }
+  }
+}

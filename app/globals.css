@@ -39,6 +39,16 @@
   --dither-hi: #05141a;
 }
 
+/* Each secondary project prints in its own ink; MAGI keeps the cyan. Ground stays the tile. */
+.ink-ghost { --dither-mid: #5a3a0c; --dither-hi: #fbbf24; }
+.ink-haptic { --dither-mid: #134a38; --dither-hi: #34d399; }
+.ink-sophiel { --dither-mid: #3a2b6b; --dither-hi: #a78bfa; }
+.ink-laaf { --dither-mid: #5c1f2c; --dither-hi: #fb7185; }
+[data-theme="light"] .ink-ghost { --dither-mid: #fde3a7; --dither-hi: #b45309; }
+[data-theme="light"] .ink-haptic { --dither-mid: #b4ecd4; --dither-hi: #047857; }
+[data-theme="light"] .ink-sophiel { --dither-mid: #ddd3fd; --dither-hi: #6d28d9; }
+[data-theme="light"] .ink-laaf { --dither-mid: #fdd0d7; --dither-hi: #be123c; }
+
 /* The accent tile paints its art in its own inks. */
 .on-accent {
   --dither-ground: #22d3ee;
