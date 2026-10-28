@@ -1,26 +1,144 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Midnight and Day are home/away kits: same three values, swapped. */
+:root,
+[data-theme="night"] {
+  /* Slate midnight: a blue-grey ground and softened ink, easy on the eyes after dark. */
+  --ground: #161d2c;
+  --deep: #27324d;
+  --accent: #74bfe3;
+  --ink: #cdd5e3;
+  --ink-dim: #93a0ba;
+  --accent-ink: #74bfe3; /* cyan used as text */
+  --on-accent: #131a28;
+  --line: #33405e;
+  color-scheme: dark;
+}
+
+[data-theme="day"] {
+  --ground: #e6f0ff;
+  --deep: #b7cff7;
+  --accent: #3ec6ff;
+  --ink: #06103a;
+  --ink-dim: #2b3f78;
+  --accent-ink: #0063a6;
+  --on-accent: #06103a;
+  --line: #9fbcec;
+  color-scheme: light;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-ground: var(--ground);
+  --color-deep: var(--deep);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-on-accent: var(--on-accent);
+  --color-ink: var(--ink);
+  --color-ink-dim: var(--ink-dim);
+  --color-line: var(--line);
+  --font-sans: var(--font-figtree), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Side gutter shared by every section, the navbar and the footer. */
+:root {
+  --gutter: clamp(1.5rem, 6vw, 6rem);
+}
+
+html {
+  background: var(--ground);
+  color: var(--ink);
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+  caret-color: var(--accent);
+  scrollbar-color: var(--deep) var(--ground);
+  transition: background-color 0.5s var(--ease-out-expo);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+a {
+  text-underline-offset: 0.22em;
+  text-decoration-thickness: 1px;
+}
+
+/* Heavy condensed italic: the menu voice. */
+.display {
+  font-family: var(--font-barlow), var(--font-sans);
+  font-weight: 800;
+  font-style: italic;
+  text-transform: uppercase;
+  line-height: 0.86;
+  letter-spacing: 0;
+}
+
+/* The selection blade: a parallelogram cut, never a rounded pill. */
+.blade {
+  clip-path: polygon(0.6em 0, 100% 0, calc(100% - 0.6em) 100%, 0 100%);
+}
+
+.tilt {
+  transform: rotate(-6deg);
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+/* Placeholder material the owner still has to supply. */
+.pending {
+  outline: 1px dashed var(--line);
+  outline-offset: 4px;
+}
+
+/* Section heads cut in on a diagonal wipe the first time they're seen. */
+.wipe {
+  clip-path: polygon(-10% -40%, 110% -40%, 110% 140%, -10% 140%);
+  transition: clip-path 0.9s var(--ease-out-expo);
+}
+.wipe[data-hidden="true"] {
+  clip-path: polygon(-10% -40%, -10% -40%, -30% 140%, -10% 140%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .wipe,
+  .wipe[data-hidden="true"] {
+    clip-path: none;
+    transition: none;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
 }

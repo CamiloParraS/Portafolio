@@ -1,0 +1,24 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+html,body{margin:0;width:1440px;height:900px;overflow:hidden;background:#2a1a10;font-family:ui-monospace,monospace}
+#grain{position:absolute;inset:0;margin:0;font-size:14px;line-height:16px;color:#5a3a22;white-space:pre}
+.film{position:absolute;background:
+ radial-gradient(circle,#0f9d6b 1.2px,transparent 1.4px) 0 0/4px 4px,#0f9d6bcc;mix-blend-mode:normal}
+.name{position:absolute;left:96px;top:240px;font:900 168px/0.84 "Arial Black",sans-serif;color:#0f9d6b;letter-spacing:-6px;text-transform:uppercase}
+.name span{display:block;clip-path:polygon(0 6%,100% 0,100% 94%,0 100%)}
+.nav{position:absolute;left:0;right:0;top:0;height:64px;background:#0f9d6b;clip-path:polygon(0 0,100% 0,100% 70%,0 100%);display:flex;gap:48px;align-items:center;padding:0 96px;color:#2a1a10;font:700 22px monospace}
+.portrait{position:absolute;right:120px;top:150px;width:380px;height:500px;background:
+ radial-gradient(circle,#2a1a10 1.6px,transparent 1.8px) 0 0/5px 5px,linear-gradient(160deg,#0f9d6b,#e8c35a);clip-path:polygon(4% 0,100% 3%,96% 100%,0 97%)}
+.gold{position:absolute;left:96px;top:640px;width:520px;height:150px;background:linear-gradient(110deg,#c99a2e,#f3d27a,#b8862a);clip-path:polygon(0 8%,100% 0,98% 100%,2% 92%);color:#2a1a10;font:900 72px/150px "Arial Black";padding-left:40px;box-sizing:border-box}
+.cv{position:absolute;left:660px;top:680px;padding:24px 36px;background:#e8452c00;border:3px solid #0f9d6b;color:#0f9d6b;font:700 26px monospace}
+.lede{position:absolute;left:100px;top:560px;width:620px;color:#e7cfa7;font:16px/1.5 monospace}
+</style></head><body>
+<pre id="grain"></pre>
+<div class="nav"><span>CAMILO·PARRA</span><span>work</span><span>about</span><span>contact</span><span style="margin-left:auto">EN / ES</span></div>
+<div class="name"><span>Camilo</span><span>Parra</span></div>
+<p class="lede">Software engineering student, Pasto, Colombia. Builds search engines in Rust and wearables in Kotlin. Still learning, on purpose.</p>
+<div class="portrait"></div>
+<div class="gold">MAGI ▸</div>
+<div class="cv">↓ DOWNLOAD CV</div>
+<script>
+const c=" .:-~=≈(()))";let s="";for(let y=0;y<57;y++){for(let x=0;x<172;x++){const d=Math.sin((x*0.05)+Math.sin(y*0.11)*3+Math.sin(x*0.013)*6)+Math.sin(y*0.3+x*0.002);const i=Math.floor((d+2)/4*c.length);s+=c[Math.max(0,Math.min(c.length-1,i))]}s+="\n"}document.getElementById("grain").textContent=s;
+</script></body></html>

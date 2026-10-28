@@ -1,0 +1,17 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+html,body{margin:0;width:1440px;height:900px;overflow:hidden;background:#0a0a0a;color:#f4f4f0;font-family:ui-monospace,monospace}
+canvas{position:absolute;inset:0}
+.nav{position:absolute;top:28px;left:64px;right:64px;display:flex;gap:40px;font:700 22px monospace}
+.nav b{margin-left:auto;background:#ffc800;color:#0a0a0a;padding:2px 12px}
+h1{position:absolute;left:64px;bottom:150px;margin:0;font:900 220px/0.8 "Arial Black",sans-serif;letter-spacing:-10px;text-transform:uppercase;mix-blend-mode:difference;color:#fff}
+.float{position:absolute;right:120px;top:120px;width:420px;height:560px;background:#ffc800;clip-path:polygon(10% 0,90% 4%,100% 60%,82% 100%,6% 92%,0 40%)}
+.cv{position:absolute;left:64px;bottom:64px;background:#ffc800;color:#0a0a0a;font:700 26px monospace;padding:18px 30px}
+.day{position:absolute;right:64px;bottom:64px;font:700 24px monospace}
+</style></head><body><canvas id="c" width="1440" height="900"></canvas>
+<div class="nav"><span>NEGROS</span><span>/</span><span>BLANCOS</span><span>work</span><span>about</span><b>EN/ES</b></div>
+<div class="float"></div>
+<h1>Camilo<br>Parra</h1>
+<div class="cv">↓ CV</div><div class="day">05 · ENE — DÍA DE NEGROS</div>
+<script>
+const x=document.getElementById("c").getContext("2d"),b=[[0,1/2*16,2/16*16,10],[12,4,14,6],[3,11,1,9],[15,7,13,5]];const im=x.createImageData(1440,900);for(let y=0;y<900;y++)for(let i=0;i<1440;i++){const cx=i-1100,cy=y-380;let v=Math.exp(-(cx*cx+cy*cy)/90000)+0.5*Math.exp(-((i-300)**2+(y-200)**2)/50000);const t=[[0,8,2,10],[12,4,14,6],[3,11,1,9],[15,7,13,5]][y%4][i%4]/16;const w=v>t?235:10;const p=(y*1440+i)*4;im.data[p]=im.data[p+1]=im.data[p+2]=w;im.data[p+3]=255}x.putImageData(im,0,0);
+</script></body></html>

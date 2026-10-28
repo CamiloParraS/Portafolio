@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-20T00:00:00Z",
+  "title": "Design System: Camilo Parra — The Dark Hour",
+  "extensions": {
+    "colorMeta": {
+      "midnight-cyan": { "role": "primary", "displayName": "Midnight Cyan", "canonical": "#74bfe3" },
+      "dark-hour-cyan": { "role": "primary", "displayName": "Dark Hour Cyan", "canonical": "#3ec6ff" },
+      "day-cyan-ink": { "role": "primary", "displayName": "Day Cyan Ink", "canonical": "#0063a6" },
+      "midnight-ground": { "role": "neutral", "displayName": "Midnight Ground", "canonical": "#161d2c" },
+      "midnight-deep": { "role": "neutral", "displayName": "Midnight Deep", "canonical": "#27324d" },
+      "midnight-ink": { "role": "neutral", "displayName": "Moonlight Ink", "canonical": "#cdd5e3" },
+      "midnight-ink-dim": { "role": "neutral", "displayName": "Moonlight Ink Dim", "canonical": "#93a0ba" },
+      "midnight-line": { "role": "neutral", "displayName": "Midnight Line", "canonical": "#33405e" },
+      "day-ground": { "role": "neutral", "displayName": "Day Ground", "canonical": "#e6f0ff" },
+      "day-deep": { "role": "neutral", "displayName": "Day Deep", "canonical": "#b7cff7" },
+      "day-ink": { "role": "neutral", "displayName": "Day Ink", "canonical": "#06103a" },
+      "day-ink-dim": { "role": "neutral", "displayName": "Day Ink Dim", "canonical": "#2b3f78" },
+      "day-line": { "role": "neutral", "displayName": "Day Line", "canonical": "#9fbcec" }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero name and MAGI title; tilted -6deg." },
+      "headline": { "displayName": "Headline", "purpose": "Section titles with a one-time diagonal wipe." },
+      "title": { "displayName": "Title", "purpose": "Menu commands, project names, button labels." },
+      "body": { "displayName": "Body", "purpose": "Bios and descriptions, ~50-60ch." },
+      "label": { "displayName": "Label", "purpose": "Mono uppercase readouts, roles, form labels." }
+    },
+    "shadows": [],
+    "motion": [
+      { "name": "ease-out-expo", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "The only easing. Blade glide 500ms, colour 300ms, section wipe 900ms." }
+    ],
+    "breakpoints": [
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Blade Menu",
+      "kind": "nav",
+      "refersTo": "blade-selected",
+      "description": "Pause-menu commands with a mono sub-label naming each section plainly; the cyan blade rests on the active item and slides to hover.",
+      "html": "<ul class=\"ds-menu\"><li><a href=\"#\">Status</a></li><li><a href=\"#\" class=\"on\">Work</a></li><li><a href=\"#\">Bonds</a></li></ul>",
+      "css": ".ds-menu { list-style: none; margin: 0; padding: 16px; display: flex; flex-direction: column; align-items: flex-start; gap: 4px; background: #161d2c; transform: rotate(-6deg); } .ds-menu a { display: block; padding: 0.2em 0.7em; font: italic 800 40px/0.86 'Barlow Condensed', sans-serif; text-transform: uppercase; color: #cdd5e3; text-decoration: none; transition: color 0.3s, background 0.5s cubic-bezier(0.16,1,0.3,1); clip-path: polygon(0.6em 0, 100% 0, calc(100% - 0.6em) 100%, 0 100%); } .ds-menu a.on, .ds-menu a:hover, .ds-menu a:focus-visible { background: #74bfe3; color: #161d2c; outline: none; }"
+    },
+    {
+      "name": "Save Data Button",
+      "kind": "button",
+      "refersTo": "button-save-data",
+      "description": "Primary CV download; a blade with a display label and mono sub-label.",
+      "html": "<a class=\"ds-save\" href=\"#\"><svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 15V3\"/><path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\"/><path d=\"m7 10 5 5 5-5\"/></svg><span><b>Save Data</b><small>CV · PDF</small></span></a>",
+      "css": ".ds-save { display: inline-flex; align-items: center; gap: 20px; padding: 12px 36px 12px 28px; background: #cdd5e3; color: #161d2c; text-decoration: none; clip-path: polygon(0.6em 0, 100% 0, calc(100% - 0.6em) 100%, 0 100%); transition: background 0.3s; } .ds-save b { display: block; font: italic 800 30px/0.86 'Barlow Condensed', sans-serif; text-transform: uppercase; } .ds-save small { display: block; font: 12px 'JetBrains Mono', monospace; text-transform: uppercase; margin-top: 4px; } .ds-save:hover, .ds-save:focus-visible { background: #74bfe3; outline: none; }"
+    },
+    {
+      "name": "Source Button",
+      "kind": "button",
+      "refersTo": "button-source",
+      "description": "Small blade linking to a project's GitHub repo.",
+      "html": "<a class=\"ds-src\" href=\"#\">Source</a>",
+      "css": ".ds-src { display: inline-flex; padding: 8px 20px; background: #cdd5e3; color: #161d2c; font: 600 15px Figtree, system-ui, sans-serif; text-decoration: none; clip-path: polygon(0.6em 0, 100% 0, calc(100% - 0.6em) 100%, 0 100%); transition: background 0.3s; } .ds-src:hover, .ds-src:focus-visible { background: #74bfe3; outline: none; }"
+    },
+    {
+      "name": "Skill Chip",
+      "kind": "chip",
+      "refersTo": "chip-skill",
+      "description": "Deep blade chip for the tech stack.",
+      "html": "<span class=\"ds-chip\">Rust</span>",
+      "css": ".ds-chip { display: inline-block; padding: 6px 16px; background: #27324d; color: #cdd5e3; font: 600 16px Figtree, system-ui, sans-serif; clip-path: polygon(0.6em 0, 100% 0, calc(100% - 0.6em) 100%, 0 100%); }"
+    },
+    {
+      "name": "Underline Field",
+      "kind": "input",
+      "description": "Contact field: mono label, bottom rule, cyan focus.",
+      "html": "<label class=\"ds-field\"><span>Your name</span><input /></label>",
+      "css": ".ds-field { display: block; background: #161d2c; padding: 16px; } .ds-field span { display: block; font: 11px 'JetBrains Mono', monospace; text-transform: uppercase; color: #93a0ba; } .ds-field input { width: 100%; background: transparent; border: 0; border-bottom: 1px solid #33405e; color: #cdd5e3; padding: 10px 0; font: 17px Figtree, sans-serif; caret-color: #74bfe3; } .ds-field input:focus-visible { outline: 2px solid #74bfe3; outline-offset: 3px; }"
+    },
+    {
+      "name": "Flagship Card",
+      "kind": "card",
+      "refersTo": "card-flagship",
+      "description": "Full cyan field for MAGI.",
+      "html": "<article class=\"ds-flag\"><h3>MAGI</h3><p>Search your files by meaning. Locally.</p></article>",
+      "css": ".ds-flag { background: #74bfe3; color: #161d2c; padding: 40px; } .ds-flag h3 { margin: 0; font: italic 800 96px/0.86 'Barlow Condensed', sans-serif; transform: rotate(-6deg); transform-origin: left; } .ds-flag p { font: italic 800 22px 'Barlow Condensed', sans-serif; text-transform: uppercase; margin-top: 24px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Dark Hour",
+    "overview": "The portfolio lives in the hidden hour after midnight. A WebGL ordered-dither moon and sea fill the background, a slanted pause menu sits in front of it, and every section is a menu command stamped with its own minute. Dithering is the one image language; type is loud, tilted and condensed against dense mono readouts.",
+    "keyCharacteristics": [
+      "One cyan on midnight blue; Day mode is the same kit worn away.",
+      "Condensed italic display, always tilted -6°.",
+      "Parallelogram \"blades\" for selection and buttons; no rounded corners anywhere.",
+      "Every image is dithered or ASCII; the background is a live shader.",
+      "Clock hours as section numerals.",
+      "Every jargon label is paired with a plain mono sub-label."
+    ],
+    "rules": [
+      { "name": "The Home/Away Kit Rule", "body": "Themes are value swaps on the same tokens. Never add a colour that exists in one theme only.", "section": "colors" },
+      { "name": "The One Cyan Rule", "body": "Cyan is the only hue. Status, success and emphasis all use cyan or ink.", "section": "colors" },
+      { "name": "The Scrim Rule", "body": "Body copy that sits over the dither sea gets a ground-coloured scrim so particles never drop contrast below AA.", "section": "colors" },
+      { "name": "The Tilt Rule", "body": "Display type is rotated -6° from its left origin. Body and mono copy never tilt.", "section": "typography" },
+      { "name": "The Headroom Rule", "body": "At line-height 0.86, accents rise above the line box. Never clip display text to its exact box.", "section": "typography" },
+      { "name": "The No-Shadow Rule", "body": "Separation comes from scrims, tone and tilt. A drop shadow would contradict the flat dither print.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do put every image through the dither or ASCII pipeline, including real photos when they arrive.",
+      "Do give each new section a minute between 00:00 and 01:00 and a tilted headline.",
+      "Do use the blade cut for any new selectable or pressable surface.",
+      "Do put a ground scrim behind any copy placed over the sea.",
+      "Do mark missing owner content with .pending and say so in the copy, both languages."
+    ],
+    "donts": [
+      "Don't introduce rounded corners, drop shadows or a second accent hue.",
+      "Don't use Atlus or Persona logos, characters, fonts or names. Borrow the grammar only.",
+      "Don't clip display type to its exact line box; accents need headroom.",
+      "Don't invent testimonials, employers, dates or metrics to fill a pending slot."
+    ]
+  }
+}
