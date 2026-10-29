@@ -53,20 +53,33 @@ export function Navbar() {
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
-  const iconBtn = "grid size-10 place-items-center rounded-xl text-ink transition-colors hover:bg-ground";
+  const iconBtn =
+    "grid size-10 place-items-center rounded-xl text-ink transition-colors hover:bg-ground";
 
   return (
     <header className="sticky top-3 z-50 px-4 sm:top-4 sm:px-6">
-      <a href="#main" className="btn btn-primary sr-only focus:not-sr-only focus:absolute focus:left-6 focus:top-2">
+      <a
+        href="#main"
+        className="btn btn-primary sr-only focus:not-sr-only focus:absolute focus:left-6 focus:top-2"
+      >
         {t.nav.skip}
       </a>
       <nav
         aria-label="Main"
         className="mx-auto flex h-14 max-w-6xl items-center justify-between rounded-full border border-line bg-tile/85 pr-2 pl-5 shadow-[0_8px_24px_-12px_rgb(0_0_0/0.35)] backdrop-blur-md"
       >
-        <a href="#top" className="flex items-center gap-2.5 font-display text-lg font-bold tracking-tight">
+        <a
+          href="#top"
+          className="flex items-center gap-2.5 font-display text-lg font-bold tracking-tight"
+        >
           {/* eslint-disable-next-line @next/next/no-img-element -- static export, no image optimizer */}
-          <img src="/img/github.jpg" alt="" width={28} height={28} className="size-7 rounded-lg ring-1 ring-line" />
+          <img
+            src="/img/github.jpg"
+            alt=""
+            width={28}
+            height={28}
+            className="size-7 rounded-lg ring-1 ring-line"
+          />
           camilo parra
         </a>
 
@@ -93,11 +106,25 @@ export function Navbar() {
         </ul>
 
         <div className="flex items-center gap-1">
-          <button type="button" onClick={toggleLang} aria-label={t.nav.lang} className={`${iconBtn} text-sm font-semibold`}>
+          <button
+            type="button"
+            onClick={toggleLang}
+            aria-label={t.nav.lang}
+            className={`${iconBtn} text-sm font-semibold`}
+          >
             {t.nav.langShort}
           </button>
-          <button type="button" onClick={toggleTheme} aria-label={theme === "dark" ? t.nav.toLight : t.nav.toDark} className={iconBtn}>
-            {theme === "dark" ? <Sun className="size-[18px]" /> : <Moon className="size-[18px]" />}
+          <button
+            type="button"
+            onClick={toggleTheme}
+            aria-label={theme === "dark" ? t.nav.toLight : t.nav.toDark}
+            className={iconBtn}
+          >
+            {theme === "dark" ? (
+              <Sun className="size-4.5" />
+            ) : (
+              <Moon className="size-4.5" />
+            )}
           </button>
           <button
             type="button"
@@ -113,10 +140,17 @@ export function Navbar() {
       </nav>
 
       {open && (
-        <ul id="mobile-menu" className="tile mx-auto mt-2 grid max-w-6xl gap-1 p-2 transition-[opacity,translate] duration-200 ease-out starting:-translate-y-2 starting:opacity-0 motion-reduce:starting:translate-y-0 md:hidden">
+        <ul
+          id="mobile-menu"
+          className="tile mx-auto mt-2 grid max-w-6xl gap-1 p-2 transition-[opacity,translate] duration-200 ease-out starting:-translate-y-2 starting:opacity-0 motion-reduce:starting:translate-y-0 md:hidden"
+        >
           {ids.map((id) => (
             <li key={id}>
-              <a href={`#${id}`} onClick={() => setOpen(false)} className="block rounded-2xl px-4 py-3 text-lg font-medium transition-colors hover:bg-ground">
+              <a
+                href={`#${id}`}
+                onClick={() => setOpen(false)}
+                className="block rounded-2xl px-4 py-3 text-lg font-medium transition-colors hover:bg-ground"
+              >
                 {t.nav[id]}
               </a>
             </li>
