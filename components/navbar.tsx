@@ -1,7 +1,7 @@
 "use client";
 
 import { Menu, Moon, Sun, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSite } from "./providers";
 
 const ids = ["work", "about", "record", "offcode", "contact"] as const;
@@ -9,6 +9,42 @@ const ids = ["work", "about", "record", "offcode", "contact"] as const;
 export function Navbar() {
   const { t, toggleLang, theme, toggleTheme } = useSite();
   const [open, setOpen] = useState(false);
+  const [active, setActive] = useState<(typeof ids)[number] | null>(null);
+  const [pill, setPill] = useState({ x: 0, w: 0 });
+  const links = useRef<Record<string, HTMLAnchorElement | null>>({});
+
+  // Scroll spy: the last section whose top has crossed the upper third of the viewport.
+  useEffect(() => {
+    let raf = 0;
+    const spy = () => {
+      raf = 0;
+      const line = window.innerHeight * 0.35;
+      let current: (typeof ids)[number] | null = null;
+      for (const id of ids) {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top <= line) current = id;
+      }
+      setActive(current);
+    };
+    const onScroll = () => (raf ||= requestAnimationFrame(spy));
+    spy();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(raf);
+    };
+  }, []);
+
+  // The pill follows the active link; remeasure when the language changes the label widths.
+  useEffect(() => {
+    const measure = () => {
+      const li = active && links.current[active]?.parentElement;
+      if (li) setPill({ x: li.offsetLeft, w: li.offsetWidth });
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, [active, t]);
 
   useEffect(() => {
     if (!open) return;
@@ -34,10 +70,22 @@ export function Navbar() {
           camilo parra
         </a>
 
-        <ul className="hidden items-center gap-1 md:flex">
+        <ul className="relative hidden items-center gap-1 md:flex">
+          <span
+            aria-hidden
+            style={{ width: pill.w, translate: `${pill.x}px 0` }}
+            className={`pointer-events-none absolute inset-y-0 left-0 my-auto h-9 rounded-xl bg-ground transition-[translate,width,opacity] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none ${active ? "opacity-100" : "opacity-0"}`}
+          />
           {ids.map((id) => (
-            <li key={id}>
-              <a href={`#${id}`} className="rounded-xl px-3 py-2 text-sm text-dim transition-colors hover:bg-ground hover:text-ink">
+            <li key={id} className="relative">
+              <a
+                ref={(el) => {
+                  links.current[id] = el;
+                }}
+                href={`#${id}`}
+                aria-current={active === id ? "location" : undefined}
+                className={`block rounded-xl px-3 py-2 text-sm transition-colors duration-300 hover:text-ink ${active === id ? "text-ink" : "text-dim"}`}
+              >
                 {t.nav[id]}
               </a>
             </li>
