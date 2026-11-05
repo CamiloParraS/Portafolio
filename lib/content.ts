@@ -8,7 +8,7 @@ export const links = {
   // Drop the PDF at public/cv/camilo-parra-cv.pdf.
   cv: "/cv/camilo-parra-cv.pdf",
   // Flip to true once the PDF is in place; until then the button says it is on its way.
-  cvReady: false,
+  cvReady: true,
 };
 
 const repo = (name: string) => `${links.github}/${name}`;
