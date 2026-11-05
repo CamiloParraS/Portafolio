@@ -343,6 +343,8 @@ const es: Content = {
     code: "Código",
     demo: "Demo",
     demoPending: "Demo pronto",
+    demoClose: "Cerrar demo",
+    demoLabel: "Video demo de {name}",
     artNote: "Ilustración",
     projects: [
       {
@@ -353,8 +355,6 @@ const es: Content = {
         body: "Busca tus propios documentos e imágenes por lo que significan y no por cómo se llaman, sin que nada salga de tu equipo. Escrito en Rust.",
         tags: ["Rust", "Búsqueda semántica", "Multimodal", "MIT"],
         repo: repo("MAGI"),
-    demoClose: "Cerrar demo",
-    demoLabel: "Video demo de {name}",
         demo: null,
       },
       {
@@ -374,7 +374,7 @@ const es: Content = {
         body: "Una app para wearables en Kotlin que lee el movimiento de la muñeca durante el lavado de manos, más un componente de IA en Python que lo analiza.",
         tags: ["Kotlin", "Wearables", "Python", "IA"],
         repo: repo("HapticWash"),
-        demo: null,
+        demo: "/videos/hapticwash-es.mp4",
       },
       {
         id: "sophiel",
@@ -392,7 +392,7 @@ const es: Content = {
         body: "Una app en TypeScript para gestionar las plantillas de documentos de una institución.",
         tags: ["TypeScript"],
         repo: repo("Laaf"),
-        demo: "/videos/hapticwash-es.mp4",
+        demo: null,
       },
     ],
   },
