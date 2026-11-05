@@ -114,6 +114,8 @@ const en = {
     code: "Code",
     demo: "Demo",
     demoPending: "Demo soon",
+    demoClose: "Close demo",
+    demoLabel: "{name} demo video",
     artNote: "Illustration",
     projects: [
       {
@@ -141,7 +143,7 @@ const en = {
         body: "A Kotlin wearable app that reads wrist motion during handwashing, plus a Python AI component that analyses it.",
         tags: ["Kotlin", "Wearables", "Python", "AI"],
         repo: repo("HapticWash"),
-        demo: null as string | null,
+        demo: "/videos/hapticwash.mp4" as string | null,
       },
       {
         id: "sophiel" as ArtId,
@@ -351,6 +353,8 @@ const es: Content = {
         body: "Busca tus propios documentos e imágenes por lo que significan y no por cómo se llaman, sin que nada salga de tu equipo. Escrito en Rust.",
         tags: ["Rust", "Búsqueda semántica", "Multimodal", "MIT"],
         repo: repo("MAGI"),
+    demoClose: "Cerrar demo",
+    demoLabel: "Video demo de {name}",
         demo: null,
       },
       {
@@ -379,7 +383,7 @@ const es: Content = {
         body: "Un proyecto en Kotlin para proteger contenido visual.",
         tags: ["Kotlin"],
         repo: repo("Sophiel"),
-        demo: null,
+        demo: "/videos/hapticwash-es.mp4",
       },
       {
         id: "laaf",

@@ -1,8 +1,10 @@
 "use client";
 
 import { Play } from "lucide-react";
+import { useState } from "react";
 import type { Content } from "@/lib/content";
 import { GitHub } from "./brand-icons";
+import { DemoPlayer } from "./demo-player";
 import { ProjectArt } from "./project-art";
 import { useSite } from "./providers";
 import { Section } from "./section";
@@ -11,6 +13,7 @@ type Project = Content["work"]["projects"][number];
 
 function Actions({ p }: { p: Project }) {
   const { t } = useSite();
+  const [open, setOpen] = useState(false);
   return (
     <div className="mt-6 flex flex-wrap gap-2">
       <a href={p.repo} target="_blank" rel="noreferrer" className="btn btn-ghost py-2.5 text-sm">
@@ -18,10 +21,13 @@ function Actions({ p }: { p: Project }) {
         {t.work.code}
       </a>
       {p.demo ? (
-        <a href={p.demo} target="_blank" rel="noreferrer" className="btn btn-primary py-2.5 text-sm">
-          <Play className="size-4" />
-          {t.work.demo}
-        </a>
+        <>
+          <button type="button" onClick={() => setOpen(true)} className="btn btn-primary py-2.5 text-sm">
+            <Play className="size-4 fill-current" />
+            {t.work.demo}
+          </button>
+          {open && <DemoPlayer p={p} src={p.demo} onClose={() => setOpen(false)} />}
+        </>
       ) : (
         <span className="btn btn-ghost border-dashed py-2.5 text-sm text-dim">
           <Play className="size-4" />

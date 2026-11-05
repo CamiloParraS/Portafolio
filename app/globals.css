@@ -200,3 +200,21 @@ h3 {
 .tabular {
   font-variant-numeric: tabular-nums;
 }
+
+/* Demo player: floats up over a dimmed page. */
+.demo-dialog[open] {
+  animation: demo-in 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.demo-dialog[open]::backdrop {
+  animation: demo-fade 0.3s ease;
+}
+@keyframes demo-in {
+  from { opacity: 0; transform: translateY(16px) scale(0.96); }
+}
+@keyframes demo-fade {
+  from { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .demo-dialog[open],
+  .demo-dialog[open]::backdrop { animation: none; }
+}
