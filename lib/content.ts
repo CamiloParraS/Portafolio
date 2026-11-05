@@ -383,7 +383,7 @@ const es: Content = {
         body: "Un proyecto en Kotlin para proteger contenido visual.",
         tags: ["Kotlin"],
         repo: repo("Sophiel"),
-        demo: "/videos/hapticwash-es.mp4",
+        demo: null,
       },
       {
         id: "laaf",
@@ -392,7 +392,7 @@ const es: Content = {
         body: "Una app en TypeScript para gestionar las plantillas de documentos de una institución.",
         tags: ["TypeScript"],
         repo: repo("Laaf"),
-        demo: null,
+        demo: "/videos/hapticwash-es.mp4",
       },
     ],
   },
