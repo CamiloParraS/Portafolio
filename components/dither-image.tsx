@@ -70,19 +70,44 @@ export function DitherImage({ src, alt, cell = 3, color = false, className = "" 
     };
 
     photo.onload = draw;
-    photo.src = src;
+    // Below-the-fold photos only start loading and dithering when they are about to show.
+    let started = false;
+    const start = () => {
+      if (started) return;
+      started = true;
+      photo.src = src;
+    };
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) {
+          start();
+          io.disconnect();
+        }
+      },
+      { rootMargin: "400px" },
+    );
+    io.observe(canvas.parentElement!);
     const ro = new ResizeObserver(draw);
     ro.observe(canvas.parentElement!);
     return () => {
       cancelled = true;
+      io.disconnect();
       ro.disconnect();
     };
   }, [src, cell, color, theme]);
 
   return (
     <div
+      role="button"
       tabIndex={0}
+      aria-pressed={shown}
       onClick={() => setShown((v) => !v)}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          setShown((v) => !v);
+        }
+      }}
       className={`group relative cursor-pointer overflow-hidden ${className}`}
     >
       <canvas ref={ref} aria-hidden className="pixel absolute inset-0 h-full w-full" />
@@ -90,6 +115,8 @@ export function DitherImage({ src, alt, cell = 3, color = false, className = "" 
       <img
         src={src}
         alt={alt}
+        loading="lazy"
+        decoding="async"
         className={`absolute inset-0 h-full w-full transition-opacity duration-500 ease-out ${
           color
             ? `object-contain group-hover:opacity-100 group-focus-visible:opacity-100 ${shown ? "opacity-100" : "opacity-0"}`

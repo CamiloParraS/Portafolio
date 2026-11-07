@@ -21,13 +21,13 @@ type Props = {
 
 /**
  * Fills its parent with ordered-dither art. Animated art runs at ~30fps, only while on
- * screen, and stays on its first frame under reduced motion.
+ * screen, and stays on its first frame under reduced motion or when the visitor pauses it.
  */
 export function DitherCanvas({ tone, cell = 3, animate = false, onFrame, palette, label, className = "" }: Props) {
   const ref = useRef<HTMLCanvasElement>(null);
   const toneRef = useRef(tone);
   const frameRef = useRef(onFrame);
-  const { theme } = useSite();
+  const { theme, paused } = useSite();
 
   useEffect(() => {
     toneRef.current = tone;
@@ -38,10 +38,10 @@ export function DitherCanvas({ tone, cell = 3, animate = false, onFrame, palette
     const canvas = ref.current!;
     const ctx = canvas.getContext("2d")!;
     const inks = readInks(canvas);
-    const still = !animate || matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const still = !animate || paused || matchMedia("(prefers-reduced-motion: reduce)").matches;
     let img: ImageData | null = null;
     let raf = 0;
-    let visible = true;
+    let visible = false;
     let last = 0;
 
     const draw = (time: number) => {
@@ -60,33 +60,49 @@ export function DitherCanvas({ tone, cell = 3, animate = false, onFrame, palette
       canvas.width = w;
       canvas.height = h;
       img = ctx.createImageData(w, h);
-      draw(last);
+      if (visible) draw(last);
     };
 
+    // The rAF loop only exists while the canvas is on screen and the tab is visible.
     const loop = (now: number) => {
       raf = requestAnimationFrame(loop);
-      if (!visible || document.hidden || now - last < 33) return;
+      if (now - last < 33) return;
       last = now;
       draw(now / 1000);
+    };
+    const stop = () => {
+      cancelAnimationFrame(raf);
+      raf = 0;
+    };
+    const sync = () => {
+      stop();
+      if (visible && !still && !document.hidden) raf = requestAnimationFrame(loop);
     };
 
     const ro = new ResizeObserver(resize);
     ro.observe(canvas.parentElement!);
     resize();
 
-    let io: IntersectionObserver | undefined;
-    if (!still) {
-      io = new IntersectionObserver(([e]) => (visible = e.isIntersecting));
-      io.observe(canvas);
-      raf = requestAnimationFrame(loop);
-    }
+    // Nothing is painted until the canvas is near the viewport, so below-the-fold art costs nothing up front.
+    const io = new IntersectionObserver(
+      ([e]) => {
+        const was = visible;
+        visible = e.isIntersecting;
+        if (visible && !was) draw(last);
+        sync();
+      },
+      { rootMargin: "200px" },
+    );
+    io.observe(canvas);
+    document.addEventListener("visibilitychange", sync);
 
     return () => {
       ro.disconnect();
-      io?.disconnect();
-      cancelAnimationFrame(raf);
+      io.disconnect();
+      document.removeEventListener("visibilitychange", sync);
+      stop();
     };
-  }, [animate, cell, theme, palette]);
+  }, [animate, paused, cell, theme, palette]);
 
   return (
     <canvas

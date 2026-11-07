@@ -1,5 +1,6 @@
 "use client";
 
+import { Pause, Play } from "lucide-react";
 import { useCallback, useMemo, useRef, useState } from "react";
 import { CAR_PALETTES, PAINT, carTone } from "@/lib/art";
 import { type Inks, hash, hexToRgb } from "@/lib/dither";
@@ -76,7 +77,7 @@ const roadOf = (h: number) => [h * 0.82, h * 0.95] as const;
  * press Drive to send it off. Day and night follow the site theme.
  */
 export function Scene() {
-  const { t, theme } = useSite();
+  const { t, theme, paused, togglePaused } = useSite();
   const night = theme === "dark";
   const car = useRef<Car>({ x: -1, v: 0, drag: false, grab: 0, lastPx: 0, until: 0, w: 1, h: 1 });
   const wrap = useRef<HTMLDivElement>(null);
@@ -207,6 +208,7 @@ export function Scene() {
 
   const drive = () => {
     const c = car.current;
+    if (paused) togglePaused(); // the scene is frozen; driving wakes it up
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
       c.x = c.x + c.w * 0.3 > c.w ? c.w * 0.1 : c.x + c.w * 0.3;
       setVersion((n) => n + 1);
@@ -223,6 +225,7 @@ export function Scene() {
         const [px, py] = cellAt(e);
         const c = car.current;
         if (onCar(px, py)) {
+          if (paused) togglePaused();
           c.drag = true;
           c.grab = px - c.x;
           c.lastPx = px;
@@ -263,6 +266,17 @@ export function Scene() {
           className="btn btn-ghost pointer-events-auto bg-tile/85 px-3.5 py-2 text-sm backdrop-blur-sm"
         >
           {t.hero.drive}
+        </button>
+        <button
+          type="button"
+          onPointerDown={(e) => e.stopPropagation()}
+          onClick={togglePaused}
+          aria-pressed={paused}
+          aria-label={paused ? t.hero.play : t.hero.pause}
+          title={paused ? t.hero.play : t.hero.pause}
+          className="btn btn-ghost pointer-events-auto grid size-10 place-items-center bg-tile/85 p-0 backdrop-blur-sm"
+        >
+          {paused ? <Play className="size-4 fill-current" /> : <Pause className="size-4 fill-current" />}
         </button>
       </div>
     </div>

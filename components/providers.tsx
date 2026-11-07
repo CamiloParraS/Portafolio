@@ -11,6 +11,9 @@ type Ctx = {
   toggleLang: () => void;
   theme: Theme;
   toggleTheme: () => void;
+  /** Visitor paused the decorative animation (WCAG 2.2.2); persisted like the theme. */
+  paused: boolean;
+  togglePaused: () => void;
 };
 
 const SiteContext = createContext<Ctx | null>(null);
@@ -33,6 +36,14 @@ const readLang = (): Lang => {
 };
 const readTheme = (): Theme => (document.documentElement.dataset.theme === "light" ? "light" : "dark");
 
+const readPaused = () => {
+  try {
+    return localStorage.getItem("motion") === "paused";
+  } catch {
+    return false;
+  }
+};
+
 const save = (key: string, value: string) => {
   try {
     localStorage.setItem(key, value);
@@ -42,6 +53,7 @@ const save = (key: string, value: string) => {
 export function Providers({ children }: { children: React.ReactNode }) {
   const lang = useSyncExternalStore(subscribe, readLang, () => "en" as Lang);
   const theme = useSyncExternalStore(subscribe, readTheme, () => "dark" as Theme);
+  const paused = useSyncExternalStore(subscribe, readPaused, () => false);
 
   useEffect(() => {
     document.documentElement.lang = lang;
@@ -60,8 +72,13 @@ export function Providers({ children }: { children: React.ReactNode }) {
     emit();
   }, []);
 
+  const togglePaused = useCallback(() => {
+    save("motion", readPaused() ? "playing" : "paused");
+    emit();
+  }, []);
+
   return (
-    <SiteContext.Provider value={{ lang, t: content[lang], toggleLang, theme, toggleTheme }}>
+    <SiteContext.Provider value={{ lang, t: content[lang], toggleLang, theme, toggleTheme, paused, togglePaused }}>
       {children}
     </SiteContext.Provider>
   );
