@@ -67,7 +67,10 @@ export function Providers({ children }: { children: React.ReactNode }) {
 
   const toggleTheme = useCallback(() => {
     const next = readTheme() === "dark" ? "light" : "dark";
-    document.documentElement.dataset.theme = next;
+    const root = document.documentElement;
+    root.classList.add("theme-fade");
+    window.setTimeout(() => root.classList.remove("theme-fade"), 350);
+    root.dataset.theme = next;
     save("theme", next);
     emit();
   }, []);

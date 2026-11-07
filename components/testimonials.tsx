@@ -27,7 +27,7 @@ export function Testimonials() {
         ))}
         {Array.from({ length: Math.max(0, SLOTS - testimonials.length) }, (_, i) => (
           <div key={i} className="flex min-h-56 flex-col rounded-[28px] border border-dashed border-line p-6 sm:p-8">
-            <Quote className="size-6 text-line" aria-hidden />
+            <Quote className="slot-pulse size-6 text-line" aria-hidden />
             <p className="mt-auto font-semibold">{s.pending}</p>
             <p className="mt-1 text-dim">{s.pendingBody}</p>
           </div>

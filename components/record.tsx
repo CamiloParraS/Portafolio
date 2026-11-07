@@ -15,10 +15,10 @@ function Timeline({ title, icon, entries }: { title: string; icon: React.ReactNo
       </h3>
       <ol className="mt-6 divide-y divide-line">
         {entries.map((e) => (
-          <li key={e.role} className="py-5 first:pt-0 last:pb-0">
+          <li key={e.role} className="group/row relative py-5 first:pt-0 last:pb-0 before:absolute before:inset-y-4 before:-left-4 before:w-0.5 before:origin-top before:scale-y-0 before:rounded-full before:bg-accent before:transition-transform before:duration-300 hover:before:scale-y-100 motion-reduce:before:transition-none sm:before:-left-6">
             <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-              <p className="text-lg font-semibold">{e.role}</p>
-              <p className="tabular text-sm text-dim">{e.when}</p>
+              <p className="text-lg font-semibold transition-colors duration-300 group-hover/row:text-accent-ink">{e.role}</p>
+              <p className="tabular text-sm text-dim transition-colors duration-300 group-hover/row:text-ink">{e.when}</p>
             </div>
             <p className="text-accent-ink">{e.where}</p>
             <p className="mt-2 leading-relaxed text-dim">{e.body}</p>

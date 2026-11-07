@@ -11,6 +11,8 @@ type Props = {
   /** CSS pixels per dither cell. */
   cell?: number;
   animate?: boolean;
+  /** Runs only while the nearest `[data-art-host]` ancestor is hovered or focused; time is 0 when idle. */
+  hover?: boolean;
   /** Runs once per frame before painting, with the grid size in cells. */
   onFrame?: (time: number, w: number, h: number) => void;
   /** Extra ink sets a tone can pick with `2 * region + t`; region 1 is `palette[0]`. */
@@ -23,7 +25,7 @@ type Props = {
  * Fills its parent with ordered-dither art. Animated art runs at ~30fps, only while on
  * screen, and stays on its first frame under reduced motion or when the visitor pauses it.
  */
-export function DitherCanvas({ tone, cell = 3, animate = false, onFrame, palette, label, className = "" }: Props) {
+export function DitherCanvas({ tone, cell = 3, animate = false, hover = false, onFrame, palette, label, className = "" }: Props) {
   const ref = useRef<HTMLCanvasElement>(null);
   const toneRef = useRef(tone);
   const frameRef = useRef(onFrame);
@@ -38,7 +40,10 @@ export function DitherCanvas({ tone, cell = 3, animate = false, onFrame, palette
     const canvas = ref.current!;
     const ctx = canvas.getContext("2d")!;
     const inks = readInks(canvas);
-    const still = !animate || paused || matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const host = hover ? canvas.closest<HTMLElement>("[data-art-host]") : null;
+    let hot = false;
+    const runs = () => !paused && !reduced && (animate || (hot && !!host));
     let img: ImageData | null = null;
     let raf = 0;
     let visible = false;
@@ -76,7 +81,7 @@ export function DitherCanvas({ tone, cell = 3, animate = false, onFrame, palette
     };
     const sync = () => {
       stop();
-      if (visible && !still && !document.hidden) raf = requestAnimationFrame(loop);
+      if (visible && runs() && !document.hidden) raf = requestAnimationFrame(loop);
     };
 
     const ro = new ResizeObserver(resize);
@@ -96,13 +101,32 @@ export function DitherCanvas({ tone, cell = 3, animate = false, onFrame, palette
     io.observe(canvas);
     document.addEventListener("visibilitychange", sync);
 
+    const warm = () => {
+      hot = true;
+      sync();
+    };
+    const cool = () => {
+      hot = false;
+      last = 0;
+      if (visible) draw(0);
+      sync();
+    };
+    host?.addEventListener("pointerenter", warm);
+    host?.addEventListener("pointerleave", cool);
+    host?.addEventListener("focusin", warm);
+    host?.addEventListener("focusout", cool);
+
     return () => {
       ro.disconnect();
       io.disconnect();
       document.removeEventListener("visibilitychange", sync);
+      host?.removeEventListener("pointerenter", warm);
+      host?.removeEventListener("pointerleave", cool);
+      host?.removeEventListener("focusin", warm);
+      host?.removeEventListener("focusout", cool);
       stop();
     };
-  }, [animate, paused, cell, theme, palette]);
+  }, [animate, hover, paused, cell, theme, palette]);
 
   return (
     <canvas

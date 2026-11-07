@@ -17,13 +17,13 @@ export function Hero() {
       className="grid gap-3 pt-6 sm:gap-4 md:h-[calc(100svh-6rem)] md:min-h-155 md:max-h-245 md:grid-cols-4 md:grid-rows-[auto_minmax(0,1fr)]"
     >
       <div className="tile relative flex flex-col justify-center p-5 sm:p-8 md:col-span-3 md:p-10">
-        <h1 className="text-4xl font-bold tracking-[-0.04em] min-[420px]:text-5xl sm:text-7xl xl:text-8xl">
+        <h1 style={{ "--i": 0 } as React.CSSProperties} className="enter text-4xl font-bold tracking-[-0.04em] min-[420px]:text-5xl sm:text-7xl xl:text-8xl">
           {t.hero.name}
         </h1>
-        <p className="mt-3 max-w-[52ch] text-base leading-relaxed text-dim sm:mt-4 sm:text-lg">
+        <p style={{ "--i": 1 } as React.CSSProperties} className="enter mt-3 max-w-[52ch] text-base leading-relaxed text-dim sm:mt-4 sm:text-lg">
           {t.hero.lead}
         </p>
-        <div className="mt-5 flex flex-wrap gap-3 sm:mt-7">
+        <div style={{ "--i": 2 } as React.CSSProperties} className="enter mt-5 flex flex-wrap gap-3 sm:mt-7">
           {links.cvReady ? (
             <a href={links.cv} download className="btn btn-primary">
               <Download className="size-4.5" />
@@ -39,7 +39,7 @@ export function Hero() {
             {t.hero.work}
           </a>
         </div>
-        <p className="mt-5 flex items-center gap-2 text-sm text-dim">
+        <p style={{ "--i": 3 } as React.CSSProperties} className="enter mt-5 flex items-center gap-2 text-sm text-dim">
           <span aria-hidden className="size-2 rounded-full bg-accent" />
           {t.hero.open}
         </p>
@@ -52,10 +52,12 @@ export function Hero() {
 
       <a
         href={`#${magi.id}`}
-        className="tile on-accent group relative flex min-h-56 md:col-span-2 flex-col overflow-hidden border-transparent bg-accent text-on-accent"
+        data-art-host className="tile lift on-accent group relative flex min-h-56 md:col-span-2 flex-col overflow-hidden border-transparent bg-accent text-on-accent"
       >
         <div className="relative min-h-32 flex-1">
-          <ProjectArt id="magi" />
+          <div className="zoom absolute inset-0">
+            <ProjectArt id="magi" />
+          </div>
         </div>
         <div className="p-6">
           <h2 className="flex items-center justify-between text-3xl font-bold tracking-tight">
@@ -68,10 +70,12 @@ export function Hero() {
 
       <a
         href={`#${ghost.id}`}
-        className="tile group relative flex min-h-56 flex-col overflow-hidden md:col-span-2 transition-colors hover:border-dim"
+        data-art-host className="tile lift group relative flex min-h-56 flex-col overflow-hidden md:col-span-2"
       >
         <div className="relative min-h-32 flex-1">
-          <ProjectArt id="ghost" />
+          <div className="zoom absolute inset-0">
+            <ProjectArt id="ghost" />
+          </div>
         </div>
         <div className="p-6">
           <h2 className="flex items-center justify-between text-3xl font-bold tracking-tight">

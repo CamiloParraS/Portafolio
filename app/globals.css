@@ -186,14 +186,59 @@ h3 {
     pointer-events: none;
   }
   
+  /* Underline: a faint rule always, the accent one draws in left to right on hover. */
   .link {
-    text-decoration: underline;
-    text-decoration-color: color-mix(in oklab, var(--accent-ink) 50%, transparent);
-    text-underline-offset: 0.25em;
-    text-decoration-thickness: 1px;
+    background-image:
+      linear-gradient(var(--accent-ink), var(--accent-ink)),
+      linear-gradient(color-mix(in oklab, var(--accent-ink) 50%, transparent), color-mix(in oklab, var(--accent-ink) 50%, transparent));
+    background-repeat: no-repeat;
+    background-position: 0 calc(100% - 0.02em);
+    background-size: 0% 1px, 100% 1px;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    padding-bottom: 0.1em;
+    transition: background-size 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   }
-  .link:hover {
-    text-decoration-color: var(--accent-ink);
+  .link:hover,
+  .link:focus-visible {
+    background-size: 100% 1px, 100% 1px;
+  }
+
+  /* Linked / hoverable cards: 1px lift, art zooms inside its frame. */
+  .lift {
+    transition:
+      transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+      border-color 0.25s ease;
+  }
+  .lift:hover {
+    border-color: var(--dim);
+  }
+  .zoom {
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .chip {
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease;
+  }
+  .chip:hover {
+    background: var(--line);
+    color: var(--ink);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .lift:hover {
+      transform: translateY(-1px);
+    }
+    .lift:hover .zoom,
+    .lift:focus-within .zoom {
+      transform: scale(1.025);
+    }
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+    .btn:active {
+      transform: scale(0.97);
+    }
   }
 }
 
@@ -217,4 +262,39 @@ h3 {
 @media (prefers-reduced-motion: reduce) {
   .demo-dialog[open],
   .demo-dialog[open]::backdrop { animation: none; }
+}
+
+/* Hero intro: the first screen's text settles in once on load. */
+@keyframes enter {
+  from { opacity: 0; transform: translateY(12px); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .enter {
+    animation: enter 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: calc(var(--i, 0) * 80ms);
+  }
+}
+
+/* Empty testimonial slots: two soft pulses, then rest (no endless motion). */
+@keyframes slot-pulse {
+  50% { opacity: 1; transform: scale(1.12); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .slot-pulse {
+    animation: slot-pulse 2.5s ease-in-out 2;
+  }
+}
+
+/* Theme switch: colours cross-fade for a moment (class set by the toggle). */
+@media (prefers-reduced-motion: no-preference) {
+  html.theme-fade *,
+  html.theme-fade *::before,
+  html.theme-fade *::after {
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease,
+      border-color 0.3s ease,
+      fill 0.3s ease,
+      box-shadow 0.3s ease !important;
+  }
 }

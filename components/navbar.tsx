@@ -10,6 +10,7 @@ export function Navbar() {
   const { t, toggleLang, theme, toggleTheme } = useSite();
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState<(typeof ids)[number] | null>(null);
+  const [scrolled, setScrolled] = useState(false);
   const [pill, setPill] = useState({ x: 0, w: 0 });
   const links = useRef<Record<string, HTMLAnchorElement | null>>({});
 
@@ -26,8 +27,11 @@ export function Navbar() {
       }
       setActive(current);
     };
-    const onScroll = () => (raf ||= requestAnimationFrame(spy));
-    spy();
+    const onScroll = () => {
+      setScrolled(window.scrollY > 8);
+      raf ||= requestAnimationFrame(spy);
+    };
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => {
       window.removeEventListener("scroll", onScroll);
@@ -66,7 +70,7 @@ export function Navbar() {
       </a>
       <nav
         aria-label="Main"
-        className="mx-auto flex h-14 max-w-6xl items-center justify-between rounded-full border border-line bg-tile/85 pr-2 pl-5 shadow-[0_8px_24px_-12px_rgb(0_0_0/0.35)] backdrop-blur-md"
+        className={`mx-auto flex h-14 max-w-6xl items-center justify-between rounded-full border pr-2 pl-5 backdrop-blur-md transition-[box-shadow,background-color,border-color] duration-300 motion-reduce:transition-none ${scrolled ? "border-line bg-tile/85 shadow-[0_8px_24px_-12px_rgb(0_0_0/0.35)]" : "border-transparent bg-tile/50 shadow-none"}`}
       >
         <a
           href="#top"
@@ -120,11 +124,14 @@ export function Navbar() {
             aria-label={theme === "dark" ? t.nav.toLight : t.nav.toDark}
             className={iconBtn}
           >
-            {theme === "dark" ? (
-              <Sun className="size-4.5" />
-            ) : (
-              <Moon className="size-4.5" />
-            )}
+            <span className="relative grid size-4.5 place-items-center">
+              <Sun
+                className={`absolute size-4.5 transition-[opacity,rotate,scale] duration-300 motion-reduce:transition-none ${theme === "dark" ? "rotate-0 scale-100 opacity-100" : "-rotate-90 scale-50 opacity-0"}`}
+              />
+              <Moon
+                className={`absolute size-4.5 transition-[opacity,rotate,scale] duration-300 motion-reduce:transition-none ${theme === "dark" ? "rotate-90 scale-50 opacity-0" : "rotate-0 scale-100 opacity-100"}`}
+              />
+            </span>
           </button>
           <button
             type="button"

@@ -42,7 +42,9 @@ function Art({ p }: { p: Project }) {
   const { t } = useSite();
   return (
     <>
-      <ProjectArt id={p.id} />
+      <div className="zoom absolute inset-0">
+        <ProjectArt id={p.id} />
+      </div>
       <span className="absolute bottom-3 left-3 rounded-full bg-tile/85 px-2.5 py-1 text-xs text-dim backdrop-blur-sm">
         {t.work.artNote}
       </span>
@@ -54,7 +56,7 @@ function Tags({ tags }: { tags: string[] }) {
   return (
     <ul className="mt-4 flex flex-wrap gap-2">
       {tags.map((tag) => (
-        <li key={tag} className="rounded-full bg-ground px-3 py-1 text-sm text-dim">
+        <li key={tag} className="chip rounded-full bg-ground px-3 py-1 text-sm text-dim">
           {tag}
         </li>
       ))}
@@ -70,7 +72,7 @@ export function Projects() {
     <Section id="work" title={t.work.title} intro={t.work.intro}>
       <div className="grid gap-3 sm:gap-4">
         {[first, second].map((p, i) => (
-          <article key={p.id} id={p.id} className="tile grid overflow-hidden md:grid-cols-5">
+          <article key={p.id} id={p.id} data-art-host className="tile lift grid overflow-hidden md:grid-cols-5">
             <div className={`relative min-h-60 md:col-span-3 md:min-h-96 ${i % 2 ? "md:order-2" : ""}`}>
               <Art p={p} />
             </div>
@@ -88,7 +90,7 @@ export function Projects() {
 
         <div className="grid gap-3 sm:gap-4 md:grid-cols-3">
           {rest.map((p) => (
-            <article key={p.id} id={p.id} className="tile flex flex-col overflow-hidden">
+            <article key={p.id} id={p.id} data-art-host className="tile lift flex flex-col overflow-hidden">
               <div className="relative h-44">
                 <Art p={p} />
               </div>
