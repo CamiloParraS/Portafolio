@@ -22,6 +22,7 @@ export function DitherImage({ src, alt, cell = 3, color = false, className = "" 
   useEffect(() => {
     const canvas = ref.current!;
     const photo = new Image();
+    if (src.startsWith("http")) photo.crossOrigin = "anonymous";
     let cancelled = false;
 
     const draw = () => {
