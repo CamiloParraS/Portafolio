@@ -4,16 +4,21 @@ import { ArrowUp } from "lucide-react";
 import { links } from "@/lib/content";
 import { GitHub, LinkedIn } from "./brand-icons";
 import { useSite } from "./providers";
+import { Scene } from "./scene";
 
 export function Footer() {
   const { t } = useSite();
   return (
-    <footer className="mt-24 border-t border-line py-10 sm:mt-32">
-      <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+    <footer className="mt-24 pb-10 sm:mt-32">
+      {/* Galeras over Pasto, drivable: the page's sign-off. */}
+      <div className="tile relative h-[clamp(220px,34vh,340px)] overflow-hidden">
+        <Scene />
+      </div>
+      <div className="mt-8 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p className="font-display text-lg font-bold tracking-tight">Camilo Parra</p>
           <p className="text-sm text-dim">
-            © 2026 · Pasto, Colombia · {t.footer.built}
+            © 2026 · {t.footer.built}
           </p>
         </div>
         <div className="flex items-center gap-1">

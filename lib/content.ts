@@ -239,7 +239,7 @@ const en = {
     invalid: "Please fill in your name, a valid email and a message.",
   },
   footer: {
-    built: "Built with Next.js and a hand-rolled dither.",
+    built: "Made with love in Pasto, Colombia.",
     top: "Back to top",
   },
 };
@@ -473,7 +473,7 @@ const es: Content = {
     invalid: "Escribe tu nombre, un correo válido y un mensaje.",
   },
   footer: {
-    built: "Hecho con Next.js y un tramado hecho a mano.",
+    built: "Hecho con cariño en Pasto, Colombia.",
     top: "Volver arriba",
   },
 };
