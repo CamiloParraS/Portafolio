@@ -47,9 +47,19 @@ export function Contact() {
       const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({ access_key: FORM_KEY, subject: `Portfolio: ${name}`, name, email, message }),
+        body: JSON.stringify({
+          access_key: FORM_KEY,
+          subject: `Portfolio: ${name}`,
+          from_name: "Portfolio",
+          name,
+          email,
+          message,
+          botcheck: data.get("botcheck") ?? "",
+        }),
       });
-      if (!res.ok) throw new Error(String(res.status));
+      // Web3Forms answers { success: false } for a bad key or a blocked submission, so the body decides.
+      const json: { success?: boolean } = await res.json().catch(() => ({}));
+      if (!res.ok || json.success !== true) throw new Error(String(res.status));
       form.reset();
       setStatus("sent");
     } catch {
@@ -58,7 +68,7 @@ export function Contact() {
   };
 
   const field =
-    "mt-2 w-full rounded-2xl border border-line bg-ground px-4 py-3 text-ink placeholder:text-dim/80 transition-colors focus:border-accent-ink focus:outline-none";
+    "mt-2 w-full rounded-2xl border border-line bg-ground px-4 py-3 text-ink placeholder:text-dim transition-colors focus:border-accent-ink focus:outline-none";
 
   const enter = "inline-block transition-[opacity,translate] duration-200 ease-out starting:translate-y-1 starting:opacity-0 motion-reduce:starting:translate-y-0";
 
@@ -70,7 +80,7 @@ export function Contact() {
             {links.email}
           </a>
           <div className="mt-6 flex flex-wrap gap-2">
-            <button type="button" onClick={copy} className="btn btn-ghost py-2.5 text-sm" aria-live="polite">
+            <button type="button" onClick={copy} className="btn btn-ghost py-2.5 text-sm">
               {copied ? <Check className="size-4 text-accent-ink transition-[opacity,scale] duration-200 ease-out starting:scale-75 starting:opacity-0" /> : <Copy className="size-4" />}
               {copied ? c.copied : c.copy}
             </button>
@@ -87,24 +97,26 @@ export function Contact() {
         </div>
 
         <form onSubmit={submit} noValidate className="grid gap-4">
+          {/* Honeypot: people never see it, bots fill it, Web3Forms drops those submissions. */}
+          <input type="checkbox" name="botcheck" tabIndex={-1} autoComplete="off" aria-hidden className="hidden" />
           <label className="block text-sm font-medium">
             {c.name}
-            <input name="name" autoComplete="name" placeholder={c.namePh} className={field} />
+            <input name="name" aria-invalid={status === "invalid" || undefined} autoComplete="name" placeholder={c.namePh} className={field} />
           </label>
           <label className="block text-sm font-medium">
             {c.email}
-            <input name="email" type="email" autoComplete="email" placeholder={c.emailPh} className={field} />
+            <input name="email" aria-invalid={status === "invalid" || undefined} type="email" autoComplete="email" placeholder={c.emailPh} className={field} />
           </label>
           <label className="block text-sm font-medium">
             {c.message}
-            <textarea name="message" rows={4} placeholder={c.messagePh} className={`${field} resize-y`} />
+            <textarea name="message" aria-invalid={status === "invalid" || undefined} rows={4} placeholder={c.messagePh} className={`${field} resize-y`} />
           </label>
           <div className="flex flex-wrap items-center gap-4">
             <button type="submit" disabled={status === "sending"} className="btn btn-primary">
               {FORM_KEY ? <Send className="size-[18px]" /> : <Mail className="size-[18px]" />}
               {status === "sending" ? c.sending : c.send}
             </button>
-            <p role="status" className="text-sm">
+            <p role="status" aria-live="polite" className="text-sm">
               {status === "sent" && <span className={`text-accent-ink ${enter}`}>{c.sent}</span>}
               {status === "invalid" && <span className={`text-dim ${enter}`}>{c.invalid}</span>}
               {status === "error" && (
