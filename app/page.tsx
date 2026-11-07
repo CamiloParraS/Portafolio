@@ -22,8 +22,8 @@ export default function Home() {
         <Testimonials />
         <OffCode />
         <Contact />
-        <Footer />
       </main>
+      <Footer />
     </>
   );
 }

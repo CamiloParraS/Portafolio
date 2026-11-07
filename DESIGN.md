@@ -101,7 +101,7 @@ components:
 
 **Creative North Star: "The Lit Bento"**
 
-A familiar, soft-cornered bento grid on a near-black (Night) or porcelain (Day) ground, where the tiles are not interchangeable cards: they differ in size, material and job. The lead tile is the portrait, half the hero wide. The one living thing is a canvas scene of Galeras over Pasto printed in ordered dither, with a car the visitor can drive, in the footer. Everything else is still. The page earns its "engineered" claim through the artwork engine, not through terminal styling.
+A familiar, soft-cornered bento grid on a near-black (Night) or porcelain (Day) ground, where the tiles are not interchangeable cards: they differ in size, material and job. The lead tile is the intro, with the portrait as a one-column companion. The one living thing is a canvas scene of Galeras over Pasto printed in ordered dither, with a car the visitor can drive, in the footer. Everything else is still. The page earns its "engineered" claim through the artwork engine, not through terminal styling.
 
 Artwork is printed, not illustrated: every image surface (the scene, project art) is rendered on canvas in the theme's own three-step cyan ink ramp, so one theme switch repaints all art at once. Photos show true tone by default and reprint in dither on hover, focus or tap. Dither lives inside tiles only; text and UI stay clean, high-legibility sans.
 
@@ -159,7 +159,7 @@ A near-monochrome pair of grounds carrying a single saturated cyan, with the cya
 
 A single centered column capped at 1152px with 16px side padding (24px from 640px). Each section opens with a shared frame: a large headline, with an optional short intro that sits right-aligned on the same baseline row from 640px and stacks below it on mobile. Sections are spaced 96px apart (128px from 640px). Inside, tiles sit on a bento grid with 12px gaps (16px from 640px): 4 columns in the hero, 6 in About and Off-code, 5 in flagship project rows (art 3, text 2, alternating sides), 3 for secondary projects and testimonials. All grids collapse to one column below 768px.
 
-Tile padding is 24px on mobile and 32px to 40px from 640px. From 768px the hero fills the first screen (`100svh - 6rem`, clamped between 620px and 980px): the portrait tile takes the left two columns and both rows; the intro tile and the two project tiles stack on its right. Below 768px the portrait is a square tile above the intro. The footer scene is `clamp(220px, 34vh, 340px)` tall. The nav is sticky, 12 to 16px from the top, and scroll padding clears it by 6rem.
+Tile padding is 24px on mobile and 32px to 40px from 640px. From 768px the hero fills the first screen (`100svh - 6rem`, clamped between 620px and 980px): the intro takes three columns and the portrait one on the first row, and the two project tiles take two columns each below. Below 768px they stack, with the portrait a short banner under the intro. The footer scene runs edge to edge, `clamp(220px, 34vh, 360px)` tall. The nav is sticky, 12 to 16px from the top, and scroll padding clears it by 6rem.
 
 ## Elevation & Depth
 

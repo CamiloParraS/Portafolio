@@ -11,10 +11,10 @@ export function Footer() {
   return (
     <footer className="mt-24 pb-10 sm:mt-32">
       {/* Galeras over Pasto, drivable: the page's sign-off. */}
-      <div className="tile relative h-[clamp(220px,34vh,340px)] overflow-hidden">
+      <div className="relative h-[clamp(220px,34vh,360px)] overflow-hidden border-y border-line bg-tile">
         <Scene />
       </div>
-      <div className="mt-8 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+      <div className="mx-auto mt-8 flex max-w-6xl px-4 sm:px-6 flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p className="font-display text-lg font-bold tracking-tight">Camilo Parra</p>
           <p className="text-sm text-dim">
