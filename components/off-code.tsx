@@ -5,6 +5,7 @@ import { CAR_PALETTES, garageArt } from "@/lib/art";
 import { DitherCanvas } from "./dither-canvas";
 import { DitherImage } from "./dither-image";
 import { useSite } from "./providers";
+import { OffCodeCarousel, slideClass } from "./off-code-more";
 import { Section } from "./section";
 
 // Steam store banners, keyed by the titles in lib/content.ts (the same in both languages).
@@ -22,8 +23,8 @@ export function OffCode() {
 
   return (
     <Section id="offcode" title={o.title} intro={o.intro}>
-      <div className="grid gap-3 sm:gap-4 md:grid-cols-6">
-        <article className="tile flex flex-col overflow-hidden md:col-span-3">
+      <OffCodeCarousel>
+        <li className={`${slideClass} flex flex-col overflow-hidden`}>
           <div className="relative h-52">
             <DitherCanvas tone={garageArt} palette={CAR_PALETTES} />
           </div>
@@ -48,9 +49,9 @@ export function OffCode() {
               ))}
             </ul>
           </div>
-        </article>
+        </li>
 
-        <article className="tile p-6 sm:p-8 md:col-span-3">
+        <li className={`${slideClass} p-6 sm:p-8`}>
           <h3 className="text-3xl font-bold tracking-tight">{o.gamesTitle}</h3>
           <p className="mt-2 text-dim">{o.gamesBody}</p>
           <ul className="mt-5 divide-y divide-line">
@@ -70,9 +71,11 @@ export function OffCode() {
               </li>
             ))}
           </ul>
-        </article>
+        </li>
+      </OffCodeCarousel>
 
-        <article className="tile grid overflow-hidden sm:grid-cols-3 md:col-span-6">
+      <div className="mt-3 sm:mt-4">
+        <article className="tile grid overflow-hidden sm:grid-cols-3">
           <DitherImage
             src="/img/Nintedo64.jpg"
             alt={o.originAlt}

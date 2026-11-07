@@ -4,7 +4,7 @@ import { Menu, Moon, Sun, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useSite } from "./providers";
 
-const ids = ["work", "about", "record", "offcode", "contact"] as const;
+const ids = ["work", "about", "record", "testimonials", "offcode", "contact"] as const;
 
 export function Navbar() {
   const { t, toggleLang, theme, toggleTheme } = useSite();
