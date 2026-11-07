@@ -13,7 +13,7 @@ export const es: Content = {
     work: "Proyectos",
     about: "Sobre mí",
     record: "Trayectoria",
-    testimonials: "Opiniones",
+    testimonials: "Testimonios",
     offcode: "Fuera del código",
     contact: "Contacto",
     menu: "Menú",
@@ -85,9 +85,22 @@ export const es: Content = {
       },
       {
         group: "Herramientas",
-        items: ["Git", "GitHub", "Docker", "PostgreSQL", "AWS", "Vercel", "Arduino", "ESP32", "Gradle"],
+        items: [
+          "Git",
+          "GitHub",
+          "Docker",
+          "PostgreSQL",
+          "AWS",
+          "Vercel",
+          "Arduino",
+          "ESP32",
+          "Gradle",
+        ],
       },
-      { group: "Editores", items: ["Zed", "JetBrains", "VS Code", "Android Studio"] },
+      {
+        group: "Editores",
+        items: ["Zed", "JetBrains", "VS Code", "Android Studio"],
+      },
     ],
     factsTitle: "Datos rápidos",
     facts: [
@@ -100,8 +113,7 @@ export const es: Content = {
   },
   work: {
     title: "Proyectos",
-    intro:
-      "Cosas que he construido. Los dos primeros son de los que hablaría en una entrevista.",
+    intro: "Cosas que he construido.",
     code: "Código",
     demo: "Demo",
     demoPending: "Demo pronto",
@@ -161,14 +173,14 @@ export const es: Content = {
   testimonials: {
     title: "Palabras amables",
     intro:
-      "Reservado para personas con las que he trabajado. Ya vienen en camino; no me las voy a inventar.",
+      "Reservado para personas con las que he trabajado. Ya vienen en camino, no me las voy a inventar.",
     pending: "Testimonio pendiente",
     pendingBody:
       "Este espacio está guardado para alguien que haya trabajado conmigo.",
   },
   record: {
     title: "Trayectoria",
-    intro: "Por dónde he pasado, sin inflar nada.",
+    intro: "Por dónde he pasado.",
     experienceTitle: "Experiencia",
     experience: [
       {
@@ -247,7 +259,7 @@ export const es: Content = {
   },
   contact: {
     title: "Hablemos",
-    intro: "Prácticas, primer empleo o una pregunta sobre MAGI.",
+    intro: "Prácticas, primer empleo o culaquier cosa.",
     where: "Pasto, Colombia · UTC−5",
     copy: "Copiar correo",
     copied: "Copiado",

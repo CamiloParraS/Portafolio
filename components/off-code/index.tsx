@@ -13,7 +13,7 @@ export function OffCode() {
   const o = t.offcode;
 
   return (
-    <Section id="offcode" title={o.title} intro={o.intro}>
+    <Section id="offcode" title={o.title} intro={o.intro} tight>
       <OffCodeCarousel>
         <CarsSlide />
         <GamesSlide />

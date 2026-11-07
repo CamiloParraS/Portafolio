@@ -1,10 +1,10 @@
-type Props = { id: string; title: string; intro?: string; children: React.ReactNode };
+type Props = { id: string; title: string; intro?: string; tight?: boolean; children: React.ReactNode };
 
 /** Shared section frame: one heading voice and one rhythm for every section. */
-export function Section({ id, title, intro, children }: Props) {
+export function Section({ id, title, intro, tight, children }: Props) {
   return (
     <section id={id} aria-labelledby={`${id}-title`} className="pt-24 sm:pt-32">
-      <div className="mb-8 flex flex-col gap-3 sm:mb-10 sm:flex-row sm:items-end sm:justify-between">
+      <div className={`flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between ${tight ? "mb-4 sm:mb-5" : "mb-8 sm:mb-10"}`}>
         <h2 id={`${id}-title`} className="text-4xl font-bold tracking-[-0.03em] sm:text-6xl">
           {title}
         </h2>

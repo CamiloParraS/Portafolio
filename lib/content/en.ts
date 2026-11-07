@@ -85,9 +85,22 @@ export const en = {
       },
       {
         group: "Tools",
-        items: ["Git", "GitHub", "Docker", "PostgreSQL", "AWS", "Vercel", "Arduino", "ESP32", "Gradle"],
+        items: [
+          "Git",
+          "GitHub",
+          "Docker",
+          "PostgreSQL",
+          "AWS",
+          "Vercel",
+          "Arduino",
+          "ESP32",
+          "Gradle",
+        ],
       },
-      { group: "IDEs", items: ["Zed", "JetBrains", "VS Code", "Android Studio"] },
+      {
+        group: "IDEs",
+        items: ["Zed", "JetBrains", "VS Code", "Android Studio"],
+      },
     ],
     factsTitle: "Quick facts",
     facts: [
@@ -100,8 +113,7 @@ export const en = {
   },
   work: {
     title: "Work",
-    intro:
-      "Things I've built. The first two are the ones I'd talk about in an interview.",
+    intro: "Things I've built.",
     code: "Code",
     demo: "Demo",
     demoPending: "Demo soon",
@@ -165,7 +177,7 @@ export const en = {
   },
   record: {
     title: "Record",
-    intro: "Where I've been, without the inflation.",
+    intro: "Where I've been",
     experienceTitle: "Experience",
     experience: [
       {
@@ -244,7 +256,7 @@ export const en = {
   },
   contact: {
     title: "Let's talk",
-    intro: "Internship, first role, or just a question about MAGI.",
+    intro: "Internship, first role, or something.",
     where: "Pasto, Colombia · UTC−5",
     copy: "Copy email",
     copied: "Copied",

@@ -12,15 +12,15 @@ export function CarsSlide() {
 
   return (
     <div className={`${slideClass} flex flex-col overflow-hidden`}>
-      <div className="relative h-52">
+      <div className="relative h-36">
         <DitherCanvas tone={garageArt} palette={CAR_PALETTES} />
       </div>
-      <div className="flex flex-1 flex-col p-6 sm:p-8">
+      <div className="flex flex-1 flex-col p-5 sm:p-6">
         <h3 className="text-3xl font-bold tracking-tight">{o.carsTitle}</h3>
         <p className="mt-3 max-w-[48ch] leading-relaxed text-dim">
           {o.carsBody}
         </p>
-        <ul className="mt-auto flex flex-wrap gap-x-5 gap-y-2 pt-6">
+        <ul className="mt-auto flex flex-wrap gap-x-5 gap-y-2 pt-4">
           {o.carsRepos.map((r) => (
             <li key={r.name}>
               <a

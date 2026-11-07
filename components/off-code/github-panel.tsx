@@ -33,7 +33,9 @@ export function GithubPanel() {
   const fmt = (n?: number) => (n === undefined ? "–" : n.toLocaleString(lang));
   const stats = state && state !== "error" ? state : null;
   // Weeks run in columns starting on Sunday, so pad the first column up to the first day's weekday.
-  const pad = stats ? new Date(`${stats.days[0].date}T00:00:00Z`).getUTCDay() : 0;
+  const pad = stats
+    ? new Date(`${stats.days[0].date}T00:00:00Z`).getUTCDay()
+    : 0;
   const items: [string, string][] = stats
     ? [
         [m.statContributions, fmt(stats.year)],
@@ -47,7 +49,6 @@ export function GithubPanel() {
   return (
     <>
       <h3 className="text-3xl font-bold tracking-tight">{m.activityTitle}</h3>
-      <p className="mt-2 text-dim">{m.activityBody}</p>
 
       <div
         role="img"
@@ -56,14 +57,18 @@ export function GithubPanel() {
         style={{ gridTemplateColumns: "repeat(53, minmax(0, 1fr))" }}
       >
         {stats
-          ? [...Array.from({ length: pad }, () => null), ...stats.days].map((d, i) => (
-              <span
-                key={i}
-                title={d ? `${d.date}: ${d.count}` : undefined}
-                className="aspect-square rounded-[2px] transition-transform duration-150 hover:scale-150 motion-reduce:transition-none"
-                style={{ background: d ? levelColor[d.level] : "transparent" }}
-              />
-            ))
+          ? [...Array.from({ length: pad }, () => null), ...stats.days].map(
+              (d, i) => (
+                <span
+                  key={i}
+                  title={d ? `${d.date}: ${d.count}` : undefined}
+                  className="aspect-square rounded-[2px] transition-transform duration-150 hover:scale-150 motion-reduce:transition-none"
+                  style={{
+                    background: d ? levelColor[d.level] : "transparent",
+                  }}
+                />
+              ),
+            )
           : Array.from({ length: 371 }, (_, i) => (
               <span
                 key={i}
@@ -77,15 +82,21 @@ export function GithubPanel() {
         <dl className="mt-6 grid grid-cols-2 gap-x-4 gap-y-4 sm:grid-cols-3">
           {items.map(([label, value]) => (
             <div key={label}>
-              <dd className="tabular font-display text-3xl font-bold tracking-tight">{value}</dd>
+              <dd className="tabular font-display text-3xl font-bold tracking-tight">
+                {value}
+              </dd>
               <dt className="text-sm text-dim">{label}</dt>
             </div>
           ))}
         </dl>
       )}
 
-      <a href={links.github} target="_blank" rel="noreferrer" className="link mt-6 inline-flex items-center gap-1 font-medium">
-        {m.activityProfile}
+      <a
+        href={links.github}
+        target="_blank"
+        rel="noreferrer"
+        className="link mt-6 inline-flex items-center gap-1 font-medium"
+      >
         <ArrowUpRight className="size-4 text-accent-ink" />
       </a>
     </>

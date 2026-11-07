@@ -1,7 +1,7 @@
 "use client";
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useLayoutEffect, useRef } from "react";
+import { Children, useLayoutEffect, useRef, useState } from "react";
 import { useSite } from "../providers";
 import { GithubPanel } from "./github-panel";
 import { MusicPanel } from "./music-panel";
@@ -14,10 +14,12 @@ export const slideClass = "tile lift snap-start shrink-0 basis-[88%] md:basis-[c
 function Extra({ children }: { children: React.ReactNode }) {
   return (
     <div className={`${slideClass} relative`}>
-      <div className="absolute inset-0 overflow-y-auto p-6 sm:p-8">{children}</div>
+      <div className="absolute inset-0 overflow-y-auto p-5 sm:p-6">{children}</div>
     </div>
   );
 }
+
+const EXTRAS = 4; // music, GitHub, now playing, photos (see Slides)
 
 function Slides({ children }: { children: React.ReactNode }) {
   return (
@@ -48,6 +50,21 @@ export function OffCodeCarousel({ children }: { children: React.ReactNode }) {
   const { t } = useSite();
   const m = t.offcode.more;
   const track = useRef<HTMLDivElement>(null);
+  const count = Children.count(children) + EXTRAS;
+  const [active, setActive] = useState(0);
+
+  // Distance between two neighbouring slides' left edges.
+  const step = () => {
+    const kids = track.current?.children[1]?.children;
+    const a = kids?.[0] as HTMLElement | undefined;
+    const b = kids?.[1] as HTMLElement | undefined;
+    return a && b ? b.offsetLeft - a.offsetLeft : 0;
+  };
+
+  const goTo = (i: number) => {
+    const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    track.current?.scrollTo({ left: period() + i * step(), behavior: reduced ? "auto" : "smooth" });
+  };
 
   // Width of one full set of slides, measured from the first slide of the middle copy.
   const period = () => {
@@ -68,6 +85,8 @@ export function OffCodeCarousel({ children }: { children: React.ReactNode }) {
       else if (el.scrollLeft >= 2 * p) el.scrollLeft -= p;
     };
     const onScroll = () => {
+      const s = step();
+      if (s) setActive((((Math.round((el.scrollLeft - period()) / s) % count) + count) % count));
       window.clearTimeout(timer);
       timer = window.setTimeout(settle, 120);
     };
@@ -91,10 +110,39 @@ export function OffCodeCarousel({ children }: { children: React.ReactNode }) {
     el.scrollBy({ left: dir * (first.offsetWidth + 16), behavior: reduced ? "auto" : "smooth" });
   };
 
-  const arrow = "btn btn-ghost grid size-11 place-items-center p-0";
+  const arrow = "btn btn-ghost grid size-8 place-items-center p-0";
 
   return (
     <div role="region" aria-roledescription="carousel" aria-label={m.label}>
+      <div className="mb-2 flex items-center gap-2">
+        <span className="font-mono text-xs tabular-nums text-dim">
+          {String(active + 1).padStart(2, "0")} / {String(count).padStart(2, "0")}
+        </span>
+        <div className="ml-2 flex flex-1 items-center gap-1.5">
+          {Array.from({ length: count }, (_, i) => (
+            <button
+              key={i}
+              type="button"
+              onClick={() => goTo(i)}
+              aria-label={`${i + 1} / ${count}`}
+              aria-current={i === active || undefined}
+              className="group grid h-6 flex-1 place-items-center sm:max-w-12"
+            >
+              <span
+                className={`h-1 w-full rounded-full transition-colors duration-300 ${
+                  i === active ? "bg-accent" : "bg-current opacity-20 group-hover:opacity-40"
+                }`}
+              />
+            </button>
+          ))}
+        </div>
+        <button type="button" onClick={() => go(-1)} aria-label={m.prev} className={arrow}>
+          <ChevronLeft className="size-4" />
+        </button>
+        <button type="button" onClick={() => go(1)} aria-label={m.next} className={arrow}>
+          <ChevronRight className="size-4" />
+        </button>
+      </div>
       <div
         ref={track}
         tabIndex={0}
@@ -105,14 +153,6 @@ export function OffCodeCarousel({ children }: { children: React.ReactNode }) {
             <Slides>{children}</Slides>
           </div>
         ))}
-      </div>
-      <div className="mt-4 flex justify-end gap-2">
-        <button type="button" onClick={() => go(-1)} aria-label={m.prev} className={arrow}>
-          <ChevronLeft className="size-5" />
-        </button>
-        <button type="button" onClick={() => go(1)} aria-label={m.next} className={arrow}>
-          <ChevronRight className="size-5" />
-        </button>
       </div>
     </div>
   );
