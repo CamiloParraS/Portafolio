@@ -107,10 +107,10 @@ function Music() {
 
 const levelColor = [
   "var(--line)",
-  "color-mix(in oklab, var(--accent) 30%, var(--line))",
-  "color-mix(in oklab, var(--accent) 55%, var(--line))",
-  "color-mix(in oklab, var(--accent) 80%, var(--line))",
-  "var(--accent)",
+  "color-mix(in oklab, var(--accent-ink) 40%, var(--line))",
+  "color-mix(in oklab, var(--accent-ink) 65%, var(--line))",
+  "color-mix(in oklab, var(--accent-ink) 85%, var(--line))",
+  "var(--accent-ink)",
 ];
 
 function Activity() {
@@ -326,7 +326,7 @@ export function OffCodeCarousel({ children }: { children: React.ReactNode }) {
       <div
         ref={track}
         tabIndex={0}
-        className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-1 [scrollbar-width:none] sm:gap-4 [&::-webkit-scrollbar]:hidden"
+        className="-mt-1 flex snap-x snap-mandatory gap-3 overflow-x-auto pt-1 pb-1 [scrollbar-width:none] sm:gap-4 [&::-webkit-scrollbar]:hidden"
       >
         {[0, 1, 2].map((copy) => (
           <div key={copy} className="contents" inert={copy !== 1} aria-hidden={copy !== 1 || undefined}>
