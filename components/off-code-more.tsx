@@ -1,7 +1,7 @@
 "use client";
 
 import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { links } from "@/lib/content";
 import { hash } from "@/lib/dither";
 import { DitherCanvas, type Tone } from "./dither-canvas";
@@ -31,7 +31,11 @@ const user = links.github.split("/").pop()!;
 const gh = (url: string) =>
   fetch(url, { headers: { Accept: "application/vnd.github+json" } }).then((r) => (r.ok ? r.json() : Promise.reject(r.status)));
 
-async function loadStats(): Promise<Stats> {
+// The carousel renders its slides three times; one shared request keeps GitHub's rate limit safe.
+let pending: Promise<Stats> | null = null;
+const loadStats = () => (pending ??= fetchStats().catch((e) => ((pending = null), Promise.reject(e))));
+
+async function fetchStats(): Promise<Stats> {
   try {
     const cached = sessionStorage.getItem("gh-stats");
     if (cached) {
@@ -237,67 +241,104 @@ export const slideClass = "tile lift snap-start shrink-0 basis-[88%] md:basis-[c
 // Extra panels sit absolutely inside their tile, so only the lead slides set the row's height.
 function Extra({ children }: { children: React.ReactNode }) {
   return (
-    <li className={`${slideClass} relative`}>
+    <div className={`${slideClass} relative`}>
       <div className="absolute inset-0 overflow-y-auto p-6 sm:p-8">{children}</div>
-    </li>
+    </div>
   );
 }
 
-/** A manual carousel (scroll-snap + buttons): the lead slides come from the caller, the extras are here. No autoplay. */
+function Slides({ children }: { children: React.ReactNode }) {
+  return (
+    <>
+      {children}
+      <Extra>
+        <Music />
+      </Extra>
+      <Extra>
+        <Activity />
+      </Extra>
+      <Extra>
+        <Now />
+      </Extra>
+      <Extra>
+        <Photos />
+      </Extra>
+    </>
+  );
+}
+
+/**
+ * A manual, endless carousel (scroll-snap + buttons, no autoplay). The slides are rendered three times;
+ * once scrolling settles, the track jumps by exactly one set so the visitor always sits in the middle copy.
+ * The outer copies are inert, so only one set is ever focusable or read by a screen reader.
+ */
 export function OffCodeCarousel({ children }: { children: React.ReactNode }) {
   const { t } = useSite();
   const m = t.offcode.more;
-  const track = useRef<HTMLUListElement>(null);
-  const [edge, setEdge] = useState({ start: true, end: false });
+  const track = useRef<HTMLDivElement>(null);
 
-  const sync = useCallback(() => {
+  // Width of one full set of slides, measured from the first slide of the middle copy.
+  const period = () => {
     const el = track.current;
-    if (el) setEdge({ start: el.scrollLeft < 4, end: el.scrollLeft + el.clientWidth >= el.scrollWidth - 4 });
-  }, []);
+    const first = el?.children[0]?.firstElementChild as HTMLElement | undefined;
+    const middle = el?.children[1]?.firstElementChild as HTMLElement | undefined;
+    return first && middle ? middle.offsetLeft - first.offsetLeft : 0;
+  };
 
-  useEffect(() => {
-    sync();
-    window.addEventListener("resize", sync);
-    return () => window.removeEventListener("resize", sync);
-  }, [sync]);
+  useLayoutEffect(() => {
+    const el = track.current!;
+    el.scrollLeft = period();
+    let timer = 0;
+    const settle = () => {
+      const p = period();
+      if (!p) return;
+      if (el.scrollLeft < p) el.scrollLeft += p;
+      else if (el.scrollLeft >= 2 * p) el.scrollLeft -= p;
+    };
+    const onScroll = () => {
+      window.clearTimeout(timer);
+      timer = window.setTimeout(settle, 120);
+    };
+    const onResize = () => {
+      el.scrollLeft = period() + (el.scrollLeft % (period() || 1));
+    };
+    el.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onResize);
+    return () => {
+      window.clearTimeout(timer);
+      el.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onResize);
+    };
+  }, []);
 
   const go = (dir: 1 | -1) => {
     const el = track.current;
-    const first = el?.firstElementChild as HTMLElement | undefined;
+    const first = el?.children[0]?.firstElementChild as HTMLElement | undefined;
     if (!el || !first) return;
     const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
     el.scrollBy({ left: dir * (first.offsetWidth + 16), behavior: reduced ? "auto" : "smooth" });
   };
 
-  const arrow = "btn btn-ghost grid size-11 place-items-center p-0 disabled:pointer-events-none disabled:opacity-40";
+  const arrow = "btn btn-ghost grid size-11 place-items-center p-0";
 
   return (
     <div role="region" aria-roledescription="carousel" aria-label={m.label}>
-      <ul
+      <div
         ref={track}
-        onScroll={sync}
         tabIndex={0}
         className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-1 [scrollbar-width:none] sm:gap-4 [&::-webkit-scrollbar]:hidden"
       >
-        {children}
-        <Extra>
-          <Music />
-        </Extra>
-        <Extra>
-          <Activity />
-        </Extra>
-        <Extra>
-          <Now />
-        </Extra>
-        <Extra>
-          <Photos />
-        </Extra>
-      </ul>
+        {[0, 1, 2].map((copy) => (
+          <div key={copy} className="contents" inert={copy !== 1} aria-hidden={copy !== 1 || undefined}>
+            <Slides>{children}</Slides>
+          </div>
+        ))}
+      </div>
       <div className="mt-4 flex justify-end gap-2">
-        <button type="button" onClick={() => go(-1)} disabled={edge.start} aria-label={m.prev} className={arrow}>
+        <button type="button" onClick={() => go(-1)} aria-label={m.prev} className={arrow}>
           <ChevronLeft className="size-5" />
         </button>
-        <button type="button" onClick={() => go(1)} disabled={edge.end} aria-label={m.next} className={arrow}>
+        <button type="button" onClick={() => go(1)} aria-label={m.next} className={arrow}>
           <ChevronRight className="size-5" />
         </button>
       </div>

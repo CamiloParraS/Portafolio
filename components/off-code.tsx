@@ -24,7 +24,7 @@ export function OffCode() {
   return (
     <Section id="offcode" title={o.title} intro={o.intro}>
       <OffCodeCarousel>
-        <li className={`${slideClass} flex flex-col overflow-hidden`}>
+        <div className={`${slideClass} flex flex-col overflow-hidden`}>
           <div className="relative h-52">
             <DitherCanvas tone={garageArt} palette={CAR_PALETTES} />
           </div>
@@ -49,9 +49,9 @@ export function OffCode() {
               ))}
             </ul>
           </div>
-        </li>
+        </div>
 
-        <li className={`${slideClass} p-6 sm:p-8`}>
+        <div className={`${slideClass} p-6 sm:p-8`}>
           <h3 className="text-3xl font-bold tracking-tight">{o.gamesTitle}</h3>
           <p className="mt-2 text-dim">{o.gamesBody}</p>
           <ul className="mt-5 divide-y divide-line">
@@ -71,7 +71,7 @@ export function OffCode() {
               </li>
             ))}
           </ul>
-        </li>
+        </div>
       </OffCodeCarousel>
 
       <div className="mt-3 sm:mt-4">
