@@ -18,23 +18,23 @@ export function Hero() {
       className="grid gap-3 pt-6 sm:gap-4 md:h-[calc(100svh-6rem)] md:min-h-155 md:max-h-245 md:grid-cols-4 md:grid-rows-[minmax(180px,1fr)_auto]"
     >
       {/* The scene takes whatever height the intro row leaves, so the whole hero lands in the first screen. */}
-      <div className="tile relative h-[clamp(240px,44vh,460px)] overflow-hidden md:col-span-4 md:h-auto">
+      <div className="tile relative h-[clamp(200px,32vh,460px)] overflow-hidden md:col-span-4 md:h-auto">
         <Scene />
       </div>
 
-      <div className="tile relative flex flex-col p-6 sm:p-8 md:col-span-2">
+      <div className="tile relative flex flex-col p-5 sm:p-8 md:col-span-2">
         <DitherImage
           src="/img/avatar.jpg"
           alt={t.hero.photoAlt}
-          className="photo-inks -mt-20 mb-5 size-28 shrink-0 rounded-[26px] border-4 border-tile bg-tile shadow-[0_12px_30px_-14px_rgb(0_0_0/0.5)] sm:-mt-24 sm:size-32"
+          className="photo-inks -mt-16 mb-4 size-24 shrink-0 rounded-[22px] border-4 border-tile bg-tile shadow-[0_12px_30px_-14px_rgb(0_0_0/0.5)] sm:-mt-24 sm:mb-5 sm:size-32 sm:rounded-[26px]"
         />
-        <h1 className="text-5xl font-bold tracking-[-0.04em] sm:text-7xl md:text-6xl xl:text-7xl">
+        <h1 className="text-4xl font-bold tracking-[-0.04em] min-[420px]:text-5xl sm:text-7xl md:text-6xl xl:text-7xl">
           {t.hero.name}
         </h1>
-        <p className="mt-4 max-w-[52ch] text-lg leading-relaxed text-dim">
+        <p className="mt-3 max-w-[52ch] text-base leading-relaxed sm:mt-4 sm:text-lg text-dim">
           {t.hero.lead}
         </p>
-        <div className="mt-7 flex flex-wrap gap-3">
+        <div className="mt-5 flex flex-wrap gap-3 sm:mt-7">
           {links.cvReady ? (
             <a href={links.cv} download className="btn btn-primary">
               <Download className="size-4.5" />
