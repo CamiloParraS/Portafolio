@@ -30,8 +30,8 @@ export function Footer() {
           </a>
         </div>
       </div>
-      {/* Galeras over Pasto, drivable: the page's sign-off. */}
-      <div className="relative h-[clamp(220px,34vh,360px)] overflow-hidden border-t border-line bg-tile">
+      {/* Galeras over Pasto, drivable: the page's sign-off. The sky fades up into the row above. */}
+      <div className="relative h-[clamp(240px,38vh,400px)] overflow-hidden [&_canvas]:[mask-image:linear-gradient(to_bottom,transparent,black_45%)]">
         <Scene />
       </div>
     </footer>

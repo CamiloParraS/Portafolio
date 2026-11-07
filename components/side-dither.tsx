@@ -21,7 +21,7 @@ const right = bars(true);
 export function SideDither() {
   const strip = "absolute inset-y-0 w-[calc((100%-72rem)/2)]";
   return (
-    <div aria-hidden className="pointer-events-none fixed inset-0 hidden [--dither-ground:var(--ground)] min-[1380px]:block">
+    <div aria-hidden className="pointer-events-none fixed inset-0 hidden opacity-50 [--dither-ground:var(--ground)] min-[1380px]:block">
       <div className={`${strip} left-0`}>
         <DitherCanvas tone={left} cell={4} animate />
       </div>
