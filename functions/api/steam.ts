@@ -12,7 +12,7 @@ const API = "https://api.steampowered.com";
 type SteamJson = {
   response?: {
     players?: { personastate: number; gameid?: string; gameextrainfo?: string; profileurl?: string }[];
-    games?: { appid: number; name: string; playtime_2weeks?: number }[];
+    games?: { appid: number; name: string; img_icon_url?: string; playtime_2weeks?: number }[];
   };
 };
 
@@ -48,6 +48,7 @@ export const onRequestGet = async ({ env }: Ctx): Promise<Response> => {
         recent: games.map((g) => ({
           appid: g.appid,
           name: g.name,
+          icon: g.img_icon_url ?? "",
           hours: Math.round(((g.playtime_2weeks ?? 0) / 60) * 10) / 10,
         })),
         profileUrl: p.profileurl,
