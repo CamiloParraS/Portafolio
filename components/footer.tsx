@@ -9,12 +9,8 @@ import { Scene } from "./scene";
 export function Footer() {
   const { t } = useSite();
   return (
-    <footer className="mt-24 pb-10 sm:mt-32">
-      {/* Galeras over Pasto, drivable: the page's sign-off. */}
-      <div className="relative h-[clamp(220px,34vh,360px)] overflow-hidden border-y border-line bg-tile">
-        <Scene />
-      </div>
-      <div className="mx-auto mt-8 flex max-w-6xl px-4 sm:px-6 flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+    <footer className="mt-24 sm:mt-32">
+      <div className="mx-auto flex max-w-6xl px-4 sm:px-6 flex-col gap-6 sm:flex-row sm:items-center sm:justify-between pb-8">
         <div>
           <p className="font-display text-lg font-bold tracking-tight">Camilo Parra</p>
           <p className="text-sm text-dim">
@@ -33,6 +29,10 @@ export function Footer() {
             {t.footer.top}
           </a>
         </div>
+      </div>
+      {/* Galeras over Pasto, drivable: the page's sign-off. */}
+      <div className="relative h-[clamp(220px,34vh,360px)] overflow-hidden border-t border-line bg-tile">
+        <Scene />
       </div>
     </footer>
   );
