@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque, Onest } from "next/font/google";
 import { Providers } from "@/components/providers";
 import { content } from "@/lib/content";
+import { siteUrl } from "@/lib/site";
 import "./globals.css";
 
 const bricolage = Bricolage_Grotesque({ variable: "--font-bricolage", subsets: ["latin"] });
@@ -10,6 +11,19 @@ const onest = Onest({ variable: "--font-onest", subsets: ["latin"] });
 export const metadata: Metadata = {
   title: content.en.meta.title,
   description: content.en.meta.description,
+  metadataBase: new URL(siteUrl),
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    url: "/",
+    siteName: "Camilo Parra",
+    title: content.en.meta.title,
+    description: content.en.meta.description,
+    locale: "en_US",
+    alternateLocale: ["es_CO"],
+  },
+  twitter: { card: "summary_large_image", title: content.en.meta.title, description: content.en.meta.description },
+  authors: [{ name: "Camilo Parra", url: "https://github.com/CamiloParraS" }],
 };
 
 export const viewport: Viewport = {
