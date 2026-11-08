@@ -12,11 +12,13 @@ type Props = {
   color?: boolean;
   /** With `color`: crop to fill the frame (object-fit: cover), showing the original first and the colour dither on hover, instead of the whole photo on white. */
   cover?: boolean;
+  /** With `cover`: vertical focus of the crop, 0 (top) to 1 (bottom). Keeps faces in frame. Default 0.5. */
+  focusY?: number;
   className?: string;
 };
 
 /** A real photo; hover, focus or tap swaps between the original and its dither (theme inks, or `color`). */
-export function DitherImage({ src, alt, cell = 3, color = false, cover = false, className = "" }: Props) {
+export function DitherImage({ src, alt, cell = 3, color = false, cover = false, focusY = 0.5, className = "" }: Props) {
   const ref = useRef<HTMLCanvasElement>(null);
   const { theme } = useSite();
   const [shown, setShown] = useState(false);
@@ -44,7 +46,7 @@ export function DitherImage({ src, alt, cell = 3, color = false, cover = false, 
         ctx.fillStyle = "#fff";
         ctx.fillRect(0, 0, w, h);
       }
-      ctx.drawImage(photo, (w - dw) / 2, (h - dh) / 2, dw, dh);
+      ctx.drawImage(photo, (w - dw) / 2, (h - dh) * focusY, dw, dh);
       const px = ctx.getImageData(0, 0, w, h);
       if (color) {
         paintColor(px);
@@ -97,7 +99,7 @@ export function DitherImage({ src, alt, cell = 3, color = false, cover = false, 
       io.disconnect();
       ro.disconnect();
     };
-  }, [src, cell, color, cover, theme]);
+  }, [src, cell, color, cover, focusY, theme]);
 
   return (
     <div
@@ -120,6 +122,7 @@ export function DitherImage({ src, alt, cell = 3, color = false, cover = false, 
         alt={alt}
         loading="lazy"
         decoding="async"
+        style={cover ? { objectPosition: `50% ${focusY * 100}%` } : undefined}
         className={`absolute inset-0 h-full w-full transition-opacity duration-500 ease-out ${
           color && !cover
             ? `object-contain group-hover:opacity-100 group-focus-visible:opacity-100 ${shown ? "opacity-100" : "opacity-0"}`
