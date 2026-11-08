@@ -3,15 +3,16 @@
 /* Two grounds, one cyan. Dither inks are the art's own three-step ramp per theme. */
 :root,
 [data-theme="dark"] {
-  --ground: #0b0d10;
-  --tile: #121519;
+  --ground: #090b0e;
+  --tile: #161b21;
   --ink: #f1f4f6;
   --dim: #a7b1b9;
-  --line: #252a30;
+  --line: #2b323a;
+  --pill: #1b2b38; /* navbar pill: tile tinted toward blue */
   --accent: #22d3ee;
   --accent-ink: #22d3ee; /* cyan used as text */
   --on-accent: #05141a;
-  --dither-ground: #121519;
+  --dither-ground: #161b21;
   --dither-mid: #164e5c;
   --dither-hi: #22d3ee;
   color-scheme: dark;
@@ -23,6 +24,7 @@
   --ink: #0b0d10;
   --dim: #48535d;
   --line: #d6dee3;
+  --pill: #e2eff8;
   --accent: #22d3ee;
   --accent-ink: #0e7490;
   --on-accent: #05141a;
@@ -62,6 +64,7 @@
   --color-ink: var(--ink);
   --color-dim: var(--dim);
   --color-line: var(--line);
+  --color-pill: var(--pill);
   --color-accent: var(--accent);
   --color-accent-ink: var(--accent-ink);
   --color-on-accent: var(--on-accent);
@@ -122,11 +125,17 @@ body {
 :focus-visible {
   outline: 2px solid var(--accent-ink);
   outline-offset: 3px;
-  border-radius: 10px;
 }
 
 * {
   scrollbar-color: var(--line) transparent;
+}
+
+/* The page scrollbar gets a solid track in the page colour, so the dither in the side gutters
+   never shows through it; the gutter stays reserved so opening the demo modal doesn't shift the page. */
+html {
+  scrollbar-color: color-mix(in oklab, var(--dim) 45%, var(--ground)) var(--ground);
+  scrollbar-gutter: stable;
 }
 
 h1,
@@ -141,6 +150,10 @@ h3 {
     border-radius: 28px;
     background: var(--tile);
     border: 1px solid var(--line);
+  }
+  /* Dark only: a faint top edge catches light, which separates tile from ground without a heavier border. */
+  [data-theme="dark"] .tile {
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.04);
   }
 }
 
@@ -170,15 +183,17 @@ h3 {
     background: var(--accent);
     color: var(--on-accent);
   }
-  .btn-primary:hover {
-    background: color-mix(in oklab, var(--accent) 85%, var(--ink));
+  @media (hover: hover) and (pointer: fine) {
+    .btn-primary:hover {
+      background: color-mix(in oklab, var(--accent) 85%, var(--ink));
+    }
+    .btn-ghost:hover {
+      border-color: var(--dim);
+    }
   }
   .btn-ghost {
     border: 1px solid var(--line);
     color: var(--ink);
-  }
-  .btn-ghost:hover {
-    border-color: var(--dim);
   }
   .btn[aria-disabled="true"],
   .btn:disabled {
@@ -210,9 +225,6 @@ h3 {
       transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
       border-color 0.25s ease;
   }
-  .lift:hover {
-    border-color: var(--dim);
-  }
   .zoom {
     transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   }
@@ -221,23 +233,35 @@ h3 {
       background-color 0.2s ease,
       color 0.2s ease;
   }
-  .chip:hover {
-    background: var(--line);
-    color: var(--ink);
+  /* Hover only where a real pointer exists: on touch a tap would leave the state stuck. */
+  @media (hover: hover) and (pointer: fine) {
+    .lift:hover {
+      border-color: var(--dim);
+    }
+    .chip:hover {
+      background: var(--line);
+      color: var(--ink);
+    }
   }
-  @media (prefers-reduced-motion: no-preference) {
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
     .lift:hover {
       transform: translateY(-1px);
     }
-    .lift:hover .zoom,
-    .lift:focus-within .zoom {
+    .lift:hover .zoom {
       transform: scale(1.025);
     }
     .btn:hover {
       transform: translateY(-1px);
     }
+    /* Declared after the hover rules so a press always wins. */
     .btn:active {
       transform: scale(0.97);
+    }
+  }
+  /* Keyboard focus keeps the zoom, on any device. */
+  @media (prefers-reduced-motion: no-preference) {
+    .lift:focus-within .zoom {
+      transform: scale(1.025);
     }
   }
 }
@@ -253,6 +277,19 @@ h3 {
 .demo-dialog[open]::backdrop {
   animation: demo-fade 0.3s ease;
 }
+/* Exit is quicker than the entrance: the system is responding, not the visitor deciding. */
+.demo-dialog[data-closing] {
+  animation: demo-out 0.16s ease-out forwards;
+}
+.demo-dialog[data-closing]::backdrop {
+  animation: demo-fade-out 0.16s ease-out forwards;
+}
+@keyframes demo-out {
+  to { opacity: 0; transform: translateY(8px) scale(0.98); }
+}
+@keyframes demo-fade-out {
+  to { opacity: 0; }
+}
 @keyframes demo-in {
   from { opacity: 0; transform: translateY(16px) scale(0.96); }
 }
@@ -261,7 +298,9 @@ h3 {
 }
 @media (prefers-reduced-motion: reduce) {
   .demo-dialog[open],
-  .demo-dialog[open]::backdrop { animation: none; }
+  .demo-dialog[open]::backdrop,
+  .demo-dialog[data-closing],
+  .demo-dialog[data-closing]::backdrop { animation: none; }
 }
 
 /* Hero intro: the first screen's text settles in once on load. */
@@ -270,8 +309,8 @@ h3 {
 }
 @media (prefers-reduced-motion: no-preference) {
   .enter {
-    animation: enter 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
-    animation-delay: calc(var(--i, 0) * 80ms);
+    animation: enter 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: calc(var(--i, 0) * 50ms);
   }
 }
 

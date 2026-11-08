@@ -41,6 +41,16 @@ function Slides({ children }: { children: React.ReactNode }) {
   );
 }
 
+/** Distance between neighbouring slides, and the width of one full set (first slide of copy 0 to copy 1). */
+function measureTrack(el: HTMLElement) {
+  const left = (n?: Element | null) => (n as HTMLElement | null | undefined)?.offsetLeft;
+  const [a, b] = [el.children[1]?.children[0], el.children[1]?.children[1]];
+  const step = a && b ? left(b)! - left(a)! : 0;
+  const first = left(el.children[0]?.firstElementChild);
+  const middle = left(el.children[1]?.firstElementChild);
+  return { step, period: first !== undefined && middle !== undefined ? middle - first : 0 };
+}
+
 /**
  * A manual, endless carousel (scroll-snap + buttons, no autoplay). The slides are rendered three times;
  * once scrolling settles, the track jumps by exactly one set so the visitor always sits in the middle copy.
@@ -53,54 +63,45 @@ export function OffCodeCarousel({ children }: { children: React.ReactNode }) {
   const count = Children.count(children) + EXTRAS;
   const [active, setActive] = useState(0);
 
-  // Distance between two neighbouring slides' left edges.
-  const step = () => {
-    const kids = track.current?.children[1]?.children;
-    const a = kids?.[0] as HTMLElement | undefined;
-    const b = kids?.[1] as HTMLElement | undefined;
-    return a && b ? b.offsetLeft - a.offsetLeft : 0;
-  };
+  // Layout is measured on resize only (never inside the scroll handler) and read from this ref.
+  const metrics = useRef({ step: 0, period: 0 });
 
   const goTo = (i: number) => {
     const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
-    track.current?.scrollTo({ left: period() + i * step(), behavior: reduced ? "auto" : "smooth" });
-  };
-
-  // Width of one full set of slides, measured from the first slide of the middle copy.
-  const period = () => {
-    const el = track.current;
-    const first = el?.children[0]?.firstElementChild as HTMLElement | undefined;
-    const middle = el?.children[1]?.firstElementChild as HTMLElement | undefined;
-    return first && middle ? middle.offsetLeft - first.offsetLeft : 0;
+    const { period, step } = metrics.current;
+    track.current?.scrollTo({ left: period + i * step, behavior: reduced ? "auto" : "smooth" });
   };
 
   useLayoutEffect(() => {
     const el = track.current!;
-    el.scrollLeft = period();
+    el.scrollLeft = measureTrack(el).period;
+    metrics.current = measureTrack(el);
     let timer = 0;
     const settle = () => {
-      const p = period();
+      const p = metrics.current.period;
       if (!p) return;
       if (el.scrollLeft < p) el.scrollLeft += p;
       else if (el.scrollLeft >= 2 * p) el.scrollLeft -= p;
     };
     const onScroll = () => {
-      const s = step();
-      if (s) setActive((((Math.round((el.scrollLeft - period()) / s) % count) + count) % count));
+      const { step, period } = metrics.current;
+      if (step) setActive((((Math.round((el.scrollLeft - period) / step) % count) + count) % count));
       window.clearTimeout(timer);
       timer = window.setTimeout(settle, 120);
     };
-    const onResize = () => {
-      el.scrollLeft = period() + (el.scrollLeft % (period() || 1));
-    };
+    const ro = new ResizeObserver(() => {
+      metrics.current = measureTrack(el);
+      const p = metrics.current.period;
+      el.scrollLeft = p + (el.scrollLeft % (p || 1));
+    });
+    ro.observe(el);
     el.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onResize);
     return () => {
       window.clearTimeout(timer);
+      ro.disconnect();
       el.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onResize);
     };
-  }, []);
+  }, [count]);
 
   const go = (dir: 1 | -1) => {
     const el = track.current;
@@ -126,7 +127,7 @@ export function OffCodeCarousel({ children }: { children: React.ReactNode }) {
               onClick={() => goTo(i)}
               aria-label={`${i + 1} / ${count}`}
               aria-current={i === active || undefined}
-              className="group grid h-6 flex-1 place-items-center sm:max-w-12"
+              className="group grid h-6 flex-1 place-items-center transition-transform duration-150 ease-out active:scale-90 sm:max-w-12"
             >
               <span
                 className={`h-1 w-full rounded-full transition-colors duration-300 ${

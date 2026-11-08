@@ -11,7 +11,8 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState<(typeof ids)[number] | null>(null);
   const [scrolled, setScrolled] = useState(false);
-  const [pill, setPill] = useState({ x: 0, w: 0 });
+  const [pill, setPill] = useState({ x: 0, w: 0, snap: true });
+  const wasActive = useRef(false);
   const links = useRef<Record<string, HTMLAnchorElement | null>>({});
 
   // Scroll spy: the last section whose top has crossed the upper third of the viewport.
@@ -41,13 +42,17 @@ export function Navbar() {
 
   // The pill follows the active link; remeasure when the language changes the label widths.
   useEffect(() => {
-    const measure = () => {
+    // When the pill reappears after being hidden it appears in place instead of sliding in from the left.
+    const snap = !wasActive.current;
+    wasActive.current = active !== null;
+    const measure = (snapIn: boolean) => {
       const li = active && links.current[active]?.parentElement;
-      if (li) setPill({ x: li.offsetLeft, w: li.offsetWidth });
+      if (li) setPill({ x: li.offsetLeft, w: li.offsetWidth, snap: snapIn });
     };
-    measure();
-    window.addEventListener("resize", measure);
-    return () => window.removeEventListener("resize", measure);
+    measure(snap);
+    const onResize = () => measure(false);
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
   }, [active, t]);
 
   useEffect(() => {
@@ -91,7 +96,7 @@ export function Navbar() {
           <span
             aria-hidden
             style={{ width: pill.w, translate: `${pill.x}px 0` }}
-            className={`pointer-events-none absolute inset-y-0 left-0 my-auto h-9 rounded-xl bg-ground transition-[translate,width,opacity] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none ${active ? "opacity-100" : "opacity-0"}`}
+            className={`pointer-events-none absolute inset-y-0 left-0 my-auto h-9 rounded-xl bg-pill duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none ${pill.snap ? "transition-[opacity]" : "transition-[translate,width,opacity]"} ${active ? "opacity-100" : "opacity-0"}`}
           />
           {ids.map((id) => (
             <li key={id} className="relative">

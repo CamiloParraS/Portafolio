@@ -28,6 +28,7 @@ export function DemoPlayer({ p, src, onClose }: { p: Project; src: string; onClo
   const [muted, setMuted] = useState(false);
   const [time, setTime] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [closing, setClosing] = useState(false);
   const poster = src.replace(/\.mp4$/, ".jpg");
 
   useEffect(() => {
@@ -42,6 +43,13 @@ export function DemoPlayer({ p, src, onClose }: { p: Project; src: string; onClo
       document.documentElement.style.overflow = "";
     };
   }, []);
+
+  // Close with a short exit (Escape, backdrop and the X all come through here); reduced motion closes at once.
+  const dismiss = () => {
+    if (closing) return;
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return onClose();
+    setClosing(true);
+  };
 
   const toggle = () => {
     const v = video.current;
@@ -64,8 +72,14 @@ export function DemoPlayer({ p, src, onClose }: { p: Project; src: string; onClo
     <dialog
       ref={dialog}
       aria-label={label}
+      data-closing={closing || undefined}
       onClose={onClose}
-      onClick={(e) => e.target === e.currentTarget && onClose()}
+      onCancel={(e) => {
+        e.preventDefault();
+        dismiss();
+      }}
+      onAnimationEnd={(e) => e.target === e.currentTarget && e.animationName === "demo-out" && onClose()}
+      onClick={(e) => e.target === e.currentTarget && dismiss()}
       className="demo-dialog m-auto w-[min(62rem,calc(100vw-1.5rem),calc((100dvh-7rem)*16/9+19rem))] max-w-none overflow-visible bg-transparent p-0 backdrop:bg-black/35 backdrop:backdrop-blur-[3px]"
     >
       <div className="tile grid max-h-[calc(100dvh-1.5rem)] gap-x-6 gap-y-5 overflow-y-auto border border-line p-2 shadow-[0_30px_90px_-10px_rgb(0_0_0/0.6),0_0_0_1px_rgb(255_255_255/0.04)] sm:p-3 lg:grid-cols-[minmax(0,1fr)_16rem]">
@@ -92,7 +106,7 @@ export function DemoPlayer({ p, src, onClose }: { p: Project; src: string; onClo
                 aria-label="Play"
                 className="absolute inset-0 grid place-items-center bg-black/30"
               >
-                <span className="grid size-16 place-items-center rounded-full bg-accent text-on-accent transition-transform hover:scale-105">
+                <span className="grid size-16 place-items-center rounded-full bg-accent text-on-accent transition-transform hover:scale-105 active:scale-95">
                   <Play className="ml-1 size-6 fill-current" />
                 </span>
               </button>
@@ -128,7 +142,7 @@ export function DemoPlayer({ p, src, onClose }: { p: Project; src: string; onClo
         <aside className="flex min-w-0 flex-col px-2 pb-3 sm:px-1 lg:py-2 lg:pr-3">
           <div className="flex items-start justify-between gap-3">
             <h3 className="font-display text-3xl font-bold leading-none tracking-[-0.03em]">{name}</h3>
-            <button type="button" onClick={onClose} aria-label={t.work.demoClose} className={`${ctl} -mr-2 -mt-2 shrink-0`}>
+            <button type="button" onClick={dismiss} aria-label={t.work.demoClose} className={`${ctl} -mr-2 -mt-2 shrink-0`}>
               <X className="size-5" />
             </button>
           </div>

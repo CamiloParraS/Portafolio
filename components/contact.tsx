@@ -12,12 +12,31 @@ import { Section } from "./section";
 const FORM_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_KEY;
 
 type Status = "idle" | "sending" | "sent" | "error" | "invalid";
+type Field = "name" | "email" | "message";
+
+// Limits are enforced twice: `maxLength` on the inputs and `clean()` on submit (the DOM is not a security boundary).
+const MAX = { name: 80, email: 254, message: 2000 } as const;
+// Pragmatic, not RFC-perfect: one @, no spaces, a dot in the domain. The mail provider does the real check.
+const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+/**
+ * Normalises one field before it is validated or sent: Unicode NFC, control and zero-width characters
+ * removed (this also blocks header injection through the subject), then trimmed and capped.
+ * Single-line fields collapse all whitespace; the message keeps line breaks but not runs of blank lines.
+ */
+function clean(value: FormDataEntryValue | null, max: number, multiline = false) {
+  let v = String(value ?? "").normalize("NFC").replace(/\r\n?/g, "\n");
+  v = v.replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F​-‏‪-‮⁠﻿]/g, "");
+  v = multiline ? v.replace(/[ \t]+\n/g, "\n").replace(/\n{3,}/g, "\n\n") : v.replace(/\s+/g, " ");
+  return v.trim().slice(0, max);
+}
 
 export function Contact() {
   const { t } = useSite();
   const c = t.contact;
   const [status, setStatus] = useState<Status>("idle");
   const [copied, setCopied] = useState(false);
+  const [bad, setBad] = useState<Partial<Record<Field, boolean>>>({});
 
   const copy = async () => {
     try {
@@ -29,16 +48,31 @@ export function Contact() {
 
   const submit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (status === "sending") return;
     const form = e.currentTarget;
     const data = new FormData(form);
-    const name = String(data.get("name") ?? "").trim();
-    const email = String(data.get("email") ?? "").trim();
-    const message = String(data.get("message") ?? "").trim();
-    if (!name || !message || !/^\S+@\S+\.\S+$/.test(email)) return setStatus("invalid");
+    // A filled honeypot means a bot: pretend it worked and send nothing.
+    if (data.get("botcheck")) return setStatus("sent");
+    const name = clean(data.get("name"), MAX.name);
+    const email = clean(data.get("email"), MAX.email).toLowerCase();
+    const message = clean(data.get("message"), MAX.message, true);
+
+    const invalid: Partial<Record<Field, boolean>> = {};
+    if (!name) invalid.name = true;
+    if (!EMAIL.test(email)) invalid.email = true;
+    if (!message) invalid.message = true;
+    setBad(invalid);
+    const firstBad = (["name", "email", "message"] as const).find((f) => invalid[f]);
+    if (firstBad) {
+      setStatus("invalid");
+      (form.elements.namedItem(firstBad) as HTMLElement | null)?.focus();
+      return;
+    }
 
     if (!FORM_KEY) {
       const body = encodeURIComponent(`${message}\n\n${name} <${email}>`);
       window.location.href = `mailto:${links.email}?subject=${encodeURIComponent(`Portfolio: ${name}`)}&body=${body}`;
+      setStatus("idle");
       return;
     }
 
@@ -54,7 +88,7 @@ export function Contact() {
           name,
           email,
           message,
-          botcheck: data.get("botcheck") ?? "",
+          botcheck: "",
         }),
       });
       // Web3Forms answers { success: false } for a bad key or a blocked submission, so the body decides.
@@ -68,7 +102,7 @@ export function Contact() {
   };
 
   const field =
-    "mt-2 w-full rounded-2xl border border-line bg-ground px-4 py-3 text-ink placeholder:text-dim transition-colors focus:border-accent-ink focus:outline-none";
+    "mt-2 w-full rounded-2xl border border-line bg-ground px-4 py-3 text-ink placeholder:text-dim transition-colors duration-150 focus:border-accent-ink focus:outline-none aria-invalid:border-rose-500";
 
   const enter = "inline-block transition-[opacity,translate] duration-200 ease-out starting:translate-y-1 starting:opacity-0 motion-reduce:starting:translate-y-0";
 
@@ -82,7 +116,15 @@ export function Contact() {
           <div className="mt-6 flex flex-wrap gap-2">
             <button type="button" onClick={copy} className="btn btn-ghost py-2.5 text-sm">
               {copied ? <Check className="size-4 text-accent-ink transition-[opacity,scale] duration-200 ease-out starting:scale-75 starting:opacity-0" /> : <Copy className="size-4" />}
-              {copied ? c.copied : c.copy}
+              {/* Both labels share one grid cell, so the button keeps the wider width and never shifts its neighbours. */}
+              <span className="grid">
+                <span aria-hidden={copied} className={`col-start-1 row-start-1 transition-[opacity,filter] duration-200 motion-reduce:transition-none ${copied ? "opacity-0 blur-[2px]" : ""}`}>
+                  {c.copy}
+                </span>
+                <span aria-hidden={!copied} className={`col-start-1 row-start-1 transition-[opacity,filter] duration-200 motion-reduce:transition-none ${copied ? "" : "opacity-0 blur-[2px]"}`}>
+                  {c.copied}
+                </span>
+              </span>
             </button>
             <a href={links.linkedin} target="_blank" rel="noreferrer" className="btn btn-ghost py-2.5 text-sm">
               <LinkedIn />
@@ -101,15 +143,15 @@ export function Contact() {
           <input type="checkbox" name="botcheck" tabIndex={-1} autoComplete="off" aria-hidden className="hidden" />
           <label className="block text-sm font-medium">
             {c.name}
-            <input name="name" aria-invalid={status === "invalid" || undefined} autoComplete="name" placeholder={c.namePh} className={field} />
+            <input name="name" maxLength={MAX.name} aria-invalid={bad.name || undefined} onChange={() => bad.name && setBad((b) => ({ ...b, name: false }))} autoComplete="name" placeholder={c.namePh} className={field} />
           </label>
           <label className="block text-sm font-medium">
             {c.email}
-            <input name="email" aria-invalid={status === "invalid" || undefined} type="email" autoComplete="email" placeholder={c.emailPh} className={field} />
+            <input name="email" maxLength={MAX.email} aria-invalid={bad.email || undefined} onChange={() => bad.email && setBad((b) => ({ ...b, email: false }))} type="email" autoComplete="email" placeholder={c.emailPh} className={field} />
           </label>
           <label className="block text-sm font-medium">
             {c.message}
-            <textarea name="message" aria-invalid={status === "invalid" || undefined} rows={4} placeholder={c.messagePh} className={`${field} resize-y`} />
+            <textarea name="message" maxLength={MAX.message} aria-invalid={bad.message || undefined} onChange={() => bad.message && setBad((b) => ({ ...b, message: false }))} rows={4} placeholder={c.messagePh} className={`${field} resize-y`} />
           </label>
           <div className="flex flex-wrap items-center gap-4">
             <button type="submit" disabled={status === "sending"} className="btn btn-primary">
