@@ -271,6 +271,7 @@ export const en = {
     sent: "Thanks, your message is on its way. I'll reply to the email you left.",
     error: "That didn't go through. Try again, or email me directly at",
     invalid: "Please fill in your name, a valid email and a message.",
+    mailApp: "Opening your mail app. Nothing happened? Email me directly at",
   },
   footer: {
     built: "Made with love in Pasto, Colombia.",

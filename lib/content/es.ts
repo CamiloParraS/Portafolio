@@ -274,6 +274,7 @@ export const es: Content = {
     sent: "Gracias, tu mensaje va en camino. Te responderé al correo que dejaste.",
     error: "No se pudo enviar. Inténtalo de nuevo o escríbeme directamente a",
     invalid: "Escribe tu nombre, un correo válido y un mensaje.",
+    mailApp: "Abriendo tu app de correo. ¿No pasó nada? Escríbeme directamente a",
   },
   footer: {
     built: "Hecho con cariño en Pasto, Colombia.",

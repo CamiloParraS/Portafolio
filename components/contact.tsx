@@ -11,7 +11,7 @@ import { Section } from "./section";
 // (NEXT_PUBLIC_WEB3FORMS_KEY) and falls back to the visitor's mail app otherwise.
 const FORM_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_KEY;
 
-type Status = "idle" | "sending" | "sent" | "error" | "invalid";
+type Status = "idle" | "sending" | "sent" | "error" | "invalid" | "mailApp";
 type Field = "name" | "email" | "message";
 
 // Limits are enforced twice: `maxLength` on the inputs and `clean()` on submit (the DOM is not a security boundary).
@@ -72,7 +72,8 @@ export function Contact() {
     if (!FORM_KEY) {
       const body = encodeURIComponent(`${message}\n\n${name} <${email}>`);
       window.location.href = `mailto:${links.email}?subject=${encodeURIComponent(`Portfolio: ${name}`)}&body=${body}`;
-      setStatus("idle");
+      // The page cannot tell whether a mail app opened (desktop browsers often have none), so say what to do if not.
+      setStatus("mailApp");
       return;
     }
 
@@ -161,9 +162,9 @@ export function Contact() {
             <p role="status" aria-live="polite" className="text-sm">
               {status === "sent" && <span className={`text-accent-ink ${enter}`}>{c.sent}</span>}
               {status === "invalid" && <span className={`text-dim ${enter}`}>{c.invalid}</span>}
-              {status === "error" && (
+              {(status === "error" || status === "mailApp") && (
                 <span className={`text-dim ${enter}`}>
-                  {c.error}{" "}
+                  {status === "error" ? c.error : c.mailApp}{" "}
                   <a href={`mailto:${links.email}`} className="link text-ink">
                     {links.email}
                   </a>
