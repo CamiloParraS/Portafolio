@@ -52,6 +52,7 @@ export const en = {
       "That last part started with games. As a kid I got hooked on emulating the Nintendo 64, and the question of how a PC could pretend to be a console stuck with me. It turned into a habit of opening things up to see the parts, which is more or less what software engineering is.",
       "Today that means projects that go a bit deeper than a CRUD app: a search engine in Rust that understands your files, and a game whose AI studies how you play. I'm still learning, and I'd like to keep doing it on a team.",
     ],
+    photoAlt: "Camilo on a boat on a lake, wearing a cap and glasses",
     photoSlot: "Photo slot",
     photoHint: "Add a photo at public/img/about-{n}.jpg",
     stackTitle: "Stack",
@@ -106,6 +107,7 @@ export const en = {
     facts: [
       { k: "Based in", v: "Pasto, Colombia" },
       { k: "Studying", v: "Software Engineering, 2024–2028" },
+      { k: "Languages", v: "Spanish (native), English (C1)" },
       { k: "Way in", v: "Emulating the Nintendo 64" },
       { k: "Right now", v: "MAGI and Ghost Layer" },
       { k: "Off the clock", v: "Cars and videogames" },
@@ -174,6 +176,18 @@ export const en = {
       "Reserved for people I've worked with. They're on their way; I'm not making them up.",
     pending: "Testimonial pending",
     pendingBody: "This space is saved for someone who has worked with me.",
+    items: [
+      {
+        quote:
+          "He's not just my teammate, he's a friend I've known since school and I trust him, and that has helped our team deliver good professional results.",
+        original:
+          "Él no es solo mi compañero, es un amigo que conozco desde el colegio y le tengo confianza, eso ha ayudado a que nuestro equipo de trabajo dé buenos resultados profesionales.",
+        name: "Francisco Sinisterra",
+        role: "Systems Engineer",
+        photoAlt: "Portrait of Francisco Sinisterra",
+        translated: "Original, in Spanish",
+      },
+    ],
   },
   record: {
     title: "Record",
@@ -200,6 +214,12 @@ export const en = {
         where: "Universidad Cooperativa de Colombia, Pasto",
         when: "Aug 2024 – Aug 2028 (expected)",
         body: "Undergraduate degree, in progress.",
+      },
+      {
+        role: "English, intermediate to advanced",
+        where: "Cambridge Academy",
+        when: "Jan 2023 – Jul 2023",
+        body: "Language studies at the Cambridge Academy language school.",
       },
     ],
   },
@@ -252,6 +272,18 @@ export const en = {
       photosTitle: "Through the lens",
       photosBody: "Photos from around here.",
       photosPending: "Photos coming soon.",
+      photoAlts: [
+        "Old Renault cars parked in a row at a car meetup, a rusty red Renault 12 in front, with green mountains behind",
+        "Matte black Volkswagen Beetle at night with a Mitsubishi badge on the hood",
+        "Close-up of a grey tabby cat with half-closed eyes and long white whiskers",
+        "Red Ford Mustang Mach 1 with black stripes and chrome wheels parked on a wet lot, with classic cars behind a fence",
+        "Blue and white Ford Fiesta rally car covered in sponsor stickers, on display inside a shopping mall",
+        "Black Dodge Ram pickup covered in white carnival foam and powder after Pasto's Carnaval, parked on a street at night",
+        "Red Mitsubishi 3000GT parked on a street with green mountains behind",
+        "White Nissan 300ZX parked on a street with green mountains behind",
+        "Camilo smiling in a colourful propeller cap, glasses and a blue hoodie",
+        "Wall shelves of die-cast Hot Wheels and Matchbox cars, some still in their packaging, with a pink toy jeep and a rubber duck on top",
+      ],
     },
   },
   contact: {

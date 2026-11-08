@@ -2,6 +2,7 @@
 
 import { placeholderArt } from "@/lib/art";
 import { DitherCanvas } from "./dither-canvas";
+import { DitherImage } from "./dither-image";
 import { useSite } from "./providers";
 import { Section } from "./section";
 import { TechIcon } from "./tech-icon";
@@ -23,7 +24,13 @@ export function About() {
           </div>
         </div>
 
-        {[1, 2].map((n) => (
+        <figure className="tile relative min-h-48 overflow-hidden md:col-span-2">
+          <div className="absolute inset-0">
+            <DitherImage color cover src="/img/about-1.jpg" alt={a.photoAlt} className="photo-inks size-full" />
+          </div>
+        </figure>
+
+        {[2].map((n) => (
           <figure key={n} className="tile relative min-h-48 overflow-hidden md:col-span-2">
             <DitherCanvas tone={placeholderArt} cell={4} />
             <figcaption className="absolute inset-x-4 bottom-4 rounded-2xl border border-dashed border-line bg-tile/90 px-4 py-3 text-sm backdrop-blur-sm">

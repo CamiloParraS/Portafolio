@@ -10,11 +10,13 @@ type Props = {
   cell?: number;
   /** Dither in the photo's own colours (soft), showing the original on hover; `contain` shows the whole frame on white. */
   color?: boolean;
+  /** With `color`: crop to fill the frame (object-fit: cover), showing the original first and the colour dither on hover, instead of the whole photo on white. */
+  cover?: boolean;
   className?: string;
 };
 
 /** A real photo; hover, focus or tap swaps between the original and its dither (theme inks, or `color`). */
-export function DitherImage({ src, alt, cell = 3, color = false, className = "" }: Props) {
+export function DitherImage({ src, alt, cell = 3, color = false, cover = false, className = "" }: Props) {
   const ref = useRef<HTMLCanvasElement>(null);
   const { theme } = useSite();
   const [shown, setShown] = useState(false);
@@ -34,11 +36,11 @@ export function DitherImage({ src, alt, cell = 3, color = false, className = "" 
       canvas.height = h;
       const ctx = canvas.getContext("2d", { willReadFrequently: true })!;
       // object-fit: cover, or contain on white for colour photos
-      const fit = color ? Math.min : Math.max;
+      const fit = color && !cover ? Math.min : Math.max;
       const scale = fit(w / photo.naturalWidth, h / photo.naturalHeight);
       const dw = photo.naturalWidth * scale;
       const dh = photo.naturalHeight * scale;
-      if (color) {
+      if (color && !cover) {
         ctx.fillStyle = "#fff";
         ctx.fillRect(0, 0, w, h);
       }
@@ -95,7 +97,7 @@ export function DitherImage({ src, alt, cell = 3, color = false, className = "" 
       io.disconnect();
       ro.disconnect();
     };
-  }, [src, cell, color, theme]);
+  }, [src, cell, color, cover, theme]);
 
   return (
     <div
@@ -119,7 +121,7 @@ export function DitherImage({ src, alt, cell = 3, color = false, className = "" 
         loading="lazy"
         decoding="async"
         className={`absolute inset-0 h-full w-full transition-opacity duration-500 ease-out ${
-          color
+          color && !cover
             ? `object-contain group-hover:opacity-100 group-focus-visible:opacity-100 ${shown ? "opacity-100" : "opacity-0"}`
             : `object-cover group-hover:opacity-0 group-focus-visible:opacity-0 ${shown ? "opacity-0" : "opacity-100"}`
         }`}

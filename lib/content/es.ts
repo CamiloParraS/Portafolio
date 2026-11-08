@@ -52,6 +52,7 @@ export const es: Content = {
       "Eso último empezó con los juegos. De niño me obsesioné con emular la Nintendo 64, y la pregunta de cómo un PC podía hacerse pasar por una consola se me quedó en la cabeza. Se volvió la costumbre de abrir las cosas para ver sus piezas, que es más o menos lo que es la ingeniería de software.",
       "Hoy eso significa proyectos que van un poco más allá de un CRUD: un motor de búsqueda en Rust que entiende tus archivos y un juego cuya IA estudia cómo juegas. Sigo aprendiendo, y me gustaría seguir haciéndolo en un equipo.",
     ],
+    photoAlt: "Camilo en una lancha sobre un lago, con gorra y gafas",
     photoSlot: "Espacio para foto",
     photoHint: "Agrega una foto en public/img/about-{n}.jpg",
     stackTitle: "Tecnologías",
@@ -106,6 +107,7 @@ export const es: Content = {
     facts: [
       { k: "Vivo en", v: "Pasto, Colombia" },
       { k: "Estudio", v: "Ingeniería de Software, 2024–2028" },
+      { k: "Idiomas", v: "Español (nativo), inglés (C1)" },
       { k: "Cómo empecé", v: "Emulando la Nintendo 64" },
       { k: "Ahora mismo", v: "MAGI y Ghost Layer" },
       { k: "Fuera del trabajo", v: "Carros y videojuegos" },
@@ -177,6 +179,17 @@ export const es: Content = {
     pending: "Testimonio pendiente",
     pendingBody:
       "Este espacio está guardado para alguien que haya trabajado conmigo.",
+    items: [
+      {
+        quote:
+          "Él no es solo mi compañero, es un amigo que conozco desde el colegio y le tengo confianza, eso ha ayudado a que nuestro equipo de trabajo dé buenos resultados profesionales.",
+        original: "",
+        name: "Francisco Sinisterra",
+        role: "Ingeniero de Sistemas",
+        photoAlt: "Retrato de Francisco Sinisterra",
+        translated: "",
+      },
+    ],
   },
   record: {
     title: "Trayectoria",
@@ -203,6 +216,12 @@ export const es: Content = {
         where: "Universidad Cooperativa de Colombia, Pasto",
         when: "Ago 2024 – Ago 2028 (previsto)",
         body: "Pregrado en curso.",
+      },
+      {
+        role: "Inglés, nivel intermedio a avanzado",
+        where: "Cambridge Academy",
+        when: "Ene 2023 – Jul 2023",
+        body: "Estudio de idiomas en la academia Cambridge Academy.",
       },
     ],
   },
@@ -255,6 +274,18 @@ export const es: Content = {
       photosTitle: "Detrás del lente",
       photosBody: "Fotos de por aquí.",
       photosPending: "Fotos muy pronto.",
+      photoAlts: [
+        "Renault antiguos estacionados en fila en un encuentro de carros, con un Renault 12 rojo oxidado al frente y montañas verdes al fondo",
+        "Volkswagen Escarabajo negro mate de noche con una insignia de Mitsubishi en el capó",
+        "Primer plano de un gato atigrado gris con los ojos entrecerrados y bigotes blancos largos",
+        "Ford Mustang Mach 1 rojo con franjas negras y rines cromados estacionado en un lote mojado, con carros clásicos detrás de una reja",
+        "Ford Fiesta de rally azul y blanco cubierto de calcomanías de patrocinadores, exhibido dentro de un centro comercial",
+        "Camioneta Dodge Ram negra cubierta de espuma y polvo blanco después del Carnaval de Negros y Blancos de Pasto, estacionada en una calle de noche",
+        "Mitsubishi 3000GT rojo estacionado en una calle con montañas verdes al fondo",
+        "Nissan 300ZX blanco estacionado en una calle con montañas verdes al fondo",
+        "Camilo sonriendo con una gorra de hélice de colores, gafas y una sudadera azul",
+        "Repisas en la pared con carritos Hot Wheels y Matchbox a escala, algunos todavía en su empaque, con un jeep rosado de juguete y un patico de hule encima",
+      ],
     },
   },
   contact: {
