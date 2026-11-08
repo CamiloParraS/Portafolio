@@ -138,7 +138,7 @@ export const es: Content = {
         body: "Entre misiones, una IA llamada Aigis estudia tus hábitos (sigilo, combate, derribos) y adapta sus fuerzas. Árboles de comportamiento e IA de utilidad en Godot 4, con estética de la era PSone.",
         tags: ["Godot 4", "GDScript", "IA de juegos", "En desarrollo"],
         repo: repo("codename-DORO"),
-        demo: null,
+        demo: "/videos/ghost-layer-es.mp4",
       },
       {
         id: "haptic",

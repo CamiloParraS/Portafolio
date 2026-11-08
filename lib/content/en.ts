@@ -137,7 +137,7 @@ export const en = {
         body: "Between missions, an AI called Aigis studies your habits (stealth, combat, takedowns) and adapts its forces. Behaviour trees and utility AI in Godot 4, with a PSone-era look.",
         tags: ["Godot 4", "GDScript", "Game AI", "In development"],
         repo: repo("codename-DORO"),
-        demo: null as string | null,
+        demo: "/videos/ghost-layer.mp4" as string | null,
       },
       {
         id: "haptic" as ArtId,
