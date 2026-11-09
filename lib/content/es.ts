@@ -206,6 +206,15 @@ export const es: Content = {
         role: "Soporte técnico",
         where: "Familia y hogar",
         when: "Actualmente",
+      {
+        quote:
+          "Se toma el tiempo necesario para entender mis necesidades, se comunica con claridad y siempre busca soluciones prácticas. Valoro su profesionalismo, paciencia y compromiso. Lo recomiendo como un ingeniero de software confiable y calificado.",
+        original: "",
+        name: "Angel Sosa",
+        role: "Ingeniero Eléctrico, México",
+        photoAlt: "Retrato de Angel Sosa tomándose una selfie en el espejo con su celular",
+        translated: "",
+      },
         body: "Instalo, reparo y mantengo computadores, redes y dispositivos de mi familia.",
       },
     ],

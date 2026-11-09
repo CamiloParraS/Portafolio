@@ -204,6 +204,16 @@ export const en = {
         role: "IT support",
         where: "Family and home",
         when: "Ongoing",
+      {
+        quote:
+          "He takes the time to understand my needs, communicates clearly and always looks for practical solutions. I value his professionalism, patience and commitment. I recommend him as a reliable, qualified software engineer.",
+        original:
+          "Se toma el tiempo necesario para entender mis necesidades, se comunica con claridad y siempre busca soluciones prácticas. Valoro su profesionalismo, paciencia y compromiso. Lo recomiendo como un ingeniero de software confiable y calificado.",
+        name: "Angel Sosa",
+        role: "Electrical Engineer, Mexico",
+        photoAlt: "Portrait of Angel Sosa taking a mirror selfie with his phone",
+        translated: "Original, in Spanish",
+      },
         body: "Setting up, fixing and maintaining computers, networks and devices for my family.",
       },
     ],
