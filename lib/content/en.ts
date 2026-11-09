@@ -82,6 +82,8 @@ export const en = {
           "Node.js",
           "NestJS",
           "ElysiaJS",
+          "Jetpack Compose",
+          "Wear OS",
         ],
       },
       {
@@ -101,6 +103,21 @@ export const en = {
       {
         group: "IDEs",
         items: ["Zed", "JetBrains", "VS Code", "Android Studio"],
+      },
+      {
+        group: "ML & data",
+        items: [
+          "TensorFlow",
+          "Keras",
+          "LiteRT",
+          "scikit-learn",
+          "NumPy",
+          "SciPy",
+          "pandas",
+          "PyArrow / Parquet",
+          "pydantic",
+          "matplotlib",
+        ],
       },
     ],
     factsTitle: "Quick facts",
@@ -144,9 +161,9 @@ export const en = {
       {
         id: "haptic" as ArtId,
         name: "HapticWash",
-        tagline: "Smart handwashing monitoring with wearable motion sensing.",
-        body: "A Kotlin wearable app that reads wrist motion during handwashing, plus a Python AI component that analyses it.",
-        tags: ["Kotlin", "Wearables", "Python", "AI"],
+        tagline: "Estimates which WHO hand-washing steps you covered, fully offline.",
+        body: "A Wear OS app with an on-device CNN that detects the five WHO hand-washing steps. Built on a full ML pipeline, from dataset to quantized deployment.",
+        tags: ["Kotlin", "Wear OS", "LiteRT", "CNN", "Keras", "Python"],
         repo: repo("HapticWash"),
         demo: "/videos/hapticwash.mp4" as string | null,
       },
@@ -161,12 +178,12 @@ export const en = {
       },
       {
         id: "laaf" as ArtId,
-        name: "Laaf",
-        tagline: "An institutional template manager.",
-        body: "A TypeScript app for managing an institution's document templates.",
-        tags: ["TypeScript"],
-        repo: repo("Laaf"),
-        demo: null as string | null,
+        name: "AloMedia",
+        tagline: "A browser-based video editor with a multi-track timeline.",
+        body: "Real-time preview and client-side rendering, with FFmpeg compiled to WebAssembly, all running in the browser.",
+        tags: ["TypeScript", "FFmpeg", "WebAssembly", "Video editing"],
+        repo: "https://github.com/Juan17la/AloMediaReact",
+        demo: "https://alo-media.vercel.app" as string | null,
       },
     ],
   },
@@ -187,23 +204,6 @@ export const en = {
         photoAlt: "Portrait of Francisco Sinisterra",
         translated: "Original, in Spanish",
       },
-    ],
-  },
-  record: {
-    title: "Record",
-    intro: "Where I've been",
-    experienceTitle: "Experience",
-    experience: [
-      {
-        role: "Freelance developer",
-        where: "Independent projects",
-        when: "Ongoing",
-        body: "Designing and shipping my own projects end to end, from MAGI in Rust to Kotlin apps and web tools.",
-      },
-      {
-        role: "IT support",
-        where: "Family and home",
-        when: "Ongoing",
       {
         quote:
           "He takes the time to understand my needs, communicates clearly and always looks for practical solutions. I value his professionalism, patience and commitment. I recommend him as a reliable, qualified software engineer.",
@@ -214,6 +214,23 @@ export const en = {
         photoAlt: "Portrait of Angel Sosa taking a mirror selfie with his phone",
         translated: "Original, in Spanish",
       },
+    ],
+  },
+  record: {
+    title: "Record",
+    intro: "Where I've been",
+    experienceTitle: "Experience",
+    experience: [
+      {
+        role: "Freelance developer",
+        where: "Independent projects",
+        when: "2024 – Present",
+        body: "Designing and shipping my own projects end to end, from MAGI in Rust to Kotlin apps and web tools.",
+      },
+      {
+        role: "IT support",
+        where: "Family and home",
+        when: "2017 – Present",
         body: "Setting up, fixing and maintaining computers, networks and devices for my family.",
       },
     ],
@@ -318,6 +335,7 @@ export const en = {
   footer: {
     built: "Made with love in Pasto, Colombia.",
     top: "Back to top",
+    quick: "Quick links",
   },
 };
 

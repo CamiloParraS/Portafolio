@@ -1,6 +1,6 @@
 "use client";
 
-import { Play } from "lucide-react";
+import { ArrowUpRight, Play } from "lucide-react";
 import { useState } from "react";
 import type { Content } from "@/lib/content";
 import { GitHub } from "./brand-icons";
@@ -8,6 +8,7 @@ import { DemoPlayer } from "./demo-player";
 import { ProjectArt } from "./project-art";
 import { useSite } from "./providers";
 import { Section } from "./section";
+import { TechIcon } from "./tech-icon";
 
 type Project = Content["work"]["projects"][number];
 
@@ -20,7 +21,12 @@ function Actions({ p }: { p: Project }) {
         <GitHub />
         {t.work.code}
       </a>
-      {p.demo ? (
+      {p.demo?.startsWith("http") ? (
+        <a href={p.demo} target="_blank" rel="noreferrer" className="btn btn-primary py-2.5 text-sm">
+          <ArrowUpRight className="size-4" />
+          {t.work.demo}
+        </a>
+      ) : p.demo ? (
         <>
           <button type="button" onClick={() => setOpen(true)} className="btn btn-primary py-2.5 text-sm">
             <Play className="size-4 fill-current" />
@@ -56,7 +62,8 @@ function Tags({ tags }: { tags: string[] }) {
   return (
     <ul className="mt-4 flex flex-wrap gap-2">
       {tags.map((tag) => (
-        <li key={tag} className="chip rounded-full bg-ground px-3 py-1 text-sm text-dim">
+        <li key={tag} className="chip inline-flex items-center gap-1.5 rounded-full bg-ground px-3 py-1 text-sm text-dim">
+          <TechIcon name={tag} />
           {tag}
         </li>
       ))}

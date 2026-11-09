@@ -82,6 +82,8 @@ export const es: Content = {
           "Node.js",
           "NestJS",
           "ElysiaJS",
+          "Jetpack Compose",
+          "Wear OS",
         ],
       },
       {
@@ -101,6 +103,21 @@ export const es: Content = {
       {
         group: "Editores",
         items: ["Zed", "JetBrains", "VS Code", "Android Studio"],
+      },
+      {
+        group: "ML y datos",
+        items: [
+          "TensorFlow",
+          "Keras",
+          "LiteRT",
+          "scikit-learn",
+          "NumPy",
+          "SciPy",
+          "pandas",
+          "PyArrow / Parquet",
+          "pydantic",
+          "matplotlib",
+        ],
       },
     ],
     factsTitle: "Datos rápidos",
@@ -146,9 +163,9 @@ export const es: Content = {
         id: "haptic",
         name: "HapticWash",
         tagline:
-          "Monitoreo inteligente del lavado de manos con sensores de movimiento.",
-        body: "Una app para wearables en Kotlin que lee el movimiento de la muñeca durante el lavado de manos, más un componente de IA en Python que lo analiza.",
-        tags: ["Kotlin", "Wearables", "Python", "IA"],
+          "Estima qué pasos del lavado de manos de la OMS cubriste, sin conexión.",
+        body: "App de Wear OS con una CNN en el dispositivo que detecta los cinco pasos de lavado de manos de la OMS. Construida con un pipeline completo de ML, desde el dataset hasta el despliegue cuantizado.",
+        tags: ["Kotlin", "Wear OS", "LiteRT", "CNN", "Keras", "Python"],
         repo: repo("HapticWash"),
         demo: "/videos/hapticwash-es.mp4",
       },
@@ -163,12 +180,12 @@ export const es: Content = {
       },
       {
         id: "laaf",
-        name: "Laaf",
-        tagline: "Un gestor de plantillas institucionales.",
-        body: "Una app en TypeScript para gestionar las plantillas de documentos de una institución.",
-        tags: ["TypeScript"],
-        repo: repo("Laaf"),
-        demo: null,
+        name: "AloMedia",
+        tagline: "Editor de video en el navegador con línea de tiempo multipista.",
+        body: "Vista previa en tiempo real y renderizado en el cliente, con FFmpeg compilado a WebAssembly, todo dentro del navegador.",
+        tags: ["TypeScript", "FFmpeg", "WebAssembly", "Edición de video"],
+        repo: "https://github.com/Juan17la/AloMediaReact",
+        demo: "https://alo-media.vercel.app",
       },
     ],
   },
@@ -189,6 +206,15 @@ export const es: Content = {
         photoAlt: "Retrato de Francisco Sinisterra",
         translated: "",
       },
+      {
+        quote:
+          "Se toma el tiempo necesario para entender mis necesidades, se comunica con claridad y siempre busca soluciones prácticas. Valoro su profesionalismo, paciencia y compromiso. Lo recomiendo como un ingeniero de software confiable y calificado.",
+        original: "",
+        name: "Angel Sosa",
+        role: "Ingeniero Eléctrico, México",
+        photoAlt: "Retrato de Angel Sosa tomándose una selfie en el espejo con su celular",
+        translated: "",
+      },
     ],
   },
   record: {
@@ -199,22 +225,13 @@ export const es: Content = {
       {
         role: "Desarrollador freelance",
         where: "Proyectos independientes",
-        when: "Actualmente",
+        when: "2024 – Actualidad",
         body: "Diseño y saco adelante mis propios proyectos de principio a fin, desde MAGI en Rust hasta apps en Kotlin y herramientas web.",
       },
       {
         role: "Soporte técnico",
         where: "Familia y hogar",
-        when: "Actualmente",
-      {
-        quote:
-          "Se toma el tiempo necesario para entender mis necesidades, se comunica con claridad y siempre busca soluciones prácticas. Valoro su profesionalismo, paciencia y compromiso. Lo recomiendo como un ingeniero de software confiable y calificado.",
-        original: "",
-        name: "Angel Sosa",
-        role: "Ingeniero Eléctrico, México",
-        photoAlt: "Retrato de Angel Sosa tomándose una selfie en el espejo con su celular",
-        translated: "",
-      },
+        when: "2017 – Actualidad",
         body: "Instalo, reparo y mantengo computadores, redes y dispositivos de mi familia.",
       },
     ],
@@ -319,5 +336,6 @@ export const es: Content = {
   footer: {
     built: "Hecho con cariño en Pasto, Colombia.",
     top: "Volver arriba",
+    quick: "Enlaces rápidos",
   },
 };
