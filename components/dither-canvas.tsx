@@ -11,6 +11,8 @@ type Props = {
   /** CSS pixels per dither cell. */
   cell?: number;
   animate?: boolean;
+  /** Frame-rate cap for running art; slow-moving art can go well below the default. */
+  fps?: number;
   /** Runs only while the nearest `[data-art-host]` ancestor is hovered or focused; time is 0 when idle. */
   hover?: boolean;
   /** Runs once per frame before painting, with the grid size in cells. */
@@ -25,10 +27,12 @@ type Props = {
  * Fills its parent with ordered-dither art. Animated art runs at ~30fps, only while on
  * screen, and stays on its first frame under reduced motion or when the visitor pauses it.
  */
-export function DitherCanvas({ tone, cell = 3, animate = false, hover = false, onFrame, palette, label, className = "" }: Props) {
+export function DitherCanvas({ tone, cell = 3, animate = false, fps = 30, hover = false, onFrame, palette, label, className = "" }: Props) {
   const ref = useRef<HTMLCanvasElement>(null);
   const toneRef = useRef(tone);
   const frameRef = useRef(onFrame);
+  // Survives the effect re-running on a theme change, so visible art repaints at once instead of going blank.
+  const onScreen = useRef(false);
   const { theme, paused } = useSite();
 
   useEffect(() => {
@@ -46,8 +50,9 @@ export function DitherCanvas({ tone, cell = 3, animate = false, hover = false, o
     const runs = () => !paused && !reduced && (animate || (hot && !!host));
     let img: ImageData | null = null;
     let raf = 0;
-    let visible = false;
+    let visible = onScreen.current;
     let last = 0;
+    const interval = 1000 / fps - 1;
 
     const draw = (time: number) => {
       if (!img) return;
@@ -65,13 +70,13 @@ export function DitherCanvas({ tone, cell = 3, animate = false, hover = false, o
       canvas.width = w;
       canvas.height = h;
       img = ctx.createImageData(w, h);
-      if (visible) draw(last);
+      if (visible) draw(last / 1000);
     };
 
     // The rAF loop only exists while the canvas is on screen and the tab is visible.
     const loop = (now: number) => {
       raf = requestAnimationFrame(loop);
-      if (now - last < 33) return;
+      if (now - last < interval) return;
       last = now;
       draw(now / 1000);
     };
@@ -92,8 +97,8 @@ export function DitherCanvas({ tone, cell = 3, animate = false, hover = false, o
     const io = new IntersectionObserver(
       ([e]) => {
         const was = visible;
-        visible = e.isIntersecting;
-        if (visible && !was) draw(last);
+        visible = onScreen.current = e.isIntersecting;
+        if (visible && !was) draw(last / 1000);
         sync();
       },
       { rootMargin: "200px" },
@@ -126,7 +131,7 @@ export function DitherCanvas({ tone, cell = 3, animate = false, hover = false, o
       host?.removeEventListener("focusout", cool);
       stop();
     };
-  }, [animate, hover, paused, cell, theme, palette]);
+  }, [animate, fps, hover, paused, cell, theme, palette]);
 
   return (
     <canvas

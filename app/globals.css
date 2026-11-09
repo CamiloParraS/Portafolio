@@ -114,7 +114,6 @@ body {
   color: var(--ink);
   font-family: var(--font-onest), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
-  transition: background-color 0.3s ease;
 }
 
 ::selection {
@@ -214,9 +213,13 @@ h3 {
     padding-bottom: 0.1em;
     transition: background-size 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   }
-  .link:hover,
   .link:focus-visible {
     background-size: 100% 1px, 100% 1px;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .link:hover {
+      background-size: 100% 1px, 100% 1px;
+    }
   }
 
   /* Linked / hoverable cards: 1px lift, art zooms inside its frame. */
@@ -247,7 +250,8 @@ h3 {
     .lift:hover {
       transform: translateY(-1px);
     }
-    .lift:hover .zoom {
+    .lift:hover .zoom,
+    [data-art-host]:hover .zoom {
       transform: scale(1.025);
     }
     .btn:hover {
@@ -260,7 +264,8 @@ h3 {
   }
   /* Keyboard focus keeps the zoom, on any device. */
   @media (prefers-reduced-motion: no-preference) {
-    .lift:focus-within .zoom {
+    .lift:focus-within .zoom,
+    [data-art-host]:focus-within .zoom {
       transform: scale(1.025);
     }
   }
@@ -324,16 +329,3 @@ h3 {
   }
 }
 
-/* Theme switch: colours cross-fade for a moment (class set by the toggle). */
-@media (prefers-reduced-motion: no-preference) {
-  html.theme-fade *,
-  html.theme-fade *::before,
-  html.theme-fade *::after {
-    transition:
-      background-color 0.3s ease,
-      color 0.3s ease,
-      border-color 0.3s ease,
-      fill 0.3s ease,
-      box-shadow 0.3s ease !important;
-  }
-}

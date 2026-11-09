@@ -138,6 +138,7 @@ export const es: Content = {
     demoPending: "Demo pronto",
     demoClose: "Cerrar demo",
     demoLabel: "Video demo de {name}",
+    player: { play: "Reproducir", pause: "Pausar", seek: "Buscar en el video", mute: "Silenciar", unmute: "Activar sonido", fullscreen: "Pantalla completa" },
     artNote: "Ilustración",
     projects: [
       {

@@ -9,7 +9,8 @@ import { Record } from "@/components/record";
 import { SideDither } from "@/components/side-dither";
 import { Testimonials } from "@/components/testimonials";
 
-export default function Home() {
+/** The one-page site; the language comes from the root layout around it. */
+export function Home() {
   return (
     <>
       <SideDither />

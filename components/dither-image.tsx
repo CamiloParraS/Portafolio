@@ -14,14 +14,23 @@ type Props = {
   cover?: boolean;
   /** With `cover`: vertical focus of the crop, 0 (top) to 1 (bottom). Keeps faces in frame. Default 0.5. */
   focusY?: number;
+  /** Above-the-fold image: fetch it eagerly at high priority instead of lazily. */
+  priority?: boolean;
   className?: string;
 };
 
 /** A real photo; hover, focus or tap swaps between the original and its dither (theme inks, or `color`). */
-export function DitherImage({ src, alt, cell = 3, color = false, cover = false, focusY = 0.5, className = "" }: Props) {
+export function DitherImage({ src, alt, cell = 3, color = false, cover = false, focusY = 0.5, priority = false, className = "" }: Props) {
   const ref = useRef<HTMLCanvasElement>(null);
   const { theme } = useSite();
-  const [shown, setShown] = useState(false);
+  // Hover or keyboard focus swaps the view; a click or tap flips whatever is showing, so it always visibly responds.
+  const [hot, setHot] = useState(false);
+  const [flipped, setFlipped] = useState(false);
+  const swapped = hot !== flipped;
+  const cool = () => {
+    setHot(false);
+    setFlipped(false);
+  };
 
   useEffect(() => {
     const canvas = ref.current!;
@@ -105,28 +114,31 @@ export function DitherImage({ src, alt, cell = 3, color = false, cover = false, 
     <div
       role="button"
       tabIndex={0}
-      aria-pressed={shown}
-      onClick={() => setShown((v) => !v)}
+      aria-pressed={swapped}
+      onClick={() => setFlipped((v) => !v)}
       onKeyDown={(e) => {
         if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
-          setShown((v) => !v);
+          setFlipped((v) => !v);
         }
       }}
-      className={`group relative cursor-pointer overflow-hidden ${className}`}
+      onPointerEnter={(e) => e.pointerType === "mouse" && setHot(true)}
+      onPointerLeave={(e) => e.pointerType === "mouse" && cool()}
+      onFocus={(e) => e.currentTarget.matches(":focus-visible") && setHot(true)}
+      onBlur={cool}
+      className={`relative cursor-pointer overflow-hidden ${className}`}
     >
       <canvas ref={ref} aria-hidden className="pixel absolute inset-0 h-full w-full" />
       {/* eslint-disable-next-line @next/next/no-img-element -- static export, no image optimizer */}
       <img
         src={src}
         alt={alt}
-        loading="lazy"
+        loading={priority ? "eager" : "lazy"}
+        fetchPriority={priority ? "high" : undefined}
         decoding="async"
         style={cover ? { objectPosition: `50% ${focusY * 100}%` } : undefined}
-        className={`absolute inset-0 h-full w-full transition-opacity duration-500 ease-out ${
-          color && !cover
-            ? `object-contain group-hover:opacity-100 group-focus-visible:opacity-100 ${shown ? "opacity-100" : "opacity-0"}`
-            : `object-cover group-hover:opacity-0 group-focus-visible:opacity-0 ${shown ? "opacity-0" : "opacity-100"}`
+        className={`absolute inset-0 h-full w-full transition-opacity duration-200 ease-out ${
+          color && !cover ? `object-contain ${swapped ? "opacity-100" : "opacity-0"}` : `object-cover ${swapped ? "opacity-0" : "opacity-100"}`
         }`}
       />
     </div>

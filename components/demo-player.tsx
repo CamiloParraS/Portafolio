@@ -66,7 +66,8 @@ export function DemoPlayer({ p, src, onClose }: { p: Project; src: string; onClo
   const label = t.work.demoLabel.replace("{name}", name);
   const pct = duration ? (time / duration) * 100 : 0;
   const ctl =
-    "grid size-10 place-items-center rounded-full text-ink transition-colors hover:bg-ink/10 focus-visible:outline-2 focus-visible:outline-accent";
+    "grid size-10 place-items-center rounded-full text-ink transition-[background-color,scale] duration-150 ease-out hover:bg-ink/10 active:scale-95 focus-visible:outline-2 focus-visible:outline-accent";
+  const l = t.work.player;
 
   return (
     <dialog
@@ -103,7 +104,7 @@ export function DemoPlayer({ p, src, onClose }: { p: Project; src: string; onClo
               <button
                 type="button"
                 onClick={toggle}
-                aria-label="Play"
+                aria-label={l.play}
                 className="absolute inset-0 grid place-items-center bg-black/30"
               >
                 <span className="grid size-16 place-items-center rounded-full bg-accent text-on-accent transition-transform hover:scale-105 active:scale-95">
@@ -114,7 +115,7 @@ export function DemoPlayer({ p, src, onClose }: { p: Project; src: string; onClo
           </div>
 
           <div className="flex items-center gap-1 pt-2 sm:gap-2">
-            <button type="button" onClick={toggle} aria-label={playing ? "Pause" : "Play"} className={ctl}>
+            <button type="button" onClick={toggle} aria-label={playing ? l.pause : l.play} className={ctl}>
               {playing ? <Pause className="size-5 fill-current" /> : <Play className="size-5 fill-current" />}
             </button>
             <span className="w-10 text-right text-sm tabular-nums text-dim">{fmt(time)}</span>
@@ -125,15 +126,15 @@ export function DemoPlayer({ p, src, onClose }: { p: Project; src: string; onClo
               step={0.1}
               value={time}
               onChange={seek}
-              aria-label="Seek"
+              aria-label={l.seek}
               className="h-1.5 min-w-0 flex-1 cursor-pointer appearance-none rounded-full accent-[var(--accent)]"
               style={{ background: `linear-gradient(to right, var(--accent) ${pct}%, var(--line) ${pct}%)` }}
             />
             <span className="w-10 text-sm tabular-nums text-dim">{fmt(duration)}</span>
-            <button type="button" onClick={() => setMuted((m) => !m)} aria-label={muted ? "Unmute" : "Mute"} className={ctl}>
+            <button type="button" onClick={() => setMuted((m) => !m)} aria-label={muted ? l.unmute : l.mute} className={ctl}>
               {muted ? <VolumeX className="size-5" /> : <Volume2 className="size-5" />}
             </button>
-            <button type="button" onClick={() => video.current?.requestFullscreen?.()} aria-label="Fullscreen" className={ctl}>
+            <button type="button" onClick={() => video.current?.requestFullscreen?.()} aria-label={l.fullscreen} className={ctl}>
               <Maximize className="size-5" />
             </button>
           </div>

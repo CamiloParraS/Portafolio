@@ -79,7 +79,7 @@ export function Projects() {
     <Section id="work" title={t.work.title} intro={t.work.intro}>
       <div className="grid gap-3 sm:gap-4">
         {[first, second].map((p, i) => (
-          <article key={p.id} id={p.id} data-art-host className="tile lift grid overflow-hidden md:grid-cols-5">
+          <article key={p.id} id={p.id} data-art-host className="tile grid overflow-hidden md:grid-cols-5">
             <div className={`relative min-h-60 md:col-span-3 md:min-h-96 ${i % 2 ? "md:order-2" : ""}`}>
               <Art p={p} />
             </div>
@@ -97,7 +97,7 @@ export function Projects() {
 
         <div className="grid gap-3 sm:gap-4 md:grid-cols-3">
           {rest.map((p) => (
-            <article key={p.id} id={p.id} data-art-host className="tile lift flex flex-col overflow-hidden">
+            <article key={p.id} id={p.id} data-art-host className="tile flex flex-col overflow-hidden">
               <div className="relative h-44">
                 <Art p={p} />
               </div>

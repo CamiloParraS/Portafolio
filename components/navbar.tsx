@@ -63,7 +63,7 @@ export function Navbar() {
   }, [open]);
 
   const iconBtn =
-    "grid size-10 place-items-center rounded-xl text-ink transition-colors hover:bg-ground";
+    "grid size-10 place-items-center rounded-xl text-ink transition-[background-color,scale] duration-150 ease-out hover:bg-ground active:scale-95";
 
   return (
     <header className="sticky top-3 z-50 px-4 sm:top-4 sm:px-6">
@@ -96,7 +96,7 @@ export function Navbar() {
           <span
             aria-hidden
             style={{ width: pill.w, translate: `${pill.x}px 0` }}
-            className={`pointer-events-none absolute inset-y-0 left-0 my-auto h-9 rounded-xl bg-pill duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none ${pill.snap ? "transition-[opacity]" : "transition-[translate,width,opacity]"} ${active ? "opacity-100" : "opacity-0"}`}
+            className={`pointer-events-none absolute inset-y-0 left-0 my-auto h-9 rounded-xl bg-pill duration-250 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none ${pill.snap ? "transition-[opacity]" : "transition-[translate,width,opacity]"} ${active ? "opacity-100" : "opacity-0"}`}
           />
           {ids.map((id) => (
             <li key={id} className="relative">

@@ -23,10 +23,10 @@ export function SideDither() {
   return (
     <div aria-hidden className="pointer-events-none fixed inset-0 hidden opacity-50 [--dither-ground:var(--ground)] min-[1380px]:block">
       <div className={`${strip} left-0`}>
-        <DitherCanvas tone={left} cell={4} animate />
+        <DitherCanvas tone={left} cell={4} animate fps={8} />
       </div>
       <div className={`${strip} right-0`}>
-        <DitherCanvas tone={right} cell={4} animate />
+        <DitherCanvas tone={right} cell={4} animate fps={8} />
       </div>
     </div>
   );

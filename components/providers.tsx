@@ -1,6 +1,7 @@
 "use client";
 
-import { createContext, useCallback, useContext, useEffect, useSyncExternalStore } from "react";
+import { createContext, useCallback, useContext, useSyncExternalStore } from "react";
+import { flushSync } from "react-dom";
 import { content, type Content, type Lang } from "@/lib/content";
 
 export type Theme = "dark" | "light";
@@ -27,13 +28,6 @@ const subscribe = (cb: () => void) => {
 };
 const emit = () => listeners.forEach((l) => l());
 
-const readLang = (): Lang => {
-  try {
-    const stored = localStorage.getItem("lang");
-    if (stored === "es" || stored === "en") return stored;
-  } catch {}
-  return navigator.language.startsWith("es") ? "es" : "en";
-};
 const readTheme = (): Theme => (document.documentElement.dataset.theme === "light" ? "light" : "dark");
 
 const readPaused = () => {
@@ -50,29 +44,30 @@ const save = (key: string, value: string) => {
   } catch {}
 };
 
-export function Providers({ children }: { children: React.ReactNode }) {
-  const lang = useSyncExternalStore(subscribe, readLang, () => "en" as Lang);
+export function Providers({ lang, children }: { lang: Lang; children: React.ReactNode }) {
   const theme = useSyncExternalStore(subscribe, readTheme, () => "dark" as Theme);
   const paused = useSyncExternalStore(subscribe, readPaused, () => false);
 
-  useEffect(() => {
-    document.documentElement.lang = lang;
-    document.title = content[lang].meta.title;
+  // Each language is its own pre-rendered page; the hash keeps the visitor on the same section.
+  const toggleLang = useCallback(() => {
+    const next: Lang = lang === "en" ? "es" : "en";
+    save("lang", next);
+    window.location.assign((next === "es" ? "/es" : "/") + window.location.hash);
   }, [lang]);
 
-  const toggleLang = useCallback(() => {
-    save("lang", readLang() === "en" ? "es" : "en");
-    emit();
-  }, []);
-
+  // One snapshot cross-fade covers everything, including the canvas art, which cannot transition colours.
   const toggleTheme = useCallback(() => {
     const next = readTheme() === "dark" ? "light" : "dark";
-    const root = document.documentElement;
-    root.classList.add("theme-fade");
-    window.setTimeout(() => root.classList.remove("theme-fade"), 350);
-    root.dataset.theme = next;
-    save("theme", next);
-    emit();
+    const apply = () => {
+      document.documentElement.dataset.theme = next;
+      save("theme", next);
+      flushSync(emit);
+    };
+    if (typeof document.startViewTransition !== "function" || matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      apply();
+      return;
+    }
+    document.startViewTransition(apply);
   }, []);
 
   const togglePaused = useCallback(() => {

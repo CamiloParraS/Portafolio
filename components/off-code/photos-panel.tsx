@@ -38,13 +38,16 @@ function shuffled(): Photo[] {
   return ends === 2 ? [landscape[0], ...middle, landscape[1]] : [landscape[0], ...middle];
 }
 
+// The carousel renders this panel three times and jumps between the copies, so they must all share one order.
+let sharedOrder: Photo[] | null = null;
+
 export function PhotosPanel() {
   const { t } = useSite();
   const m = t.offcode.more;
   // Server and first client render keep the fixed order (no hydration mismatch); the shuffle runs once on mount.
   const [order, setOrder] = useState<Photo[]>(photos);
   useEffect(() => {
-    const id = requestAnimationFrame(() => setOrder(shuffled()));
+    const id = requestAnimationFrame(() => setOrder((sharedOrder ??= shuffled())));
     return () => cancelAnimationFrame(id);
   }, []);
 

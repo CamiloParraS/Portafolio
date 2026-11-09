@@ -138,6 +138,7 @@ export const en = {
     demoPending: "Demo soon",
     demoClose: "Close demo",
     demoLabel: "{name} demo video",
+    player: { play: "Play", pause: "Pause", seek: "Seek", mute: "Mute", unmute: "Unmute", fullscreen: "Fullscreen" },
     artNote: "Illustration",
     projects: [
       {

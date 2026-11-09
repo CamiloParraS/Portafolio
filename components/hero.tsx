@@ -47,7 +47,7 @@ export function Hero() {
 
       {/* The portrait is a companion to the intro, not the lead: one column, same height as the intro. */}
       <div className="tile relative order-first h-72 overflow-hidden sm:h-96 md:order-none md:col-span-1 md:h-auto">
-        <DitherImage color cover focusY={0.1} src="/img/avatar.jpg" alt={t.hero.photoAlt} className="photo-inks size-full" />
+        <DitherImage color cover priority focusY={0.1} src="/img/avatar.jpg" alt={t.hero.photoAlt} className="photo-inks size-full" />
       </div>
 
       <a
