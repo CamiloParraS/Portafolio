@@ -194,6 +194,8 @@ export const en = {
       "Reserved for people I've worked with. They're on their way; I'm not making them up.",
     pending: "Testimonial pending",
     pendingBody: "This space is saved for someone who has worked with me.",
+    prev: "Previous testimonial",
+    next: "Next testimonial",
     items: [
       {
         quote:
@@ -213,6 +215,16 @@ export const en = {
         name: "Angel Sosa",
         role: "Electrical Engineer, Mexico",
         photoAlt: "Portrait of Angel Sosa taking a mirror selfie with his phone",
+        translated: "Original, in Spanish",
+      },
+      {
+        quote:
+          "Working with Juan Camilo has been a wonderful experience. As a medical student, he helped me use AI tools for my learning and research. He's patient and explains complex technology simply.",
+        original:
+          "Trabajar con Juan Camilo ha sido una experiencia maravillosa. Como estudiante de medicina, me ayudó a usar las herramientas de IA para mi aprendizaje y mi investigación. Es paciente y explica la tecnología compleja de forma sencilla.",
+        name: "Miguel Alejandro Urbano",
+        role: "Medical student",
+        photoAlt: "Portrait of Miguel Alejandro Urbano",
         translated: "Original, in Spanish",
       },
     ],

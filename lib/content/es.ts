@@ -197,6 +197,8 @@ export const es: Content = {
     pending: "Testimonio pendiente",
     pendingBody:
       "Este espacio está guardado para alguien que haya trabajado conmigo.",
+    prev: "Testimonio anterior",
+    next: "Siguiente testimonio",
     items: [
       {
         quote:
@@ -214,6 +216,15 @@ export const es: Content = {
         name: "Angel Sosa",
         role: "Ingeniero Eléctrico, México",
         photoAlt: "Retrato de Angel Sosa tomándose una selfie en el espejo con su celular",
+        translated: "",
+      },
+      {
+        quote:
+          "Trabajar con Juan Camilo ha sido una experiencia maravillosa. Como estudiante de medicina, me ayudó a usar las herramientas de IA para mi aprendizaje y mi investigación. Es paciente y explica la tecnología compleja de forma sencilla.",
+        original: "",
+        name: "Miguel Alejandro Urbano",
+        role: "Estudiante de medicina",
+        photoAlt: "Retrato de Miguel Alejandro Urbano",
         translated: "",
       },
     ],
