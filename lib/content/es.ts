@@ -197,6 +197,8 @@ export const es: Content = {
     pending: "Testimonio pendiente",
     pendingBody:
       "Este espacio está guardado para alguien que haya trabajado conmigo.",
+    pause: "Pausar testimonios",
+    play: "Reproducir testimonios",
     prev: "Testimonio anterior",
     next: "Siguiente testimonio",
     items: [

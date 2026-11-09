@@ -194,6 +194,8 @@ export const en = {
       "Reserved for people I've worked with. They're on their way; I'm not making them up.",
     pending: "Testimonial pending",
     pendingBody: "This space is saved for someone who has worked with me.",
+    pause: "Pause testimonials",
+    play: "Play testimonials",
     prev: "Previous testimonial",
     next: "Next testimonial",
     items: [

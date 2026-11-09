@@ -349,3 +349,13 @@ h3 {
   }
 }
 
+
+/* Testimonials ring: one copy of the set scrolls by exactly its own width, so the loop never resets. */
+@keyframes testimonial-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
