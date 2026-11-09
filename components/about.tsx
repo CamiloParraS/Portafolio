@@ -7,6 +7,9 @@ import { useSite } from "./providers";
 import { Section } from "./section";
 import { TechIcon } from "./tech-icon";
 
+// Stack groups before this index sit in the left card; the rest continue under Quick facts.
+const SPLIT = 3;
+
 export function About() {
   const { t } = useSite();
   const a = t.about;
@@ -40,10 +43,10 @@ export function About() {
           </figure>
         ))}
 
-        <div className="tile p-6 sm:p-8 md:col-span-3">
+        <div className="tile group flex flex-col overflow-hidden p-6 pb-0 sm:p-8 sm:pb-0 md:col-span-3 md:row-span-2">
           <h3 className="text-2xl font-bold tracking-tight">{a.stackTitle}</h3>
           <dl className="mt-5 space-y-5">
-            {a.stack.map((g) => (
+            {a.stack.slice(0, SPLIT).map((g) => (
               <div key={g.group}>
                 <dt className="text-sm text-dim">{g.group}</dt>
                 <dd className="mt-2 flex flex-wrap gap-2">
@@ -57,6 +60,11 @@ export function About() {
               </div>
             ))}
           </dl>
+          {/* Decorative mascot peeking up from the bottom edge of the card. */}
+          <div className="pointer-events-none mt-auto flex h-[5.5rem] justify-end overflow-hidden pr-2">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/img/mascot.png" alt="" width={160} height={160} className="h-24 w-auto translate-y-[18%] motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover:translate-y-[6%]" />
+          </div>
         </div>
 
         <div className="tile p-6 sm:p-8 md:col-span-3">
@@ -66,6 +74,23 @@ export function About() {
               <div key={f.k} className="flex flex-wrap justify-between gap-x-6 gap-y-1 py-3">
                 <dt className="text-dim">{f.k}</dt>
                 <dd className="tabular font-medium">{f.v}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+        <div className="tile p-6 sm:p-8 md:col-span-3">
+          <dl className="space-y-5">
+            {a.stack.slice(SPLIT).map((g) => (
+              <div key={g.group}>
+                <dt className="text-sm text-dim">{g.group}</dt>
+                <dd className="mt-2 flex flex-wrap gap-2">
+                  {g.items.map((item) => (
+                    <span key={item} className="inline-flex items-center gap-2 rounded-full border border-line px-3 py-1 text-sm font-medium">
+                      <TechIcon name={item} />
+                      {item}
+                    </span>
+                  ))}
+                </dd>
               </div>
             ))}
           </dl>
