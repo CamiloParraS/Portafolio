@@ -263,7 +263,7 @@ export function Scene() {
           type="button"
           onPointerDown={(e) => e.stopPropagation()}
           onClick={drive}
-          className="btn btn-ghost pointer-events-auto bg-tile/85 px-3.5 py-2 text-sm backdrop-blur-sm"
+          className="btn btn-ghost pointer-events-auto h-10 bg-tile/85 px-3.5 py-0 text-sm backdrop-blur-sm"
         >
           {t.hero.drive}
         </button>

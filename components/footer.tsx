@@ -19,9 +19,9 @@ export function Footer() {
           <p className="text-sm text-dim">
             © 2026 · {t.footer.built}
           </p>
-          <nav aria-label={t.footer.quick} className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-sm text-dim">
+          <nav aria-label={t.footer.quick} className="mt-1.5 flex flex-wrap gap-x-4 text-sm text-dim">
             {sections.map((id) => (
-              <a key={id} href={`#${id}`} className="transition-colors hover:text-ink">
+              <a key={id} href={`#${id}`} className="py-2.5 transition-colors hover:text-ink">
                 {t.nav[id]}
               </a>
             ))}

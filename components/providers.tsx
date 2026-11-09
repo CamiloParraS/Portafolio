@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useCallback, useContext, useSyncExternalStore } from "react";
+import { createContext, useCallback, useContext, useEffect, useSyncExternalStore } from "react";
 import { flushSync } from "react-dom";
 import { content, type Content, type Lang } from "@/lib/content";
 
@@ -47,6 +47,12 @@ const save = (key: string, value: string) => {
 export function Providers({ lang, children }: { lang: Lang; children: React.ReactNode }) {
   const theme = useSyncExternalStore(subscribe, readTheme, () => "dark" as Theme);
   const paused = useSyncExternalStore(subscribe, readPaused, () => false);
+
+  // The phone's browser bar follows the site's theme, which can differ from the system's.
+  useEffect(() => {
+    const color = theme === "dark" ? "#090b0e" : "#f3f6f7";
+    document.querySelectorAll('meta[name="theme-color"]').forEach((m) => m.setAttribute("content", color));
+  }, [theme]);
 
   // Each language is its own pre-rendered page; the hash keeps the visitor on the same section.
   const toggleLang = useCallback(() => {

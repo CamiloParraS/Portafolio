@@ -79,7 +79,7 @@ export function Navbar() {
       >
         <a
           href="#top"
-          className="flex items-center gap-2.5 font-display text-lg font-bold tracking-tight"
+          className="flex items-center gap-2.5 font-display text-lg font-bold tracking-tight whitespace-nowrap"
         >
           {/* eslint-disable-next-line @next/next/no-img-element -- static export, no image optimizer */}
           <img
@@ -92,7 +92,7 @@ export function Navbar() {
           camilo parra
         </a>
 
-        <ul className="relative hidden items-center gap-1 md:flex">
+        <ul className="relative hidden items-center gap-1 lg:flex">
           <span
             aria-hidden
             style={{ width: pill.w, translate: `${pill.x}px 0` }}
@@ -144,7 +144,7 @@ export function Navbar() {
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? t.nav.close : t.nav.menu}
-            className={`${iconBtn} md:hidden`}
+            className={`${iconBtn} lg:hidden`}
           >
             {open ? <X className="size-5" /> : <Menu className="size-5" />}
           </button>
@@ -154,14 +154,14 @@ export function Navbar() {
       {open && (
         <ul
           id="mobile-menu"
-          className="tile mx-auto mt-2 grid max-w-6xl gap-1 p-2 transition-[opacity,translate] duration-200 ease-out starting:-translate-y-2 starting:opacity-0 motion-reduce:starting:translate-y-0 md:hidden"
+          className="tile mx-auto mt-2 grid max-w-6xl gap-1 p-2 transition-[opacity,translate] duration-200 ease-out starting:-translate-y-2 starting:opacity-0 motion-reduce:starting:translate-y-0 lg:hidden"
         >
           {ids.map((id) => (
             <li key={id}>
               <a
                 href={`#${id}`}
                 onClick={() => setOpen(false)}
-                className="block rounded-2xl px-4 py-3 text-lg font-medium transition-colors hover:bg-ground"
+                className="block rounded-2xl px-4 py-3 text-lg font-medium transition-colors hover:bg-ground active:bg-ground"
               >
                 {t.nav[id]}
               </a>

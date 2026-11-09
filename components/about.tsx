@@ -73,7 +73,7 @@ export function About() {
             {a.facts.map((f) => (
               <div key={f.k} className="flex flex-wrap justify-between gap-x-6 gap-y-1 py-3">
                 <dt className="text-dim">{f.k}</dt>
-                <dd className="tabular font-medium">{f.v}</dd>
+                <dd className="tabular ml-auto text-right font-medium">{f.v}</dd>
               </div>
             ))}
           </dl>

@@ -79,11 +79,11 @@ export function Projects() {
     <Section id="work" title={t.work.title} intro={t.work.intro}>
       <div className="grid gap-3 sm:gap-4">
         {[first, second].map((p, i) => (
-          <article key={p.id} id={p.id} data-art-host className="tile grid overflow-hidden md:grid-cols-5">
-            <div className={`relative min-h-60 md:col-span-3 md:min-h-96 ${i % 2 ? "md:order-2" : ""}`}>
+          <article key={p.id} id={p.id} data-art-host className="tile grid overflow-hidden md:grid-cols-2 lg:grid-cols-5">
+            <div className={`relative min-h-60 md:min-h-96 lg:col-span-3 ${i % 2 ? "md:order-2" : ""}`}>
               <Art p={p} />
             </div>
-            <div className="flex flex-col p-6 sm:p-10 md:col-span-2">
+            <div className="flex flex-col p-6 sm:p-10 lg:col-span-2">
               <h3 className="text-4xl font-bold tracking-[-0.03em] sm:text-5xl">{p.name}</h3>
               <p className="mt-3 text-lg font-medium">{p.tagline}</p>
               <p className="mt-3 leading-relaxed text-dim">{p.body}</p>
@@ -95,9 +95,9 @@ export function Projects() {
           </article>
         ))}
 
-        <div className="grid gap-3 sm:gap-4 md:grid-cols-3">
+        <div className="grid gap-3 sm:gap-4 md:grid-cols-2 lg:grid-cols-3">
           {rest.map((p) => (
-            <article key={p.id} id={p.id} data-art-host className="tile flex flex-col overflow-hidden">
+            <article key={p.id} id={p.id} data-art-host className="tile flex flex-col overflow-hidden md:max-lg:last:odd:col-span-2">
               <div className="relative h-44">
                 <Art p={p} />
               </div>

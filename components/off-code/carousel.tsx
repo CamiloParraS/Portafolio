@@ -111,7 +111,7 @@ export function OffCodeCarousel({ children }: { children: React.ReactNode }) {
     el.scrollBy({ left: dir * (first.offsetWidth + 16), behavior: reduced ? "auto" : "smooth" });
   };
 
-  const arrow = "btn btn-ghost grid size-8 place-items-center p-0";
+  const arrow = "btn btn-ghost grid size-8 place-items-center p-0 pointer-coarse:size-10";
 
   return (
     <div role="region" aria-roledescription="carousel" aria-label={m.label}>
@@ -127,7 +127,7 @@ export function OffCodeCarousel({ children }: { children: React.ReactNode }) {
               onClick={() => goTo(i)}
               aria-label={`${i + 1} / ${count}`}
               aria-current={i === active || undefined}
-              className="group grid h-6 flex-1 place-items-center transition-transform duration-150 ease-out active:scale-90 sm:max-w-12"
+              className="group grid h-6 flex-1 place-items-center transition-transform duration-150 ease-out active:scale-90 pointer-coarse:h-10 sm:max-w-12"
             >
               <span
                 className={`h-1 w-full rounded-full transition-colors duration-300 ${

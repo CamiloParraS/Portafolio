@@ -103,7 +103,7 @@ export function Contact() {
   };
 
   const field =
-    "mt-2 w-full rounded-2xl border border-line bg-ground px-4 py-3 text-ink placeholder:text-dim transition-colors duration-150 focus:border-accent-ink focus:outline-none aria-invalid:border-rose-500";
+    "mt-2 w-full rounded-2xl border border-line bg-ground px-4 py-3 text-base font-normal text-ink placeholder:text-dim transition-colors duration-150 focus:border-accent-ink focus:outline-none aria-invalid:border-rose-500";
 
   const enter = "inline-block transition-[opacity,translate] duration-200 ease-out starting:translate-y-1 starting:opacity-0 motion-reduce:starting:translate-y-0";
 

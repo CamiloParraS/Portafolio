@@ -85,7 +85,7 @@ export function GithubPanel() {
               <dd className="tabular font-display text-3xl font-bold tracking-tight">
                 {value}
               </dd>
-              <dt className="text-sm text-dim">{label}</dt>
+              <dt className="text-xs text-dim">{label}</dt>
             </div>
           ))}
         </dl>
@@ -95,6 +95,7 @@ export function GithubPanel() {
         href={links.github}
         target="_blank"
         rel="noreferrer"
+        aria-label={m.activityProfile}
         className="link mt-6 inline-flex items-center gap-1 font-medium"
       >
         <ArrowUpRight className="size-4 text-accent-ink" />

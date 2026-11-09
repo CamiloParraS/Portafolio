@@ -75,6 +75,22 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 6rem;
+  /* The browser's grey tap flash fights the press states below. */
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* Taps fire at once (no double-tap-zoom wait); a long press on a control doesn't select its label. */
+a,
+button,
+[role="button"] {
+  touch-action: manipulation;
+}
+button,
+.btn {
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -227,6 +243,10 @@ h3 {
     transition:
       transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
       border-color 0.25s ease;
+  }
+  /* Linked cards acknowledge the press; touch has no hover to do it for them. */
+  a.lift:active {
+    transform: scale(0.99);
   }
   .zoom {
     transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);

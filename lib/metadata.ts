@@ -29,7 +29,7 @@ export function siteMetadata(lang: Lang): Metadata {
 
 export const siteViewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#0b0d10" },
+    { media: "(prefers-color-scheme: dark)", color: "#090b0e" },
     { media: "(prefers-color-scheme: light)", color: "#f3f6f7" },
   ],
 };
