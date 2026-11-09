@@ -6,6 +6,9 @@ import { GitHub, LinkedIn } from "./brand-icons";
 import { useSite } from "./providers";
 import { Scene } from "./scene";
 
+// Same order as the page; each id is a section anchor.
+const sections = ["about", "work", "testimonials", "record", "contact", "offcode"] as const;
+
 export function Footer() {
   const { t } = useSite();
   return (
@@ -16,6 +19,13 @@ export function Footer() {
           <p className="text-sm text-dim">
             © 2026 · {t.footer.built}
           </p>
+          <nav aria-label={t.footer.quick} className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-sm text-dim">
+            {sections.map((id) => (
+              <a key={id} href={`#${id}`} className="transition-colors hover:text-ink">
+                {t.nav[id]}
+              </a>
+            ))}
+          </nav>
         </div>
         <div className="flex items-center gap-1">
           <a href={links.github} target="_blank" rel="noreferrer" aria-label="GitHub" className="grid size-10 place-items-center rounded-xl transition-colors hover:bg-tile">
