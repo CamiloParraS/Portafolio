@@ -53,8 +53,7 @@ export const en = {
       "Today that means projects that go a bit deeper than a CRUD app: a search engine in Rust that understands your files, and a game whose AI studies how you play. I'm still learning, and I'd like to keep doing it on a team.",
     ],
     photoAlt: "Camilo on a boat on a lake, wearing a cap and glasses",
-    photoSlot: "Photo slot",
-    photoHint: "Add a photo at public/img/about-{n}.jpg",
+    groupAlts: ["Perficient visit with the group", "CI&T visit with the group", "Group trip at the Piedra del Peñol in Guatapé"],
     stackTitle: "Stack",
     stack: [
       {

@@ -1,8 +1,7 @@
 "use client";
 
-import { placeholderArt } from "@/lib/art";
-import { DitherCanvas } from "./dither-canvas";
 import { DitherImage } from "./dither-image";
+import { GroupShuffle } from "./group-shuffle";
 import { useSite } from "./providers";
 import { Section } from "./section";
 import { TechIcon } from "./tech-icon";
@@ -33,15 +32,9 @@ export function About() {
           </div>
         </figure>
 
-        {[2].map((n) => (
-          <figure key={n} className="tile relative min-h-48 overflow-hidden md:col-span-2">
-            <DitherCanvas tone={placeholderArt} cell={4} />
-            <figcaption className="absolute inset-x-4 bottom-4 rounded-2xl border border-dashed border-line bg-tile/90 px-4 py-3 text-sm backdrop-blur-sm">
-              <span className="font-semibold">{a.photoSlot}</span>
-              <span className="block text-dim">{a.photoHint.replace("{n}", String(n))}</span>
-            </figcaption>
-          </figure>
-        ))}
+        <figure className="tile relative min-h-48 overflow-hidden md:col-span-2">
+          <GroupShuffle alts={a.groupAlts} />
+        </figure>
 
         <div className="tile group flex flex-col overflow-hidden p-6 pb-0 sm:p-8 sm:pb-0 md:col-span-3 md:row-span-2">
           <h3 className="text-2xl font-bold tracking-tight">{a.stackTitle}</h3>

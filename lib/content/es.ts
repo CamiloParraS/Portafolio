@@ -53,8 +53,7 @@ export const es: Content = {
       "Hoy eso significa proyectos que van un poco más allá de un CRUD: un motor de búsqueda en Rust que entiende tus archivos y un juego cuya IA estudia cómo juegas. Sigo aprendiendo, y me gustaría seguir haciéndolo en un equipo.",
     ],
     photoAlt: "Camilo en una lancha sobre un lago, con gorra y gafas",
-    photoSlot: "Espacio para foto",
-    photoHint: "Agrega una foto en public/img/about-{n}.jpg",
+    groupAlts: ["Visita a Perficient con el grupo", "Visita a CI&T con el grupo", "Paseo grupal en la Piedra del Peñol, Guatapé"],
     stackTitle: "Tecnologías",
     stack: [
       {
