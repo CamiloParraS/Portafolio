@@ -21,8 +21,8 @@ export function Home() {
         <Projects />
         <Testimonials />
         <Record />
-        <Contact />
         <OffCode />
+        <Contact />
       </main>
       <Footer />
     </>

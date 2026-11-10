@@ -4,7 +4,7 @@ import { Menu, Moon, Sun, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useSite } from "./providers";
 
-const ids = ["about", "work", "testimonials", "record", "contact", "offcode"] as const;
+const ids = ["about", "work", "testimonials", "record", "offcode", "contact"] as const;
 
 export function Navbar() {
   const { t, toggleLang, theme, toggleTheme } = useSite();
@@ -106,7 +106,7 @@ export function Navbar() {
                 }}
                 href={`#${id}`}
                 aria-current={active === id ? "location" : undefined}
-                className={`block rounded-xl px-3 py-2 text-sm transition-colors duration-300 hover:text-ink ${active === id ? "text-ink" : "text-dim"}`}
+                className={`block rounded-xl px-3 py-2 text-sm transition-colors duration-150 hover:text-ink ${active === id ? "text-ink" : "text-dim"}`}
               >
                 {t.nav[id]}
               </a>

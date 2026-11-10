@@ -7,7 +7,7 @@ import { useSite } from "./providers";
 import { Scene } from "./scene";
 
 // Same order as the page; each id is a section anchor.
-const sections = ["about", "work", "testimonials", "record", "contact", "offcode"] as const;
+const sections = ["about", "work", "testimonials", "record", "offcode", "contact"] as const;
 
 export function Footer() {
   const { t } = useSite();
