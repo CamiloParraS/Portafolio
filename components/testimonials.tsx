@@ -1,151 +1,81 @@
 "use client";
 
-import { Pause, Play, Quote } from "lucide-react";
-import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { Quote } from "lucide-react";
 import { DitherImage } from "./dither-image";
 import { useSite } from "./providers";
 import { Section } from "./section";
 
-// Photos live in /public/img, keyed by position in content `testimonials.items`. Never invent testimonials.
-const PHOTOS = ["/img/francisco-sinesterra.jpg", "/img/angel-sosa.jpg", "/img/miguel-urbano.jpg"];
-const SLOTS = 3; // a pending card fills any slot left open
-const GAP = 16; // px, matches gap-4
-const SPEED = 36; // px per second the ring travels
-
-const slide =
-  "grid shrink-0 snap-start grid-cols-[minmax(0,1fr)_minmax(0,2fr)] overflow-hidden tile";
-
-// Edges fade smoothly to transparent over FADE % of the width on each side.
-const EDGE_MASK = "linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%)";
-
-const reducedMotion = (notify: () => void) => {
-  const mq = matchMedia("(prefers-reduced-motion: reduce)");
-  mq.addEventListener("change", notify);
-  return () => mq.removeEventListener("change", notify);
+/**
+ * Photos live in /public/img, keyed by the person's `name` exactly as written in content `testimonials.items`
+ * (same in en.ts and es.ts). `focusY` is where the face sits in the photo, 0 (top) to 1 (bottom): raise it if the
+ * crop cuts off a chin, lower it if it cuts off a forehead. A person with no entry gets a text-only card.
+ * Never invent testimonials.
+ */
+const PHOTOS: Record<string, { src: string; focusY: number }> = {
+  "Francisco Sinisterra": { src: "/img/francisco-sinesterra.jpg", focusY: 0.3 },
+  "Angel Sosa": { src: "/img/angel-sosa.jpg", focusY: 0.3 },
+  "Miguel Alejandro Urbano": { src: "/img/miguel-urbano.jpg", focusY: 0.45 },
 };
+const SLOTS = 3; // a pending card fills any slot left open
 
 /**
- * Testimonials run as an endless ring, like the off-code section but never stopping: the set is written twice and the
- * track moves by exactly one set, so the last card flows straight into the first. It pauses on hover or focus and on its
- * pause button. Under reduced motion the ring stands still and the row scrolls by hand.
+ * A static grid: quotes are meant to be read, so nothing moves. Three or more cards: photo-left below `lg`,
+ * photo-on-top in three columns from `lg` up. Exactly four: a 2×2 grid that keeps the photo-left layout, so no card
+ * is left alone on its row.
  */
 export function Testimonials() {
   const { t } = useSite();
   const s = t.testimonials;
   const open = Math.max(0, SLOTS - s.items.length);
-  const region = useRef<HTMLDivElement>(null);
-  const [cardW, setCardW] = useState(0);
-  const [playing, setPlaying] = useState(true);
-  const [hovered, setHovered] = useState(false);
-  const [focused, setFocused] = useState(false);
-  const reduced = useSyncExternalStore(reducedMotion, () => matchMedia("(prefers-reduced-motion: reduce)").matches, () => false);
-
-  // Two cards per view on desktop, one and a peek on phones; re-measured when the frame changes size.
-  useEffect(() => {
-    const el = region.current!;
-    const measure = () => {
-      const w = el.clientWidth;
-      const twoUp = matchMedia("(min-width: 768px)").matches;
-      setCardW(twoUp ? (w - GAP) / 2 : Math.round(w * 0.86));
-    };
-    measure();
-    const ro = new ResizeObserver(measure);
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, []);
-
-  const n = s.items.length + open;
-  const setWidth = n * (cardW + GAP); // one full set, trailing gap included, so the second set starts where the first ends
-  const paused = !playing || hovered || focused;
-  const animate = !reduced && cardW > 0;
-
-  const cards = (
-    <>
-      {s.items.map((q, i) => {
-        const photo = PHOTOS[i];
-        return (
-          <figure key={q.name} style={{ width: cardW }} className={slide}>
-            {photo && <DitherImage color cover focusY={0.3} src={photo} alt={q.photoAlt} cell={3} className="photo-inks h-full min-h-44" />}
-            <div className="flex flex-col p-4 sm:p-5">
-              <Quote className="size-5 text-accent-ink" aria-hidden />
-              <blockquote className="mt-2 text-[0.8125rem] leading-snug sm:text-sm">{q.quote}</blockquote>
-              {q.original && (
-                <p className="mt-2 text-xs text-dim">
-                  <span className="font-semibold">{q.translated}: </span>
-                  <span lang="es">&ldquo;{q.original}&rdquo;</span>
-                </p>
-              )}
-              <figcaption className="mt-auto pt-4 text-sm">
-                <span className="block font-semibold">{q.name}</span>
-                <span className="text-dim">{q.role}</span>
-              </figcaption>
-            </div>
-          </figure>
-        );
-      })}
-      {Array.from({ length: open }, (_, i) => (
-        <div
-          key={`pending-${i}`}
-          style={{ width: cardW }}
-          className="flex min-h-56 shrink-0 snap-start flex-col rounded-[28px] border border-dashed border-line p-6 sm:p-8"
-        >
-          <Quote className="slot-pulse size-6 text-line" aria-hidden />
-          <p className="mt-auto font-semibold">{s.pending}</p>
-          <p className="mt-1 text-dim">{s.pendingBody}</p>
-        </div>
-      ))}
-    </>
-  );
+  const twoByTwo = s.items.length + open === 4;
 
   return (
     <Section id="testimonials" title={s.title} intro={s.intro}>
-      <div
-        ref={region}
-        role="region"
-        aria-roledescription="carousel"
-        aria-label={s.title}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-        onFocus={() => setFocused(true)}
-        onBlur={(e) => {
-          if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setFocused(false);
-        }}
-      >
-        {!reduced && (
-          <div className="mb-2 flex justify-end">
-            <button
-              type="button"
-              className="btn btn-ghost grid size-8 place-items-center p-0 pointer-coarse:size-10"
-              aria-label={playing ? s.pause : s.play}
-              aria-pressed={!playing}
-              onClick={() => setPlaying((p) => !p)}
+      <div className={`grid gap-3 sm:gap-4 ${twoByTwo ? "lg:grid-cols-2" : "lg:grid-cols-3"}`}>
+        {s.items.map((q) => {
+          const photo = PHOTOS[q.name];
+          return (
+            <figure
+              key={q.name}
+              className={`tile grid overflow-hidden ${photo ? "sm:grid-cols-[minmax(0,1fr)_minmax(0,2fr)]" : ""} ${twoByTwo ? "" : "lg:grid-cols-1 lg:grid-rows-[auto_1fr]"}`}
             >
-              {playing ? <Pause className="size-4" aria-hidden /> : <Play className="size-4" aria-hidden />}
-            </button>
-          </div>
-        )}
-        <div
-          className={reduced ? "snap-x snap-mandatory overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" : "overflow-hidden"}
-          style={{ maskImage: EDGE_MASK, WebkitMaskImage: EDGE_MASK }}
-          tabIndex={reduced ? 0 : undefined}
-        >
+              {photo && (
+                <DitherImage
+                  color
+                  cover
+                  focusY={photo.focusY}
+                  src={photo.src}
+                  alt={q.photoAlt}
+                  className={`photo-inks h-64 sm:h-full sm:min-h-56 ${twoByTwo ? "" : "lg:aspect-[4/3] lg:h-auto lg:min-h-0"}`}
+                />
+              )}
+              <div className="flex flex-col p-5 sm:p-6">
+                <Quote className="size-5 text-accent-ink" aria-hidden />
+                <blockquote className="mt-3 leading-relaxed">{q.quote}</blockquote>
+                {q.original && (
+                  <p className="mt-3 text-sm leading-relaxed text-dim">
+                    <span className="font-semibold">{q.translated}: </span>
+                    <span lang="es">&ldquo;{q.original}&rdquo;</span>
+                  </p>
+                )}
+                <figcaption className="mt-auto pt-5 text-sm">
+                  <span className="block font-semibold">{q.name}</span>
+                  <span className="text-dim">{q.role}</span>
+                </figcaption>
+              </div>
+            </figure>
+          );
+        })}
+        {Array.from({ length: open }, (_, i) => (
           <div
-            className="flex w-max gap-4"
-            style={
-              animate
-                ? {
-                    animation: `testimonial-marquee ${setWidth / SPEED}s linear infinite`,
-                    animationPlayState: paused ? "paused" : "running",
-                  }
-                : undefined
-            }
+            key={`pending-${i}`}
+            className="flex min-h-56 flex-col rounded-[28px] border border-dashed border-line p-6 sm:p-8"
           >
-            <div className="flex shrink-0 gap-4">{cards}</div>
-            <div className="flex shrink-0 gap-4" aria-hidden inert>
-              {cards}
-            </div>
+            <Quote className="slot-pulse size-6 text-line" aria-hidden />
+            <p className="mt-auto font-semibold">{s.pending}</p>
+            <p className="mt-1 text-dim">{s.pendingBody}</p>
           </div>
-        </div>
+        ))}
       </div>
     </Section>
   );
