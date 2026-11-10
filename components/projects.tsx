@@ -58,6 +58,19 @@ function Art({ p }: { p: Project }) {
   );
 }
 
+function Badges({ badges }: { badges: string[] }) {
+  if (!badges.length) return null;
+  return (
+    <ul className="flex flex-wrap gap-1.5">
+      {badges.map((b) => (
+        <li key={b} className="rounded-full border border-line px-2.5 py-0.5 text-xs font-medium text-dim">
+          {b}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 function Tags({ tags }: { tags: string[] }) {
   return (
     <ul className="mt-4 flex flex-wrap gap-2">
@@ -84,7 +97,10 @@ export function Projects() {
               <Art p={p} />
             </div>
             <div className="flex flex-col p-6 sm:p-10 lg:col-span-2">
-              <h3 className="text-4xl font-bold tracking-[-0.03em] sm:text-5xl">{p.name}</h3>
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+                <h3 className="text-4xl font-bold tracking-[-0.03em] sm:text-5xl">{p.name}</h3>
+                <Badges badges={p.badges} />
+              </div>
               <p className="mt-3 text-lg font-medium">{p.tagline}</p>
               <p className="mt-3 leading-relaxed text-dim">{p.body}</p>
               <Tags tags={p.tags} />
@@ -102,7 +118,10 @@ export function Projects() {
                 <Art p={p} />
               </div>
               <div className="flex flex-1 flex-col p-6">
-                <h3 className="text-2xl font-bold tracking-tight">{p.name}</h3>
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+                  <h3 className="text-2xl font-bold tracking-tight">{p.name}</h3>
+                  <Badges badges={p.badges} />
+                </div>
                 <p className="mt-2 font-medium">{p.tagline}</p>
                 <p className="mt-2 text-dim">{p.body}</p>
                 <Tags tags={p.tags} />

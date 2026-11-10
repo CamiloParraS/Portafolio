@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowUpRight, Download } from "lucide-react";
+import { ArrowDown, Download } from "lucide-react";
 import { links } from "@/lib/content";
 import { DitherImage } from "./dither-image";
 import { ProjectArt } from "./project-art";
@@ -47,7 +47,7 @@ export function Hero() {
 
       {/* The portrait is a companion to the intro, not the lead: one column, same height as the intro. */}
       <div className="tile relative order-first h-72 overflow-hidden sm:h-96 md:order-none md:col-span-1 md:h-auto">
-        <DitherImage color cover priority focusY={0.1} src="/img/avatar.jpg" alt={t.hero.photoAlt} className="photo-inks size-full" />
+        <DitherImage color cover priority focusY={0.1} hint={[t.hero.pixelate, t.hero.photo]} src="/img/avatar.jpg" alt={t.hero.photoAlt} className="photo-inks size-full" />
       </div>
 
       <a
@@ -62,7 +62,7 @@ export function Hero() {
         <div className="p-6">
           <h2 className="flex items-center justify-between text-3xl font-bold tracking-tight">
             {magi.name}
-            <ArrowUpRight className="size-6 transition-transform duration-300 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            <ArrowDown className="size-6 transition-transform duration-300 ease-out group-hover:translate-y-0.5" />
           </h2>
           <p className="mt-2 leading-snug">{t.hero.magiLine}</p>
         </div>
@@ -80,7 +80,7 @@ export function Hero() {
         <div className="p-6">
           <h2 className="flex items-center justify-between text-3xl font-bold tracking-tight">
             {ghost.name}
-            <ArrowUpRight className="size-6 text-dim transition-transform duration-300 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            <ArrowDown className="size-6 text-dim transition-transform duration-300 ease-out group-hover:translate-y-0.5" />
           </h2>
           <p className="mt-2 leading-snug text-dim">{t.hero.ghostLine}</p>
         </div>

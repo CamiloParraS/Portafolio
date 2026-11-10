@@ -16,11 +16,13 @@ type Props = {
   focusY?: number;
   /** Above-the-fold image: fetch it eagerly at high priority instead of lazily. */
   priority?: boolean;
+  /** A small corner label naming what a press will show, so the swap is discoverable: [before swap, after swap]. */
+  hint?: readonly [string, string];
   className?: string;
 };
 
 /** A real photo; hover, focus or tap swaps between the original and its dither (theme inks, or `color`). */
-export function DitherImage({ src, alt, cell = 3, color = false, cover = false, focusY = 0.5, priority = false, className = "" }: Props) {
+export function DitherImage({ src, alt, cell = 3, color = false, cover = false, focusY = 0.5, priority = false, hint, className = "" }: Props) {
   const ref = useRef<HTMLCanvasElement>(null);
   const { theme } = useSite();
   // Hover or keyboard focus swaps the view; a click or tap flips whatever is showing, so it always visibly responds.
@@ -141,6 +143,22 @@ export function DitherImage({ src, alt, cell = 3, color = false, cover = false, 
           color && !cover ? `object-contain ${swapped ? "opacity-100" : "opacity-0"}` : `object-cover ${swapped ? "opacity-0" : "opacity-100"}`
         }`}
       />
+      {hint && (
+        <span
+          aria-hidden
+          className="pointer-events-none absolute bottom-3 left-3 grid rounded-full bg-tile/85 px-2.5 py-1 text-xs font-medium text-dim backdrop-blur-sm"
+        >
+          {/* Both labels share one cell so the pill keeps one width; the swap crossfades with a touch of blur. */}
+          {hint.map((label, i) => (
+            <span
+              key={label}
+              className={`col-start-1 row-start-1 transition-[opacity,filter] duration-200 ease-out motion-reduce:transition-none ${(i === 1) === swapped ? "" : "opacity-0 blur-[2px]"}`}
+            >
+              {label}
+            </span>
+          ))}
+        </span>
+      )}
     </div>
   );
 }
