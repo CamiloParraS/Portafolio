@@ -14,6 +14,7 @@ const SLUGS: Record<string, string> = {
   "C++": "cplusplus",
   React: "react",
   "Next.js": "nextdotjs",
+  GPUI: "zedindustries", // Zed's Rust UI framework
   Spring: "spring",
   Android: "android",
   Godot: "godotengine",
@@ -28,6 +29,7 @@ const SLUGS: Record<string, string> = {
   Docker: "docker",
   PostgreSQL: "postgresql",
   AWS: "amazonwebservices",
+  Cloudflare: "cloudflare",
   ESP32: "espressif",
   Zed: "zedindustries",
   "Godot 4": "godotengine",
