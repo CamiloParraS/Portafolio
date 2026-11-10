@@ -44,16 +44,27 @@ function Actions({ p }: { p: Project }) {
   );
 }
 
+/** Project stills, per language and theme. Projects without an entry keep their procedural art. */
+const shots: Partial<Record<string, { en: { dark: string; light: string }; es: { dark: string; light: string } }>> = {
+  haptic: {
+    en: { dark: "/img/projects/hapticwash/hero-en-dark.webp", light: "/img/projects/hapticwash/hero-en-light.webp" },
+    es: { dark: "/img/projects/hapticwash/hero-es-dark.webp", light: "/img/projects/hapticwash/hero-es-light.webp" },
+  },
+};
+
 function Art({ p }: { p: Project }) {
-  const { t } = useSite();
+  const { lang, theme } = useSite();
+  const shot = shots[p.id]?.[lang]?.[theme];
   return (
     <>
       <div className="zoom absolute inset-0">
-        <ProjectArt id={p.id} />
+        {shot ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={shot} alt="" className="size-full object-cover" />
+        ) : (
+          <ProjectArt id={p.id} />
+        )}
       </div>
-      <span className="absolute bottom-3 left-3 rounded-full bg-tile/85 px-2.5 py-1 text-xs text-dim backdrop-blur-sm">
-        {t.work.artNote}
-      </span>
     </>
   );
 }
