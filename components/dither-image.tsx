@@ -28,10 +28,36 @@ export function DitherImage({ src, alt, cell = 3, color = false, cover = false, 
   const [hot, setHot] = useState(false);
   const [flipped, setFlipped] = useState(false);
   const swapped = hot !== flipped;
+  // First view: the photo "develops" out of its dither. Photos already on screen at load skip it.
+  const [intro, setIntro] = useState<"wait" | "play" | "done">("done");
+  const rootRef = useRef<HTMLDivElement>(null);
   const cool = () => {
     setHot(false);
     setFlipped(false);
   };
+
+  useEffect(() => {
+    const root = rootRef.current!;
+    if (priority || matchMedia("(prefers-reduced-motion: reduce)").matches || (color && !cover)) return;
+    const r = root.getBoundingClientRect();
+    if (r.top < innerHeight && r.bottom > 0) return;
+    let timer = 0;
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (!e.isIntersecting) return;
+        io.disconnect();
+        setIntro("play");
+        timer = window.setTimeout(() => setIntro("done"), 1100);
+      },
+      { threshold: 0.35 },
+    );
+    setIntro("wait");
+    io.observe(root);
+    return () => {
+      io.disconnect();
+      clearTimeout(timer);
+    };
+  }, [priority, color, cover]);
 
   useEffect(() => {
     const canvas = ref.current!;
@@ -113,6 +139,7 @@ export function DitherImage({ src, alt, cell = 3, color = false, cover = false, 
 
   return (
     <div
+      ref={rootRef}
       role="button"
       tabIndex={0}
       aria-pressed={swapped}
@@ -137,9 +164,12 @@ export function DitherImage({ src, alt, cell = 3, color = false, cover = false, 
         loading={priority ? "eager" : "lazy"}
         fetchPriority={priority ? "high" : undefined}
         decoding="async"
-        style={cover ? { objectPosition: `50% ${focusY * 100}%` } : undefined}
+        style={{
+          ...(cover ? { objectPosition: `50% ${focusY * 100}%` } : null),
+          ...(intro === "play" ? { transitionDuration: "900ms", transitionDelay: "120ms" } : null),
+        }}
         className={`absolute inset-0 h-full w-full transition-opacity duration-200 ease-out ${
-          color && !cover ? `object-contain ${swapped ? "opacity-100" : "opacity-0"}` : `object-cover ${swapped ? "opacity-0" : "opacity-100"}`
+          color && !cover ? `object-contain ${swapped ? "opacity-100" : "opacity-0"}` : `object-cover ${swapped || intro === "wait" ? "opacity-0" : "opacity-100"}`
         }`}
       />
     </div>
