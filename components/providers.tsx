@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useCallback, useContext, useEffect, useSyncExternalStore } from "react";
+import { createContext, useCallback, useContext, useEffect, useLayoutEffect, useSyncExternalStore } from "react";
 import { flushSync } from "react-dom";
 import { content, type Content, type Lang } from "@/lib/content";
 
@@ -58,8 +58,29 @@ export function Providers({ lang, children }: { lang: Lang; children: React.Reac
   const toggleLang = useCallback(() => {
     const next: Lang = lang === "en" ? "es" : "en";
     save("lang", next);
+    // Remember the section in view and how far into it, so the other language opens at the same spot.
+    try {
+      const probe = window.scrollY + 120;
+      let anchor: { id: string; offset: number } | null = null;
+      for (const el of document.querySelectorAll<HTMLElement>("main section[id]")) {
+        if (el.offsetTop <= probe) anchor = { id: el.id, offset: window.scrollY - el.offsetTop };
+      }
+      if (anchor) sessionStorage.setItem("lang-scroll", JSON.stringify(anchor));
+    } catch {}
     window.location.assign((next === "es" ? "/es" : "/") + window.location.hash);
   }, [lang]);
+
+  // Arriving from a language switch: jump (no smooth scroll) back to where the visitor was.
+  useLayoutEffect(() => {
+    try {
+      const raw = sessionStorage.getItem("lang-scroll");
+      if (!raw) return;
+      sessionStorage.removeItem("lang-scroll");
+      const { id, offset } = JSON.parse(raw) as { id: string; offset: number };
+      const el = document.getElementById(id);
+      if (el) window.scrollTo({ top: el.offsetTop + offset, behavior: "instant" });
+    } catch {}
+  }, []);
 
   // One snapshot cross-fade covers everything, including the canvas art, which cannot transition colours.
   const toggleTheme = useCallback(() => {

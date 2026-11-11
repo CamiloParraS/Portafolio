@@ -348,3 +348,10 @@ h3 {
     animation: slot-pulse 2.5s ease-in-out 2;
   }
 }
+
+/* Language switch is a full navigation: cross-fade the two pages instead of a hard cut. */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+  ::view-transition-old(root),
+  ::view-transition-new(root) { animation-duration: 0.22s; }
+}
