@@ -85,10 +85,10 @@ export function DemoPlayer({ p, src: base, onClose }: { p: Project; src: string;
       }}
       onAnimationEnd={(e) => e.target === e.currentTarget && e.animationName === "demo-out" && onClose()}
       onClick={(e) => e.target === e.currentTarget && dismiss()}
-      className="demo-dialog m-auto w-[min(62rem,calc(100vw-1.5rem),calc((100dvh-7rem)*16/9+19rem))] max-w-none overflow-visible bg-transparent p-0 backdrop:bg-black/35 backdrop:backdrop-blur-[3px]"
+      className="demo-dialog m-auto w-[min(68rem,calc(100vw-1.5rem),calc((100dvh-7rem)*16/9+25rem))] max-w-none overflow-visible bg-transparent p-0 backdrop:bg-black/35 backdrop:backdrop-blur-[3px]"
     >
-      <div className="tile grid max-h-[calc(100dvh-1.5rem)] gap-x-6 gap-y-5 overflow-y-auto border border-line p-2 shadow-[0_30px_90px_-10px_rgb(0_0_0/0.6),0_0_0_1px_rgb(255_255_255/0.04)] sm:p-3 lg:grid-cols-[minmax(0,1fr)_16rem]">
-        <div className="min-w-0">
+      <div className="tile grid max-h-[calc(100dvh-1.5rem)] gap-x-6 gap-y-5 overflow-y-auto border border-line p-2 shadow-[0_30px_90px_-10px_rgb(0_0_0/0.6),0_0_0_1px_rgb(255_255_255/0.04)] sm:p-3 lg:grid-cols-[minmax(0,1fr)_21rem]">
+        <div className="min-w-0 lg:self-center">
           <div className="relative aspect-video overflow-hidden rounded-2xl bg-black">
             <video
               ref={video}
