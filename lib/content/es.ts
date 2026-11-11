@@ -35,7 +35,7 @@ export const es: Content = {
       "Ilustración con tramado del volcán Galeras sobre Pasto de {time}, con un carro pequeño en la carretera. Arrastra el carro o usa el botón Conducir.",
     night: "noche",
     day: "día",
-    caption: "El Galeras sobre Pasto - arrastra el carro",
+    caption: "El Galeras sobre Pasto. Arrastra el carro.",
     dragHint: "Arrastra el carro",
     drive: "Conducir",
     pause: "Pausar animación",
