@@ -230,9 +230,9 @@ export const en = {
       },
       {
         quote:
-          "He takes the time to understand my needs, communicates clearly and always looks for practical solutions. I value his professionalism, patience and commitment. I recommend him as a reliable, qualified software engineer.",
+          "He takes the time to understand my needs, communicates clearly and looks for practical solutions. I value his patience and commitment, and I recommend him as a software engineer.",
         original:
-          "Se toma el tiempo necesario para entender mis necesidades, se comunica con claridad y siempre busca soluciones prácticas. Valoro su profesionalismo, paciencia y compromiso. Lo recomiendo como un ingeniero de software confiable y calificado.",
+          "Se toma el tiempo necesario para entender mis necesidades, se comunica con claridad y busca soluciones prácticas. Valoro su paciencia y compromiso, y lo recomiendo como ingeniero de software.",
         name: "Angel Sosa",
         role: "Electrical Engineer, Mexico",
         photoAlt:
@@ -241,9 +241,9 @@ export const en = {
       },
       {
         quote:
-          "Working with Juan Camilo has been a wonderful experience. As a medical student, he helped me use AI tools for my learning and research. He's patient and explains complex technology simply.",
+          "Working with Juan Camilo has been a great experience. As a medical student, I got his help using AI tools for learning and research. He's patient and explains complex technology simply.",
         original:
-          "Trabajar con Juan Camilo ha sido una experiencia maravillosa. Como estudiante de medicina, me ayudó a usar las herramientas de IA para mi aprendizaje y mi investigación. Es paciente y explica la tecnología compleja de forma sencilla.",
+          "Trabajar con Juan Camilo ha sido una gran experiencia. Como estudiante de medicina, me ayudó a usar herramientas de IA para aprender e investigar. Es paciente y explica la tecnología compleja de forma sencilla.",
         name: "Miguel Alejandro Urbano",
         role: "Medical student",
         photoAlt: "Portrait of Miguel Alejandro Urbano",

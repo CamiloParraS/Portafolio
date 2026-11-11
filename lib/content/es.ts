@@ -233,7 +233,7 @@ export const es: Content = {
       },
       {
         quote:
-          "Se toma el tiempo necesario para entender mis necesidades, se comunica con claridad y siempre busca soluciones prácticas. Valoro su profesionalismo, paciencia y compromiso. Lo recomiendo como un ingeniero de software confiable y calificado.",
+          "Se toma el tiempo necesario para entender mis necesidades, se comunica con claridad y busca soluciones prácticas. Valoro su paciencia y compromiso, y lo recomiendo como ingeniero de software.",
         original: "",
         name: "Angel Sosa",
         role: "Ingeniero Eléctrico, México",
@@ -243,7 +243,7 @@ export const es: Content = {
       },
       {
         quote:
-          "Trabajar con Juan Camilo ha sido una experiencia maravillosa. Como estudiante de medicina, me ayudó a usar las herramientas de IA para mi aprendizaje y mi investigación. Es paciente y explica la tecnología compleja de forma sencilla.",
+          "Trabajar con Juan Camilo ha sido una gran experiencia. Como estudiante de medicina, me ayudó a usar herramientas de IA para aprender e investigar. Es paciente y explica la tecnología compleja de forma sencilla.",
         original: "",
         name: "Miguel Alejandro Urbano",
         role: "Estudiante de medicina",
