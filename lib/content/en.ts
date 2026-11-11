@@ -53,7 +53,11 @@ export const en = {
       "Today that means projects that go a bit deeper than a CRUD app: a search engine in Rust that understands your files, and a game whose AI studies how you play. I'm still learning, and I'd like to keep doing it on a team.",
     ],
     photoAlt: "Camilo on a boat on a lake, wearing a cap and glasses",
-    groupAlts: ["Perficient visit with the group", "CI&T visit with the group", "Group trip at the Piedra del Peñol in Guatapé"],
+    groupAlts: [
+      "Perficient visit with the group",
+      "CI&T visit with the group",
+      "Group trip at the Piedra del Peñol in Guatapé",
+    ],
     stackTitle: "Stack",
     stack: [
       {
@@ -128,7 +132,14 @@ export const en = {
     demoPending: "Demo soon",
     demoClose: "Close demo",
     demoLabel: "{name} demo video",
-    player: { play: "Play", pause: "Pause", seek: "Seek", mute: "Mute", unmute: "Unmute", fullscreen: "Fullscreen" },
+    player: {
+      play: "Play",
+      pause: "Pause",
+      seek: "Seek",
+      mute: "Mute",
+      unmute: "Unmute",
+      fullscreen: "Fullscreen",
+    },
     projects: [
       {
         id: "magi" as ArtId,
@@ -145,7 +156,13 @@ export const en = {
         name: "Ghost Layer",
         tagline: "A stealth game where the enemy AI learns how you play.",
         body: "A short stealth game in 3D with a PSone-era look. Between missions, an AI called Aigis studies your habits (stealth, combat, takedowns) and chooses how to deploy its forces and what the briefing says. In the field, guards see, hear and search on behaviour trees. You answer with radio deception, spoofing guards using their own recorded voices.",
-        tags: ["Godot 4", "GDScript", "Behaviour Trees", "Utility AI", "Game AI"],
+        tags: [
+          "Godot 4",
+          "GDScript",
+          "Behaviour Trees",
+          "Utility AI",
+          "Game AI",
+        ],
         badges: [] as string[],
         repo: repo("codename-DORO"),
         demo: "/videos/ghost-layer.mp4" as string | null,
@@ -153,7 +170,8 @@ export const en = {
       {
         id: "haptic" as ArtId,
         name: "HapticWash",
-        tagline: "Estimates which WHO hand-washing steps you covered, fully offline.",
+        tagline:
+          "Estimates which WHO hand-washing steps you covered, fully offline.",
         body: "A Wear OS app with an on-device CNN that detects the five WHO hand-washing steps. Built on a full ML pipeline, from dataset to quantized deployment.",
         tags: ["Kotlin", "Wear OS", "LiteRT", "CNN", "Keras", "Python"],
         badges: [] as string[],
@@ -163,9 +181,15 @@ export const en = {
       {
         id: "sophiel" as ArtId,
         name: "Sophiel",
-        tagline: "Real-time protection from explicit images, on the phone itself.",
+        tagline: "Real-time protection from explicit images.",
         body: "An Android app that watches the screen and covers explicit images before they can be seen. Detection runs on the device and no frame is ever saved or sent. Parents can set a PIN and manage the phone from their own device.",
-        tags: ["Kotlin", "Jetpack Compose", "TensorFlow Lite", "MediaProjection", "Bun"],
+        tags: [
+          "Kotlin",
+          "Jetpack Compose",
+          "TensorFlow Lite",
+          "MediaProjection",
+          "Bun",
+        ],
         badges: [] as string[],
         repo: repo("Sophiel"),
         demo: "/videos/sophiel.mp4" as string | null,
@@ -184,8 +208,7 @@ export const en = {
   },
   testimonials: {
     title: "Kind words",
-    intro:
-      "From people I've worked with or helped. Nothing made up.",
+    intro: "From people I've worked with or helped. Nothing made up.",
     pending: "Testimonial pending",
     pendingBody: "This space is saved for someone who has worked with me.",
     pause: "Pause testimonials",
@@ -210,7 +233,8 @@ export const en = {
           "Se toma el tiempo necesario para entender mis necesidades, se comunica con claridad y siempre busca soluciones prácticas. Valoro su profesionalismo, paciencia y compromiso. Lo recomiendo como un ingeniero de software confiable y calificado.",
         name: "Angel Sosa",
         role: "Electrical Engineer, Mexico",
-        photoAlt: "Portrait of Angel Sosa taking a mirror selfie with his phone",
+        photoAlt:
+          "Portrait of Angel Sosa taking a mirror selfie with his phone",
         translated: "Original, in Spanish",
       },
       {

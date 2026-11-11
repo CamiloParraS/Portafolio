@@ -53,7 +53,11 @@ export const es: Content = {
       "Hoy eso significa proyectos que van un poco más allá de un CRUD: un motor de búsqueda en Rust que entiende tus archivos y un juego cuya IA estudia cómo juegas. Sigo aprendiendo, y me gustaría seguir haciéndolo en un equipo.",
     ],
     photoAlt: "Camilo en una lancha sobre un lago, con gorra y gafas",
-    groupAlts: ["Visita a Perficient con el grupo", "Visita a CI&T con el grupo", "Paseo grupal en la Piedra del Peñol, Guatapé"],
+    groupAlts: [
+      "Visita a Perficient con el grupo",
+      "Visita a CI&T con el grupo",
+      "Paseo grupal en la Piedra del Peñol, Guatapé",
+    ],
     stackTitle: "Tecnologías",
     stack: [
       {
@@ -128,7 +132,14 @@ export const es: Content = {
     demoPending: "Demo pronto",
     demoClose: "Cerrar demo",
     demoLabel: "Video demo de {name}",
-    player: { play: "Reproducir", pause: "Pausar", seek: "Buscar en el video", mute: "Silenciar", unmute: "Activar sonido", fullscreen: "Pantalla completa" },
+    player: {
+      play: "Reproducir",
+      pause: "Pausar",
+      seek: "Buscar en el video",
+      mute: "Silenciar",
+      unmute: "Activar sonido",
+      fullscreen: "Pantalla completa",
+    },
     projects: [
       {
         id: "magi",
@@ -146,7 +157,13 @@ export const es: Content = {
         name: "Ghost Layer",
         tagline: "Un juego de sigilo donde la IA enemiga aprende cómo juegas.",
         body: "Un juego de sigilo corto en 3D con estética de la era PSone. Entre misiones, una IA llamada Aigis estudia tus hábitos (sigilo, combate, derribos) y decide cómo desplegar sus fuerzas y qué dice el informe previo. En el campo, los guardias ven, oyen y buscan con árboles de comportamiento. Tú respondes con engaño por radio, suplantando a los guardias con sus propias voces grabadas.",
-        tags: ["Godot 4", "GDScript", "Árboles de comportamiento", "IA de utilidad", "IA de juegos"],
+        tags: [
+          "Godot 4",
+          "GDScript",
+          "Árboles de comportamiento",
+          "IA de utilidad",
+          "IA de juegos",
+        ],
         badges: [],
         repo: repo("codename-DORO"),
         demo: "/videos/ghost-layer-es.mp4",
@@ -165,9 +182,15 @@ export const es: Content = {
       {
         id: "sophiel",
         name: "Sophiel",
-        tagline: "Protección en tiempo real contra imágenes explícitas, en el propio teléfono.",
+        tagline: "Protección en tiempo real contra imágenes explícitas.",
         body: "Una app de Android que vigila la pantalla y cubre las imágenes explícitas antes de que puedan verse. La detección se ejecuta en el dispositivo y ningún fotograma se guarda ni se envía. Los padres pueden fijar un PIN y gestionar el teléfono desde su propio dispositivo.",
-        tags: ["Kotlin", "Jetpack Compose", "TensorFlow Lite", "MediaProjection", "Bun"],
+        tags: [
+          "Kotlin",
+          "Jetpack Compose",
+          "TensorFlow Lite",
+          "MediaProjection",
+          "Bun",
+        ],
         badges: [],
         repo: repo("Sophiel"),
         demo: "/videos/sophiel-es.mp4",
@@ -175,7 +198,8 @@ export const es: Content = {
       {
         id: "laaf",
         name: "AloMedia",
-        tagline: "Editor de video en el navegador con línea de tiempo multipista.",
+        tagline:
+          "Editor de video en el navegador con línea de tiempo multipista.",
         body: "Vista previa en tiempo real y renderizado en el cliente, con FFmpeg compilado a WebAssembly, todo dentro del navegador.",
         tags: ["TypeScript", "FFmpeg", "WebAssembly", "Edición de video"],
         badges: [],
@@ -211,7 +235,8 @@ export const es: Content = {
         original: "",
         name: "Angel Sosa",
         role: "Ingeniero Eléctrico, México",
-        photoAlt: "Retrato de Angel Sosa tomándose una selfie en el espejo con su celular",
+        photoAlt:
+          "Retrato de Angel Sosa tomándose una selfie en el espejo con su celular",
         translated: "",
       },
       {
@@ -339,7 +364,8 @@ export const es: Content = {
     sent: "Gracias, tu mensaje va en camino. Te responderé al correo que dejaste.",
     error: "No se pudo enviar. Inténtalo de nuevo o escríbeme directamente a",
     invalid: "Escribe tu nombre, un correo válido y un mensaje.",
-    mailApp: "Abriendo tu app de correo. ¿No pasó nada? Escríbeme directamente a",
+    mailApp:
+      "Abriendo tu app de correo. ¿No pasó nada? Escríbeme directamente a",
   },
   footer: {
     built: "Hecho con cariño en Pasto, Colombia.",
