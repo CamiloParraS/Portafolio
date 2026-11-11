@@ -243,11 +243,20 @@ export const es: Content = {
       },
       {
         quote:
-          "Trabajar con Juan Camilo ha sido una gran experiencia. Como estudiante de medicina, me ayudó a usar herramientas de IA para aprender e investigar. Es paciente y explica la tecnología compleja de forma sencilla.",
+          "Conocer a Juan Camilo me ha ayudado bastante. Como estudiante de medicina, me ayudó a usar herramientas de IA para aprender e investigar. Es paciente y explica la tecnología compleja de forma sencilla.",
         original: "",
         name: "Miguel Alejandro Urbano",
         role: "Estudiante de medicina",
         photoAlt: "Retrato de Miguel Alejandro Urbano",
+        translated: "",
+      },
+      {
+        quote:
+          "Camilo aprende con rapidez y supo aplicar muy bien lo visto en clase en su API con NestJS. Es constante y cumple con sus entregas.",
+        original: "",
+        name: "Ivonne Barco",
+        role: "Docente, electiva de NestJS, Universidad Cooperativa de Colombia",
+        photoAlt: "Retrato de Ivonne Barco",
         translated: "",
       },
     ],

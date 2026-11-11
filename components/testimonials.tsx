@@ -16,6 +16,7 @@ const PHOTOS: Record<string, { src: string; focusY: number }> = {
   "Francisco Sinisterra": { src: "/img/francisco-sinesterra.jpg", focusY: 0.3 },
   "Angel Sosa": { src: "/img/angel-sosa.jpg", focusY: 0.3 },
   "Miguel Alejandro Urbano": { src: "/img/miguel-urbano.jpg", focusY: 0.45 },
+  "Ivonne Barco": { src: "/img/ivonne-barco.jpg", focusY: 0.4 },
 };
 const SLOTS = 3; // a pending card fills any slot left open
 

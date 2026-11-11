@@ -241,12 +241,22 @@ export const en = {
       },
       {
         quote:
-          "Working with Juan Camilo has been a great experience. As a medical student, I got his help using AI tools for learning and research. He's patient and explains complex technology simply.",
+          "Getting to know Juan Camilo has helped me a lot. As a medical student, I got his help using AI tools for learning and research. He's patient and explains complex technology simply.",
         original:
-          "Trabajar con Juan Camilo ha sido una gran experiencia. Como estudiante de medicina, me ayudó a usar herramientas de IA para aprender e investigar. Es paciente y explica la tecnología compleja de forma sencilla.",
+          "Conocer a Juan Camilo me ha ayudado bastante. Como estudiante de medicina, me ayudó a usar herramientas de IA para aprender e investigar. Es paciente y explica la tecnología compleja de forma sencilla.",
         name: "Miguel Alejandro Urbano",
         role: "Medical student",
         photoAlt: "Portrait of Miguel Alejandro Urbano",
+        translated: "Original, in Spanish",
+      },
+      {
+        quote:
+          "Camilo picks things up quickly and put what we covered in class to good use in his NestJS API. He's steady and gets his work done.",
+        original:
+          "Camilo aprende con rapidez y supo aplicar muy bien lo visto en clase en su API con NestJS. Es constante y cumple con sus entregas.",
+        name: "Ivonne Barco",
+        role: "Lecturer, NestJS elective, Universidad Cooperativa de Colombia",
+        photoAlt: "Portrait of Ivonne Barco",
         translated: "Original, in Spanish",
       },
     ],
