@@ -215,6 +215,8 @@ export const en = {
     play: "Play testimonials",
     prev: "Previous testimonial",
     next: "Next testimonial",
+    showOriginal: "Original (Español)",
+    showTranslation: "English",
     items: [
       {
         quote:

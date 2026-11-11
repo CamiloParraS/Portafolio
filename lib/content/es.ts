@@ -219,6 +219,8 @@ export const es: Content = {
     play: "Reproducir testimonios",
     prev: "Testimonio anterior",
     next: "Siguiente testimonio",
+    showOriginal: "Original",
+    showTranslation: "Original",
     items: [
       {
         quote:
