@@ -19,9 +19,12 @@ type Project = Content["work"]["projects"][number];
 
 const fmt = (s: number) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, "0")}`;
 
-export function DemoPlayer({ p, src, onClose }: { p: Project; src: string; onClose: () => void }) {
+export function DemoPlayer({ p, src: base, onClose }: { p: Project; src: string; onClose: () => void }) {
   const name = p.name;
-  const { t } = useSite();
+  const { t, theme } = useSite();
+  // A `<name>-light.mp4` variant is expected next to `<name>.mp4` for the light theme.
+  const [noLight, setNoLight] = useState(false);
+  const src = theme === "light" && !noLight ? base.replace(/\.mp4$/, "-light.mp4") : base;
   const dialog = useRef<HTMLDialogElement>(null);
   const video = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
@@ -89,6 +92,7 @@ export function DemoPlayer({ p, src, onClose }: { p: Project; src: string; onClo
             <video
               ref={video}
               src={src}
+              onError={() => theme === "light" && setNoLight(true)}
               poster={poster}
               playsInline
               preload="metadata"
