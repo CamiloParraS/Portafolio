@@ -63,7 +63,8 @@ export function Providers({ lang, children }: { lang: Lang; children: React.Reac
       const probe = window.scrollY + 120;
       let anchor: { id: string; offset: number } | null = null;
       for (const el of document.querySelectorAll<HTMLElement>("main section[id]")) {
-        if (el.offsetTop <= probe) anchor = { id: el.id, offset: window.scrollY - el.offsetTop };
+        const top = el.getBoundingClientRect().top + window.scrollY;
+        if (top <= probe) anchor = { id: el.id, offset: window.scrollY - top };
       }
       if (anchor) sessionStorage.setItem("lang-scroll", JSON.stringify(anchor));
     } catch {}
@@ -78,7 +79,7 @@ export function Providers({ lang, children }: { lang: Lang; children: React.Reac
       sessionStorage.removeItem("lang-scroll");
       const { id, offset } = JSON.parse(raw) as { id: string; offset: number };
       const el = document.getElementById(id);
-      if (el) window.scrollTo({ top: el.offsetTop + offset, behavior: "instant" });
+      if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY + offset, behavior: "instant" });
     } catch {}
   }, []);
 
