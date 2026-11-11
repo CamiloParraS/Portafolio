@@ -4,6 +4,10 @@ import { ArrowDown, Download } from "lucide-react";
 import { links } from "@/lib/content";
 import { DitherImage } from "./dither-image";
 import { useSite } from "./providers";
+import { TechIcon } from "./tech-icon";
+
+// Language names are the same in every locale, so they live here rather than in the content files.
+const MAIN_LANGS = ["Rust", "TypeScript", "Kotlin", "Python", "C++"];
 
 export function Hero() {
   const { t, lang, theme } = useSite();
@@ -15,7 +19,7 @@ export function Hero() {
       aria-label={t.hero.name}
       className="grid gap-3 pt-6 sm:gap-4 md:h-[calc(100svh-6rem)] md:min-h-155 md:max-h-245 md:grid-cols-4 md:grid-rows-[auto_minmax(0,1fr)]"
     >
-      <div className="tile relative flex flex-col justify-center p-5 sm:p-8 md:col-span-3 md:p-10">
+      <div className="tile relative flex flex-col justify-center p-5 sm:p-8 sm:pb-6 md:col-span-3 md:p-10 md:pb-5">
         <h1
           style={{ "--i": 0 } as React.CSSProperties}
           className="enter text-4xl font-bold tracking-[-0.04em] min-[420px]:text-5xl sm:text-7xl xl:text-8xl"
@@ -24,10 +28,24 @@ export function Hero() {
         </h1>
         <p
           style={{ "--i": 1 } as React.CSSProperties}
-          className="enter mt-3 max-w-[52ch] text-base leading-relaxed text-dim sm:mt-4 sm:text-lg"
+          className="enter mt-3 max-w-[64ch] text-base leading-normal text-dim sm:mt-4 sm:text-lg"
         >
           {t.hero.lead}
         </p>
+        <ul
+          style={{ "--i": 1 } as React.CSSProperties}
+          className="enter mt-4 flex flex-wrap gap-2"
+        >
+          {MAIN_LANGS.map((name) => (
+            <li
+              key={name}
+              className="inline-flex items-center gap-2 rounded-full border border-line px-3 py-1 text-sm font-medium"
+            >
+              <TechIcon name={name} />
+              {name}
+            </li>
+          ))}
+        </ul>
         <div
           style={{ "--i": 2 } as React.CSSProperties}
           className="enter mt-5 flex flex-wrap gap-3 sm:mt-7"
