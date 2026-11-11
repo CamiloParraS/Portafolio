@@ -59,6 +59,7 @@ export function Providers({ lang, children }: { lang: Lang; children: React.Reac
     const next: Lang = lang === "en" ? "es" : "en";
     save("lang", next);
     // Remember the section in view and how far into it, so the other language opens at the same spot.
+    let saved = false;
     try {
       const probe = window.scrollY + 120;
       let anchor: { id: string; offset: number } | null = null;
@@ -66,9 +67,13 @@ export function Providers({ lang, children }: { lang: Lang; children: React.Reac
         const top = el.getBoundingClientRect().top + window.scrollY;
         if (top <= probe) anchor = { id: el.id, offset: window.scrollY - top };
       }
-      if (anchor) sessionStorage.setItem("lang-scroll", JSON.stringify(anchor));
+      if (anchor) {
+        sessionStorage.setItem("lang-scroll", JSON.stringify(anchor));
+        // A leftover #hash would make the browser jump to that section and undo the restore.
+        saved = true;
+      }
     } catch {}
-    window.location.assign((next === "es" ? "/es" : "/") + window.location.hash);
+    window.location.assign((next === "es" ? "/es" : "/") + (saved ? "" : window.location.hash));
   }, [lang]);
 
   // Arriving from a language switch: jump (no smooth scroll) back to where the visitor was.
