@@ -38,6 +38,8 @@ const SLUGS: Record<string, string> = {
   "Wear OS": "wearos",
   "Jetpack Compose": "jetpackcompose",
   TensorFlow: "tensorflow",
+  "TensorFlow Lite": "tensorflow",
+  Bun: "bun",
   Keras: "keras",
   "scikit-learn": "scikitlearn",
   NumPy: "numpy",

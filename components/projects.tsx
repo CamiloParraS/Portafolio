@@ -129,7 +129,7 @@ export function Projects() {
                 <Badges badges={p.badges} />
               </div>
               <p className="mt-3 text-lg font-medium">{p.tagline}</p>
-              <p className="mt-3 leading-relaxed text-dim">{p.body}</p>
+              <p className={`mt-3 leading-relaxed text-dim ${p.id === "ghost" ? "text-[0.9375rem]" : ""}`}>{p.body}</p>
               <Tags tags={p.tags} />
               <div className="mt-auto">
                 <Actions p={p} />
