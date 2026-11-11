@@ -91,6 +91,7 @@ export function Testimonials() {
         {Array.from({ length: open }, (_, i) => (
           <div
             key={`pending-${i}`}
+            data-reveal
             className="flex min-h-56 flex-col rounded-[28px] border border-dashed border-line p-6 sm:p-8"
           >
             <Quote className="slot-pulse size-6 text-line" aria-hidden />

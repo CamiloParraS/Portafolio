@@ -13,6 +13,7 @@ import { Testimonials } from "@/components/testimonials";
 export function Home() {
   return (
     <>
+      <div aria-hidden className="scroll-progress" />
       <SideDither />
       <Navbar />
       <main id="main" className="mx-auto max-w-6xl px-4 sm:px-6">

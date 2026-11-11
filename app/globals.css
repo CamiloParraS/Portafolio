@@ -99,8 +99,9 @@ button,
   }
 }
 
-/* Section content settles in as it enters the viewport. Scroll-driven, so no JS and nothing
-   hidden if it is unsupported; reduced motion keeps the fade and drops the travel. */
+/* Scroll-linked motion. Every effect is a CSS scroll/view timeline: off the main thread, only
+   transform and opacity, nothing hidden where unsupported. Reduced motion keeps the fades and
+   drops the travel and the parallax. */
 @keyframes reveal {
   from {
     opacity: 0;
@@ -112,15 +113,134 @@ button,
     opacity: 0;
   }
 }
+@keyframes rise-in {
+  from {
+    transform: translateY(60%);
+  }
+}
+@keyframes drift {
+  from {
+    translate: 0 -4%;
+  }
+  to {
+    translate: 0 4%;
+  }
+}
+@keyframes scene-in {
+  from {
+    opacity: 0;
+    transform: translateY(12%);
+  }
+}
+@keyframes grow-x {
+  from {
+    transform: scaleX(0);
+  }
+}
+@keyframes grow-y {
+  from {
+    transform: scaleY(0);
+  }
+}
+
+/* Quiet track for the timeline rule; the accent fill draws over it only where scroll timelines exist. */
+.timeline-track {
+  position: absolute;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  left: -1rem;
+  width: 2px;
+  border-radius: 9999px;
+  background: var(--line);
+  pointer-events: none;
+}
+@media (min-width: 640px) {
+  .timeline-track {
+    left: -1.5rem;
+  }
+}
+.timeline-fill,
+.scroll-progress {
+  display: none;
+}
+
 @supports (animation-timeline: view()) {
-  .reveal {
-    animation: reveal-fade linear both;
+  /* Each tile, row and heading settles in at its own scroll position; later columns start a touch later. */
+  .reveal-group :is(.tile:not(.snap-start), [data-reveal]),
+  .reveal-head > * {
+    animation: reveal-fade linear backwards;
     animation-timeline: view();
-    animation-range: entry 0% entry 240px;
+    animation-range: entry 0% entry 200px;
+  }
+  .reveal-group :is(.tile:not(.snap-start), [data-reveal]):nth-child(2n),
+  .reveal-head > :nth-child(2) {
+    animation-range: entry 8% entry 220px;
+  }
+  .reveal-group :is(.tile:not(.snap-start), [data-reveal]):nth-child(3n) {
+    animation-range: entry 16% entry 240px;
+  }
+  .reveal-head > * {
+    animation-range: entry 0% entry 140px;
+  }
+  .reveal-head > :nth-child(2) {
+    animation-range: entry 10% entry 180px;
   }
   @media (prefers-reduced-motion: no-preference) {
-    .reveal {
+    .reveal-group :is(.tile:not(.snap-start), [data-reveal]),
+    .reveal-head > * {
       animation-name: reveal;
+    }
+    /* Project art drifts inside its clipped frame; the 10% overscan keeps the edges covered. */
+    .parallax {
+      scale: 1.1;
+      animation: drift linear both;
+      animation-timeline: view();
+      animation-range: cover;
+    }
+    .mascot-rise {
+      animation: rise-in linear backwards;
+      animation-timeline: view();
+      animation-range: entry 0% entry 160px;
+    }
+    .timeline-fill {
+      display: block;
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: var(--accent);
+      transform-origin: top;
+      animation: grow-y linear both;
+      animation-timeline: view();
+      animation-range: cover 10% cover 55%;
+    }
+  }
+  /* The footer scene rises out of the ground as the page ends. */
+  .scene-rise {
+    animation: reveal-fade linear backwards;
+    animation-timeline: view();
+    animation-range: entry 0% entry 90%;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .scene-rise {
+      animation-name: scene-in;
+    }
+  }
+}
+
+/* Page progress: a 2px accent hairline across the top edge. */
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .scroll-progress {
+      display: block;
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 60;
+      height: 2px;
+      background: var(--accent);
+      transform-origin: left;
+      pointer-events: none;
+      animation: grow-x linear both;
+      animation-timeline: scroll(root);
     }
   }
 }

@@ -42,7 +42,9 @@ export function Footer() {
       </div>
       {/* Galeras over Pasto, drivable: the page's sign-off. The sky fades up into the row above. */}
       <div className="relative h-[clamp(240px,38vh,400px)] overflow-hidden [&_canvas]:[mask-image:linear-gradient(to_bottom,transparent,black_45%)]">
-        <Scene />
+        <div className="scene-rise absolute inset-0">
+          <Scene />
+        </div>
       </div>
     </footer>
   );

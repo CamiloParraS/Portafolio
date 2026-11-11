@@ -55,8 +55,10 @@ export function About() {
           </dl>
           {/* Decorative mascot peeking up from the bottom edge of the card. */}
           <div className="pointer-events-none mt-auto flex h-[5.5rem] justify-end overflow-hidden pr-2">
+            <div className="mascot-rise">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/img/mascot.webp" alt="" width={320} height={306} loading="lazy" decoding="async" className="h-24 w-auto translate-y-[18%] motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover:translate-y-[6%]" />
+            <img src="/img/mascot.webp" alt="" width={320} height={306} loading="lazy" decoding="async" className="block h-24 w-auto translate-y-[18%] motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover:translate-y-[6%]" />
+            </div>
           </div>
         </div>
 

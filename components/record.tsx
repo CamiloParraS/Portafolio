@@ -13,9 +13,13 @@ function Timeline({ title, icon, entries }: { title: string; icon: React.ReactNo
         <span className="grid size-10 place-items-center rounded-xl bg-ground text-accent-ink">{icon}</span>
         {title}
       </h3>
-      <ol className="mt-6 divide-y divide-line">
+      <div className="relative mt-6">
+      <span aria-hidden className="timeline-track">
+        <span className="timeline-fill" />
+      </span>
+      <ol className="divide-y divide-line">
         {entries.map((e) => (
-          <li key={e.role} className="group/row relative py-5 first:pt-0 last:pb-0 before:absolute before:inset-y-4 before:-left-4 before:w-0.5 before:origin-top before:scale-y-0 before:rounded-full before:bg-accent before:transition-transform before:duration-300 hover:before:scale-y-100 motion-reduce:before:transition-none sm:before:-left-6">
+          <li key={e.role} data-reveal className="group/row relative py-5 first:pt-0 last:pb-0 before:absolute before:inset-y-4 before:-left-4 before:w-0.5 before:origin-top before:scale-y-0 before:rounded-full before:bg-accent before:transition-transform before:duration-300 hover:before:scale-y-100 motion-reduce:before:transition-none sm:before:-left-6">
             <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
               <p className="text-lg font-semibold transition-colors duration-300 group-hover/row:text-accent-ink">{e.role}</p>
               <p className="tabular text-sm text-dim transition-colors duration-300 group-hover/row:text-ink">{e.when}</p>
@@ -25,6 +29,7 @@ function Timeline({ title, icon, entries }: { title: string; icon: React.ReactNo
           </li>
         ))}
       </ol>
+      </div>
     </div>
   );
 }

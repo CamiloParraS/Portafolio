@@ -73,7 +73,7 @@ function Art({ p }: { p: Project }) {
   const shot = shots[p.id]?.[lang]?.[theme];
   return (
     <>
-      <div className="zoom absolute inset-0">
+      <div className={`zoom absolute inset-0 ${shot ? "parallax" : ""}`}>
         {shot ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={shot} alt="" className="size-full object-cover" />
@@ -120,7 +120,7 @@ export function Projects() {
       <div className="grid gap-3 sm:gap-4">
         {[first, second].map((p, i) => (
           <article key={p.id} id={p.id} data-art-host className="tile grid overflow-hidden md:grid-cols-2 lg:grid-cols-5">
-            <div className={`relative min-h-60 md:min-h-96 lg:col-span-3 ${i % 2 ? "md:order-2" : ""}`}>
+            <div className={`relative min-h-60 overflow-hidden md:min-h-96 lg:col-span-3 ${i % 2 ? "md:order-2" : ""}`}>
               <Art p={p} />
             </div>
             <div className="flex flex-col p-6 sm:p-10 lg:col-span-2">
@@ -141,7 +141,7 @@ export function Projects() {
         <div className="grid gap-3 sm:gap-4 md:grid-cols-2 lg:grid-cols-3">
           {rest.map((p) => (
             <article key={p.id} id={p.id} data-art-host className="tile flex flex-col overflow-hidden md:max-lg:last:odd:col-span-2">
-              <div className="relative h-44">
+              <div className="relative h-44 overflow-hidden">
                 <Art p={p} />
               </div>
               <div className="flex flex-1 flex-col p-6">
