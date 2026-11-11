@@ -41,8 +41,6 @@ export const en = {
     pause: "Pause animation",
     play: "Play animation",
     photoAlt: "Portrait of Camilo Parra",
-    pixelate: "Pixelate",
-    photo: "Photo",
     magiLine: "Search your files by meaning, offline.",
     ghostLine: "A stealth game whose enemy AI learns your habits.",
   },
@@ -140,7 +138,7 @@ export const en = {
         tags: ["Rust", "Semantic search", "Multimodal"],
         badges: ["MIT"] as string[],
         repo: repo("MAGI"),
-        demo: null as string | null,
+        demo: "/videos/magi.mp4" as string | null,
       },
       {
         id: "ghost" as ArtId,
@@ -170,7 +168,7 @@ export const en = {
         tags: ["Kotlin"],
         badges: [] as string[],
         repo: repo("Sophiel"),
-        demo: null as string | null,
+        demo: "/videos/sophiel.mp4" as string | null,
       },
       {
         id: "laaf" as ArtId,

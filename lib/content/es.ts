@@ -41,8 +41,6 @@ export const es: Content = {
     pause: "Pausar animación",
     play: "Reanudar animación",
     photoAlt: "Retrato de Camilo Parra",
-    pixelate: "Pixelar",
-    photo: "Foto",
     magiLine: "Busca tus archivos por su significado, sin conexión.",
     ghostLine: "Un juego de sigilo cuya IA enemiga aprende tus hábitos.",
   },
@@ -141,7 +139,7 @@ export const es: Content = {
         tags: ["Rust", "Búsqueda semántica", "Multimodal"],
         badges: ["MIT"],
         repo: repo("MAGI"),
-        demo: null,
+        demo: "/videos/magi-es.mp4",
       },
       {
         id: "ghost",
@@ -172,7 +170,7 @@ export const es: Content = {
         tags: ["Kotlin"],
         badges: [],
         repo: repo("Sophiel"),
-        demo: null,
+        demo: "/videos/sophiel-es.mp4",
       },
       {
         id: "laaf",
