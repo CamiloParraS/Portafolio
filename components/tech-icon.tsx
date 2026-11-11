@@ -14,6 +14,8 @@ const SLUGS: Record<string, string> = {
   "C++": "cplusplus",
   React: "react",
   "Next.js": "nextdotjs",
+  SQLite: "sqlite",
+  "ONNX Runtime": "onnx",
   GPUI: "zedindustries", // Zed's Rust UI framework
   Spring: "spring",
   Android: "android",

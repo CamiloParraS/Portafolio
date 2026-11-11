@@ -13,6 +13,7 @@ import { ArrowUpRight, Maximize, Pause, Play, Volume2, VolumeX, X } from "lucide
 import { useEffect, useRef, useState } from "react";
 import type { Content } from "@/lib/content";
 import { GitHub } from "./brand-icons";
+import { TechIcon } from "./tech-icon";
 import { useSite } from "./providers";
 
 type Project = Content["work"]["projects"][number];
@@ -155,7 +156,8 @@ export function DemoPlayer({ p, src: base, onClose }: { p: Project; src: string;
           <p className="mt-3 text-sm leading-relaxed text-dim">{p.body}</p>
           <ul className="mt-4 flex flex-wrap gap-1.5">
             {p.tags.map((tag) => (
-              <li key={tag} className="rounded-full bg-ground px-2.5 py-1 text-xs text-dim">
+              <li key={tag} className="inline-flex items-center gap-1.5 rounded-full bg-ground px-2.5 py-1 text-xs text-dim">
+                <TechIcon name={tag} />
                 {tag}
               </li>
             ))}

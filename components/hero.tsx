@@ -3,7 +3,6 @@
 import { ArrowDown, Download } from "lucide-react";
 import { links } from "@/lib/content";
 import { DitherImage } from "./dither-image";
-import { ProjectArt } from "./project-art";
 import { useSite } from "./providers";
 
 export function Hero() {
@@ -97,7 +96,8 @@ export function Hero() {
       >
         <div className="relative min-h-32 flex-1">
           <div className="zoom absolute inset-0">
-            <ProjectArt id="ghost" />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={`/img/projects/ghost-layer/tile-${theme}.webp`} alt="" className="size-full object-cover" />
           </div>
         </div>
         <div className="p-6">

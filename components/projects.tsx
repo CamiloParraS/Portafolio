@@ -58,6 +58,10 @@ const shots: Partial<Record<string, { en: { dark: string; light: string }; es: {
     en: { dark: "/img/projects/sophiel/hero-en-dark.webp", light: "/img/projects/sophiel/hero-en-light.webp" },
     es: { dark: "/img/projects/sophiel/hero-es-dark.webp", light: "/img/projects/sophiel/hero-es-light.webp" },
   },
+  ghost: {
+    en: { dark: "/img/projects/ghost-layer/hero-dark.webp", light: "/img/projects/ghost-layer/hero-light.webp" },
+    es: { dark: "/img/projects/ghost-layer/hero-dark.webp", light: "/img/projects/ghost-layer/hero-light.webp" },
+  },
   laaf: {
     en: { dark: "/img/projects/alomedia/card-dark.webp", light: "/img/projects/alomedia/card-light.webp" },
     es: { dark: "/img/projects/alomedia/card-dark.webp", light: "/img/projects/alomedia/card-light.webp" },
