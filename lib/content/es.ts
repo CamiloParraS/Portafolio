@@ -26,7 +26,7 @@ export const es: Content = {
   },
   hero: {
     name: "Camilo Parra",
-    lead: "Estudiante de ingeniería de software en Pasto, Colombia, metiéndome en la IA local y en el código de bajo nivel. Ahora mismo eso significa construir MAGI, un motor de búsqueda semántica que corre por completo en tu propio equipo, en Rust.",
+    lead: "Estudiante de ingeniería de software en Pasto, Colombia, metiéndome en la IA local y con ganas de profundizar en el código de bajo nivel, con proyectos en C en mi lista para el futuro. Por ahora eso significa Rust, con el que construyo MAGI, un motor de búsqueda semántica que corre por completo en tu propio equipo.",
     cv: "Descargar CV",
     cvPending: "CV en camino",
     work: "Ver mis proyectos",
@@ -50,7 +50,7 @@ export const es: Content = {
     bio: [
       "Soy Camilo, estudiante de ingeniería de software en la Universidad Cooperativa de Colombia, en Pasto. Fuera de clase son sobre todo carros y videojuegos, y la costumbre de querer saber cómo funcionan las cosas por dentro.",
       "Eso último empezó con los juegos. De niño me obsesioné con emular la Nintendo 64, y la pregunta de cómo un PC podía hacerse pasar por una consola se me quedó en la cabeza. Se volvió la costumbre de abrir las cosas para ver sus piezas, que es más o menos lo que es la ingeniería de software.",
-      "Hoy eso significa proyectos que van un poco más allá de un CRUD: un motor de búsqueda en Rust que entiende tus archivos y un juego cuya IA estudia cómo juegas. Sigo aprendiendo, y me gustaría seguir haciéndolo en un equipo.",
+      "Hoy eso significa proyectos que van un poco más allá de un CRUD: un motor de búsqueda en Rust que entiende tus archivos y un juego cuya IA estudia cómo juegas. Quiero seguir bajando de nivel, hacia código de sistemas, y me gustaría hacer proyectos en C más adelante. Sigo aprendiendo, y me gustaría seguir haciéndolo en un equipo.",
     ],
     photoAlt: "Camilo en una lancha sobre un lago, con gorra y gafas",
     groupAlts: [

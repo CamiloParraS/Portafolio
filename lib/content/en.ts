@@ -26,7 +26,7 @@ export const en = {
   },
   hero: {
     name: "Camilo Parra",
-    lead: "Software engineering student in Pasto, Colombia, getting into local AI and lower-level code. Right now that means building MAGI, a semantic search engine that runs entirely on your own machine, in Rust.",
+    lead: "Software engineering student in Pasto, Colombia, getting into local AI and wanting to dive deeper into low-level code, with C projects on my list for the future. For now that means Rust, which I'm using to build MAGI, a semantic search engine that runs entirely on your own machine.",
     cv: "Download CV",
     cvPending: "CV coming soon",
     work: "See my work",
@@ -50,7 +50,7 @@ export const en = {
     bio: [
       "I'm Camilo, a software engineering student at Universidad Cooperativa de Colombia in Pasto. Outside of class it's mostly cars and videogames, and a habit of wanting to know how things work underneath.",
       "That last part started with games. As a kid I got hooked on emulating the Nintendo 64, and the question of how a PC could pretend to be a console stuck with me. It turned into a habit of opening things up to see the parts, which is more or less what software engineering is.",
-      "Today that means projects that go a bit deeper than a CRUD app: a search engine in Rust that understands your files, and a game whose AI studies how you play. I'm still learning, and I'd like to keep doing it on a team.",
+      "Today that means projects that go a bit deeper than a CRUD app: a search engine in Rust that understands your files, and a game whose AI studies how you play. I want to keep going lower, into systems-level code, and I'd like to build projects in C down the road. I'm still learning, and I'd like to keep doing it on a team.",
     ],
     photoAlt: "Camilo on a boat on a lake, wearing a cap and glasses",
     groupAlts: [
